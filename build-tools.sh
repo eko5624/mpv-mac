@@ -83,6 +83,7 @@ ln -s python3.12 python
 
 #pip3 meson ninja jsonschema Jinja2
 if [[ -x $(command -v "pip3") ]]; then
+  python3 -m ensurepip --upgrade
   pip3 install pip setuptools --quiet --upgrade --no-cache-dir --disable-pip-version-check
   for r in meson ninja jsonschema Jinja2; do
       pip3 install ${r} --quiet --upgrade --no-cache-dir --disable-pip-version-check
@@ -92,6 +93,7 @@ fi
 #cmake
 cd $PACKAGES
 curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
+tar -xvf cmake-$VER_CMAKE.tar.gz
 cd cmake-$VER_CMAKE
 ./configure \
   --prefix="${WORKSPACE}" \
