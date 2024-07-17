@@ -1,0 +1,263 @@
+name: test
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch:   
+
+jobs:
+  libaribcaption:
+    needs: [fontconfig]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libaribcaption.sh
+        ./scripts/libaribcaption.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libaribcaption*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libaribcaption.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  fontconfig:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/fontconfig.sh
+        ./scripts/fontconfig.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: fontconfig*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: fontconfig.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libbluray:
+    needs: [fontconfig]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libbluray.sh
+        ./scripts/libbluray.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libbluray*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libbluray.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ffmpeg:
+    needs: [libaribcaption, libbluray]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/aribb24.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/brotli.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/cjson.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/dav1d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/davs2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/frei0r.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/highway.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libaribcaption.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libass.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbs2b.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libcaca.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdread.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjxl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmodplug.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmysofa.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libplacebo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/librist.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsamplerate.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsdl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libssh.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtheora.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvpx.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mbedtls.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/rubberband.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/snappy.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/soxr.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/speex.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/srt.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/svt-av1.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uavs3d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x264.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x265.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xvid.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zimg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libxcb.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xtrans.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz        
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        brew uninstall --ignore-dependencies freetype
+        chmod +x ./scripts/ffmpeg.sh
+        ./scripts/ffmpeg.sh
+    - name: Collecting logs
+      if: always()
+      run: |
+        mkdir _logs
+        cp -fr $(find packages/FFmpeg -type f -name "*.log") _logs || true
+        7z a logs.7z _logs
+    - name: Uploading logs
+      uses: actions/upload-artifact@master
+      if: always()
+      with:
+        name: logs
+        path: logs.7z
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: ffmpeg*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: ffmpeg.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

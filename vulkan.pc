@@ -1,0 +1,10 @@
+prefix=/Users/runner/work/mpv-mac/mpv-mac/workspace
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: Vulkan-Loader
+Description: Vulkan Loader
+Version: @VULKAN_LOADER_VERSION@
+Libs: -L${libdir} -lvulkan
+Cflags: -I${includedir}

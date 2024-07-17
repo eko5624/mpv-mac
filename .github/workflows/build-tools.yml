@@ -1,0 +1,101 @@
+
+name: build-tools
+
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch:   
+
+jobs:
+  build:
+    runs-on: macos-13
+    env:
+      CC: clang
+      CXX: clang++
+      MACOSX_DEPLOYMENT_TARGET: 11
+      SDKROOT: "/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      MACOS_SDK: "/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      #MACOS_SDK_VERSION: 11.3
+      SDK_PATH: "/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs"
+      EXTRA_CFLAGS: "-mmacosx-version-min=11 -isysroot /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      EXTRA_CXXFLAGS: "-mmacosx-version-min=11 -isysroot /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      EXTRA_LDFLAGS: "-mmacosx-version-min=11 -isysroot /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      SWIFT_FLAGS: "-target x86_64-apple-macosx11.0"
+      CURL_RETRIES: "--connect-timeout 60 --retry 5 --retry-delay 5"
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    #- name: Switch to MacOSX 11 SDK
+    #  run: |
+    #    #curl -OL https://github.com/phracker/MacOSX-SDKs/releases/download/11.3/MacOSX11.3.sdk.tar.xz
+    #    tar -C $SDK_PATH -xf MacOSX11.3.sdk.tar.xz
+    #    sudo rm -rf $SDK_PATH/MacOSX14.2.sdk
+    #    sudo rm -rf $SDK_PATH/MacOSX.sdk
+    #    sudo ln -s $SDK_PATH/MacOSX11.3.sdk $SDK_PATH/MacOSX.sdk
+    #    sudo /usr/libexec/PlistBuddy -c "Set :MinimumSDKVersion 11.3" /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Info.plist
+
+    #- name: Install Swift 5.x toolchain
+    #  run: |
+    #    curl -ksJLO https://download.swift.org/swift-5.7.2-release/xcode/swift-5.7.2-RELEASE/swift-5.7.2-RELEASE-osx.pkg
+    #    sudo installer -pkg swift-5.7.2-RELEASE-osx.pkg -target /
+
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+ 
+    - name: Remove stray upstream python binary symlinks under /usr/local
+      run: |
+        find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
+        brew unlink python
+
+    - name: Build tools
+      run: |
+        rm workspace/libiconv.done
+        rm workspace/gettext.done
+        chmod +x ./build-tools.sh
+        ./build-tools.sh
+
+    - name: Get current timestamp
+      run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV 
+
+    - name: Zip tools 
+      continue-on-error: true
+      run: |
+        zip -r -y tools-${{ env.date }}.zip workspace/*
+        cp tools-${{ env.date }}.zip tools-latest.zip
+
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: toolchain
+        assets: tools-latest.zip
+        fail-if-no-assets: false
+        fail-if-no-release: false
+
+    - name: Upload tools
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: toolchain
+        name: toolchain
+        files: tools*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Saving tools cache
+      uses: actions/cache/save@main
+      if: always()
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+

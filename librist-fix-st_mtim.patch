@@ -1,0 +1,28 @@
+From 74a9a9bb8a5c8bf2d70d634e7e96fd3e8ff48249 Mon Sep 17 00:00:00 2001
+From: eko5624 <562433403@qq.com>
+Date: Wed, 24 Jan 2024 00:16:26 +0800
+Subject: [PATCH] fix error: no member named 'st_mtim' in 'struct stat'
+
+---
+ tools/srp_shared.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/tools/srp_shared.c b/tools/srp_shared.c
+index f782126..a734008 100644
+--- a/tools/srp_shared.c
++++ b/tools/srp_shared.c
+@@ -172,8 +172,12 @@ void user_verifier_lookup(char * username,
+ 	struct stat buf;
+ 	if (stat(srpfile, &buf) != 0)
+ 		return;
+-
+-	*generation = ((uint64_t)buf.st_mtim.tv_sec << 32) | buf.st_mtim.tv_nsec;
++#endif
++	
++#ifdef __APPLE__
++	*generation = ((uint64_t)buf.st_mtimespec.tv_sec << 32) | buf.st_mtimespec.tv_nsec;
++#else
++ 	*generation = ((uint64_t)buf.st_mtim.tv_sec << 32) | buf.st_mtim.tv_nsec;
+ #endif
+ 
+ 	if (!lookup_data || !hashversion)

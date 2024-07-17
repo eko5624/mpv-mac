@@ -1,0 +1,69 @@
+name: autoupdate
+
+on:
+  #schedule:
+  #- cron: '03 0 * * *'
+  workflow_dispatch:
+      
+jobs:
+  update:
+    runs-on: macos-13
+    env:
+      HOMEBREW_NO_ANALYTICS: 1
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+    - name: Set env
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Getting latest stable version of deps
+      run: |
+        rm ver.sh || true
+        brew update
+        deps=('gdbm'
+              'xz'
+              'tcl-tk'
+              'zlib'
+              'openssl@1.1'
+              'openssl@3'
+              'giflib'
+              'pkg-config'
+              'pkgconf'
+              'yasm'
+              'nasm'
+              'm4'
+              'autoconf'
+              'automake'
+              'libtool'
+              'ncurses'
+              'gettext'
+              'util-macros'
+              'xorgproto'
+              'libxau'
+              'libxdmcp'
+              'xcb-proto'
+              'libxcb'
+              'xtrans'
+              'libx11'
+              'python@3.11'
+              'cmake'
+              'libtiff'
+              'lame'
+              'libbluray'
+              'librist'
+              'opencore-amr'
+              'mpg123'
+              'mujs'
+              'xvid')
+        for i in "${deps[@]}"; do
+          k=$(echo $i | tr '-' '_' | tr '.' '_' | tr '@' '_' | tr '[:lower:]' '[:upper:]')
+          echo "VER_$k=$(brew info $i | grep -e "==>" -e "$i:" | awk '{print $4}')" >> ver.sh
+        done
+        sed -i "" 's/-/_/g' ver.sh
+        sed -i "" 's/@/_/g' ver.sh
+        git add -A
+        git commit -am "Automate" || echo "nothing updated"
+        git push

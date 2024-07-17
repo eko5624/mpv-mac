@@ -1,0 +1,3327 @@
+name: Build All-in-One-MPV
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch:   
+
+jobs:
+  aribb24:
+    needs: [libpng]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/aribb24.sh
+        ./scripts/aribb24.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: aribb24*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: aribb24.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  brotli:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/brotli.sh
+        ./scripts/brotli.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: brotli*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: brotli.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  bzip2:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/bzip2.sh
+        ./scripts/bzip2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: bzip2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: bzip2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  cjson:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/cjson.sh
+        ./scripts/cjson.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: cjson*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: cjson.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  dav1d:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/dav1d.sh
+        ./scripts/dav1d.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: dav1d*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: dav1d.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  davs2:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/davs2.sh
+        ./scripts/davs2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: davs2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: davs2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  expat:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/expat.sh
+        ./scripts/expat.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: expat*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: expat.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ffmpeg:
+    needs: [aribb24, bzip2, dav1d, davs2, freetype2, frei0r, lame, libass, libbs2b, libcaca, libjxl, libmodplug, libmysofa, librist, libsdl, libssh, libtheora, libvpx, libwebp, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/aribb24.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/brotli.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/cjson.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/dav1d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/davs2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/frei0r.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/highway.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libaribcaption.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libass.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbs2b.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libcaca.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdread.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjxl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmodplug.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmysofa.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libplacebo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/librist.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsamplerate.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsdl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libssh.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtheora.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvpx.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mbedtls.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/rubberband.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/snappy.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/soxr.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/speex.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/srt.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/svt-av1.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uavs3d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x264.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x265.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xvid.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zimg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libxcb.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xtrans.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/ffmpeg.sh
+        ./scripts/ffmpeg.sh
+    - name: Collecting logs
+      if: always()
+      run: |
+        mkdir _logs
+        cp -fr $(find packages/FFmpeg -type f -name "*.log") _logs || true
+        7z a logs.7z _logs
+    - name: Uploading logs
+      uses: actions/upload-artifact@master
+      if: always()
+      with:
+        name: logs
+        path: logs.7z
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: ffmpeg*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: ffmpeg.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  flac:
+    needs: [libogg]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        tar -xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
+        chmod +x ./scripts/flac.sh
+        ./scripts/flac.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: flac*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: flac.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  freetype2:
+    needs: [bzip2, libpng]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz       
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/freetype2.sh
+        ./scripts/freetype2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: freetype2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: freetype2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  frei0r:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/frei0r.sh
+        ./scripts/frei0r.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: frei0r*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: frei0r.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  fribidi:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/fribidi.sh
+        ./scripts/fribidi.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: fribidi*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: fribidi.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  giflib:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/giflib.sh
+        ./scripts/giflib.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: giflib*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: giflib.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  harfbuzz:
+    needs: [freetype2]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz 
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz       
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/harfbuzz.sh
+        ./scripts/harfbuzz.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: harfbuzz*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: harfbuzz.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  highway:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/highway.sh
+        ./scripts/highway.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: highway*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: highway.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lame:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/lame.sh
+        ./scripts/lame.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: lame*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: lame.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lcms2:
+    needs: [libjpeg-turbo, libtiff]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz        
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz     
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/lcms2.sh
+        ./scripts/lcms2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: lcms2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: lcms2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libarchive:
+    needs: [bzip2, expat, libb2, lz4, xz, zstd]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libb2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libarchive.sh
+        ./scripts/libarchive.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libarchive*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libarchive.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libaribcaption:
+    needs: [fontconfig]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libaribcaption.sh
+        ./scripts/libaribcaption.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libaribcaption*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libaribcaption.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libass:
+    needs: [freetype2, fribidi, harfbuzz, libunibreak]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz        
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libunibreak.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libass.sh
+        ./scripts/libass.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libass*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libass.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libb2:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libb2.sh
+        ./scripts/libb2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libb2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libb2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libbs2b:
+    needs: [libsndfile]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libbs2b.sh
+        ./scripts/libbs2b.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libbs2b*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libbs2b.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libcaca:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libcaca.sh
+        ./scripts/libcaca.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libcaca*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libcaca.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libdovi:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libdovi.sh
+        ./scripts/libdovi.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libdovi*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libdovi.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libdvdcss:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+    - name: Build
+      run: |
+        chmod +x ./scripts/libdvdcss.sh
+        ./scripts/libdvdcss.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libdvdcss*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libdvdcss.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libdvdread:
+    needs: [libdvdcss]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libdvdread.sh
+        ./scripts/libdvdread.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libdvdread*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libdvdread.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libdvdnav:
+    needs: [libdvdread]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdread.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libdvdnav.sh
+        ./scripts/libdvdnav.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libdvdnav*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libdvdnav.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libjpeg-turbo:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libjpeg-turbo.sh
+        ./scripts/libjpeg-turbo.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libjpeg-turbo*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libjpeg-turbo.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libjxl:
+    needs: [brotli, giflib, highway, libjpeg-turbo, libpng, lcms2]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/brotli.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/highway.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libjxl.sh
+        ./scripts/libjxl.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libjxl*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libjxl.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libmodplug:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libmodplug.sh
+        ./scripts/libmodplug.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libmodplug*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libmodplug.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libmysofa:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libmysofa.sh
+        ./scripts/libmysofa.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libmysofa*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libmysofa.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libogg:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libogg.sh
+        ./scripts/libogg.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libogg*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libogg.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libplacebo:
+    needs: [lcms2, shaderc, vulkan]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libplacebo.sh
+        ./scripts/libplacebo.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libplacebo*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libplacebo.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libpng:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libpng.sh
+        ./scripts/libpng.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libpng*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libpng.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  librist:
+    needs: [cjson, mbedtls]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/cjson.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mbedtls.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/librist.sh
+        ./scripts/librist.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: librist*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: librist.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libsamplerate:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libsamplerate.sh
+        ./scripts/libsamplerate.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libsamplerate*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libsamplerate.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libsdl:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libsdl.sh
+        ./scripts/libsdl.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libsdl*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libsdl.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libsndfile:
+    needs: [flac, lame, libogg, libvorbis, mpg123, opus]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libsndfile.sh
+        ./scripts/libsndfile.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libsndfile*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libsndfile.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libssh:
+    needs: [openssl]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libssh.sh
+        ./scripts/libssh.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libssh*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libssh.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libtheora:
+    needs: [libogg, libvorbis]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libtheora.sh
+        ./scripts/libtheora.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libtheora*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libtheora.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libtiff:
+    needs: [libjpeg-turbo, xz, zstd]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libtiff.sh
+        ./scripts/libtiff.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libtiff*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libtiff.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libunibreak:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libunibreak.sh
+        ./scripts/libunibreak.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libunibreak*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libunibreak.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libvorbis:
+    needs: [libogg]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        tar xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
+        chmod +x ./scripts/libvorbis.sh
+        ./scripts/libvorbis.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libvorbis*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libvorbis.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libvpx:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libvpx.sh
+        ./scripts/libvpx.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libvpx*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libvpx.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libwebp:
+    needs: [giflib, libjpeg-turbo, libpng, libtiff]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libwebp.sh
+        ./scripts/libwebp.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libwebp*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libwebp.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libX11:
+    needs: [util-macros, xtrans, libxcb, xorgproto]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libxcb.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xtrans.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libX11.sh
+        ./scripts/libX11.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libX11*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libX11.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libXau:
+    needs: [util-macros, xorgproto]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libXau.sh
+        ./scripts/libXau.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libXau*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libXau.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libxcb:
+    needs: [libXau, libXdmcp, xcb-proto]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libxcb.sh
+        ./scripts/libxcb.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libxcb*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libxcb.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  libXdmcp:
+    needs: [xorgproto]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libXdmcp.sh
+        ./scripts/libXdmcp.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: libXdmcp*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: libXdmcp.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  luajit2:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/luajit2.sh
+        ./scripts/luajit2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: luajit2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: luajit2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  lz4:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/lz4.sh
+        ./scripts/lz4.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: lz4*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: lz4.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  mbedtls:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/mbedtls.sh
+        ./scripts/mbedtls.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: mbedtls*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: mbedtls.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  molten-vk:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/molten-vk.sh
+        ./scripts/molten-vk.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: molten-vk*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: molten-vk.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+  mpg123:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/mpg123.sh
+        ./scripts/mpg123.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: mpg123*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: mpg123.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  mpv:
+    needs: [ffmpeg, libarchive, luajit2, molten-vk, mujs, uchardet]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/aribb24.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/brotli.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/cjson.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/dav1d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/davs2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/frei0r.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/highway.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libaribcaption.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libass.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbs2b.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libcaca.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdread.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjxl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmodplug.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmysofa.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libplacebo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/librist.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsamplerate.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsdl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libssh.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtheora.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvpx.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mbedtls.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/rubberband.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/snappy.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/soxr.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/speex.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/srt.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/svt-av1.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uavs3d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x264.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x265.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xvid.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zimg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libxcb.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xtrans.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffmpeg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libarchive.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libb2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/luajit2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/molten-vk.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mujs.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uchardet.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/mpv.sh
+        ./scripts/mpv.sh
+    - name: Get current timestamp
+      run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV        
+    - name: Zip mpv.app
+      run: |
+        mkdir All-in-One
+        curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
+        unzip main.zip
+        mv mpv-config-main/macos_config All-in-One
+        mv packages/mpv/build/mpv.app All-in-One
+        mv packages/mpv/build/SHORT_SHA All-in-One
+        zip -r -y All-in-One-${{ env.date }}.zip All-in-One/*
+    - name: Get mpv short sha
+      run: |
+        echo "sha=$(cat packages/mpv/build/SHORT_SHA)" >> $GITHUB_ENV
+    - name: "Generate release note"
+      id: note
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const sha = `${{ env.sha }}`;
+          let note = `Bump to mpv-player/mpv@${sha}\n`;
+          note+="**System Requirements**: macOS 11 or later\n";
+          note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
+          core.setOutput("note", note);
+    - name: Create Release
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: ${{ env.date }}
+        name: ${{ env.date }}
+        body: ${{ steps.note.outputs.note }}
+        files: All*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  mujs:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/mujs.sh
+        ./scripts/mujs.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: mujs*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: mujs.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  opencore:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/opencore.sh
+        ./scripts/opencore.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: opencore*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: opencore.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  openssl:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/openssl.sh
+        ./scripts/openssl.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: openssl*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: openssl.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  opus:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/opus.sh
+        ./scripts/opus.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: opus*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: opus.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  rubberband:
+    needs: [libsamplerate, libsndfile]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsamplerate.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/rubberband.sh
+        ./scripts/rubberband.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: rubberband*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: rubberband.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  shaderc:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/shaderc.sh
+        ./scripts/shaderc.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: shaderc*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: shaderc.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  snappy:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/snappy.sh
+        ./scripts/snappy.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: snappy*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: snappy.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  soxr:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/soxr.sh
+        ./scripts/soxr.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: soxr*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: soxr.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  speex:
+    needs: [libogg]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
+        tar xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
+        chmod +x ./scripts/speex.sh
+        ./scripts/speex.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: speex*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: speex.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  srt:
+    needs: [openssl]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
+        tar xvf openssl.tar.xz -C workspace 2>/dev/null >/dev/null
+        chmod +x ./scripts/srt.sh
+        ./scripts/srt.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: srt*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: srt.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  svt-av1:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/svt-av1.sh
+        ./scripts/svt-av1.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: svt-av1*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: svt-av1.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  uavs3d:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/uavs3d.sh
+        ./scripts/uavs3d.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: uavs3d*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: uavs3d.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  uchardet:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/uchardet.sh
+        ./scripts/uchardet.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: uchardet*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: uchardet.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  util-macros:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/util-macros.sh
+        ./scripts/util-macros.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: util-macros*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: util-macros.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  vulkan:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/vulkan.sh
+        ./scripts/vulkan.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: vulkan*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: vulkan.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  x264:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/x264.sh
+        ./scripts/x264.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: x264*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: x264.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  x265:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/x265.sh
+        ./scripts/x265.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: x265*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: x265.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  xcb-proto:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/xcb-proto.sh
+        ./scripts/xcb-proto.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: xcb-proto*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: xcb-proto.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  xorgproto:
+    needs: [util-macros]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        tar xvf util-macros.tar.xz -C workspace 2>/dev/null >/dev/null
+        chmod +x ./scripts/xorgproto.sh
+        ./scripts/xorgproto.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: xorgproto*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: xorgproto.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  xtrans:
+    needs: [util-macros, xorgproto]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/xtrans.sh
+        ./scripts/xtrans.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: xtrans*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: xtrans.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  xvid:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/xvid.sh
+        ./scripts/xvid.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: xvid*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: xvid.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  xz:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/xz.sh
+        ./scripts/xz.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: xz*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: xz.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  zimg:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/zimg.sh
+        ./scripts/zimg.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: zimg*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: zimg.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  zstd:
+    needs: [lz4, xz]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz        
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/zstd.sh
+        ./scripts/zstd.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: zstd*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: zstd.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  zvbi:
+    needs: [libpng]
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/zvbi.sh
+        ./scripts/zvbi.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: zvbi*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: zvbi.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

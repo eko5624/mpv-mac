@@ -1,0 +1,13 @@
+prefix=/Users/runner/work/mpv-mac/mpv-mac/workspace
+exec_prefix=/Users/runner/work/mpv-mac/mpv-mac/workspace
+libdir=/Users/runner/work/mpv-mac/mpv-mac/workspace/lib
+includedir=/Users/runner/work/mpv-mac/mpv-mac/workspace/include
+
+Name: intl
+Description: Provides native language support to programs
+Version: @VERSION@
+
+Libs: -L${libdir} -lintl
+Libs.private: -liconv
+Requires.private:
+Cflags: -I${includedir}
