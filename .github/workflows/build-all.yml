@@ -269,7 +269,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ffmpeg:
-    needs: [aribb24, bzip2, dav1d, davs2, freetype2, frei0r, lame, libass, libbs2b, libcaca, libjxl, libmodplug, libmysofa, librist, libsdl, libssh, libtheora, libvpx, libwebp, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg]
+    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg, zvbi]
     runs-on: macos-13
     steps:    
     - name: Checkout
@@ -433,6 +433,48 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  fontconfig:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/fontconfig.sh
+        ./scripts/fontconfig.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: fontconfig*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: fontconfig.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
   freetype2:
     needs: [bzip2, libpng]
     runs-on: macos-13
