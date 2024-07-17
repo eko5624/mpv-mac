@@ -434,6 +434,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   fontconfig:
+    needs: [expat, freetype2]
     runs-on: macos-13
     steps:    
     - name: Checkout
