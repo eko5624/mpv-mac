@@ -30,16 +30,16 @@ echo $short_sha > build/SHORT_SHA
 #bundle mpv
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
-#cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
+cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
+mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
-cp -r $WORKSPACE/share/vulkan build/mpv.app/Contents/Resources
-
-#for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
-#  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
-#done
-
+cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
 sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
-#sudo install_name_tool -change $DIR/opt/lib/libluajit-5.1.2.dylib @executable_path/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/mpv
+
+for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
+  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
+done
+sudo install_name_tool -change $DIR/opt/lib/libluajit-5.1.2.dylib @executable_path/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/mpv
 
 

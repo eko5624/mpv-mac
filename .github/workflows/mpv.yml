@@ -6,7 +6,45 @@ on:
   workflow_dispatch:   
 
 jobs:
+  luajit2:
+    runs-on: macos-13
+    steps:    
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading tools cache
+      uses: actions/cache/restore@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: tools-${{ github.run_id }}
+        restore-keys: tools-
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/luajit2.sh
+        ./scripts/luajit2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev
+        assets: luajit2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev
+        name: dev
+        files: luajit2.tar.xz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
+
   mpv:
+    needs: [luajit2]
     runs-on: macos-13
     steps:    
     - name: Checkout
