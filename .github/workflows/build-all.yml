@@ -2349,6 +2349,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
@@ -2359,6 +2360,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libaribcaption.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libass.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbs2b.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libcaca.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
@@ -2416,7 +2418,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffmpeg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libarchive.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libb2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/luajit2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mujs.tar.xz
