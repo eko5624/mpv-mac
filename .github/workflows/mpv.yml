@@ -6,52 +6,7 @@ on:
   workflow_dispatch:   
 
 jobs:
-  libaribcaption:
-    runs-on: macos-13
-    steps:    
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: tools-${{ github.run_id }}
-        restore-keys: tools-
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/libaribcaption.sh
-        ./scripts/libaribcaption.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev
-        assets: libaribcaption*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev
-        name: dev
-        files: libaribcaption.tar.xz
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   mpv:
-    needs: [libaribcaption]
     runs-on: macos-13
     steps:    
     - name: Checkout
