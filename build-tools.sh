@@ -20,6 +20,7 @@ build_done() {
   echo "" > "$WORKSPACE/$1.done"
 }
 
+# Manage compile and link flags for libraries
 if build "pkg-config"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://pkgconfig.freedesktop.org/releases/pkg-config-${VER_PKG_CONFIG}.tar.gz"
@@ -34,6 +35,7 @@ if build "pkg-config"; then
   build_done "pkg-config"
 fi  
 
+# Modular BSD reimplementation of NASM
 if build "yasm"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
@@ -45,6 +47,7 @@ if build "yasm"; then
   build_done "yasm"
 fi  
 
+# Code snippets in your terminal
 if build "nasm"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://www.nasm.us/pub/nasm/releasebuilds/$VER_NASM/nasm-$VER_NASM.tar.xz"
@@ -59,6 +62,7 @@ if build "nasm"; then
   build_done "nasm"
 fi  
 
+# Macro processing language
 if build "m4"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/m4/m4-$VER_M4.tar.gz"
@@ -70,6 +74,8 @@ if build "m4"; then
   build_done "m4"
 fi  
 
+# Automatic configure script builder
+# depends on: m4
 if build "autoconf"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/autoconf/autoconf-$VER_AUTOCONF.tar.gz"
@@ -81,6 +87,8 @@ if build "autoconf"; then
   build_done "autoconf"
 fi  
 
+# Tool for generating GNU Standards-compliant Makefiles
+# depends on: autoconf(m4)
 if build "automake"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/automake/automake-$VER_AUTOMAKE.tar.gz"
@@ -92,6 +100,8 @@ if build "automake"; then
   build_done "automake"
 fi  
 
+# Generic library support script
+# depends on: m4
 if build "libtool"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://ftpmirror.gnu.org/libtool/libtool-$VER_LIBTOOL.tar.gz"
@@ -106,6 +116,8 @@ if build "libtool"; then
   build_done "libtool"
 fi  
 
+# Package compiler and linker metadata toolkit
+# depends on: autoconf(m4), automake(autoconf(m4)), libtool(m4)
 if build "pkgconf"; then
   cd $PACKAGES
   git clone https://github.com/pkgconf/pkgconf.git --branch pkgconf-$VER_PKGCONF
@@ -184,24 +196,7 @@ if build "zlib"; then
   build_done "zlib"
 fi  
 
-# libxml2: GNOME XML library
-# depends on: zlib
-if build "libxml2"; then
-  cd $PACKAGES
-  git clone https://github.com/GNOME/libxml2.git --branch master --depth 1
-  cd libxml2
-  autoreconf -fvi
-  ./configure \
-    --prefix="${WORKSPACE}" \
-    --without-python \
-    --without-lzma \
-    --disable-shared \
-    --enable-static
-  make -j $MJOBS
-  make install
-  build_done "libxml2"
-fi  
-
+# Conversion library
 if build "libiconv"; then
   cd $PACKAGES
   curl -OL "https://ftp.gnu.org/gnu/libiconv/libiconv-$VER_LIBICONV.tar.gz"
@@ -222,6 +217,25 @@ if build "libiconv"; then
   #sed -i "" 's|@PREFIX@|${WORKSPACE}|g' $DIR/iconv.pc
   cp $DIR/iconv.pc ${WORKSPACE}/lib/pkgconfig
   build_done "libiconv"
+fi
+
+# libxml2: GNOME XML library
+# depends on: libiconv, zlib
+if build "libxml2"; then
+  cd $PACKAGES
+  git clone https://github.com/GNOME/libxml2.git --branch master --depth 1
+  cd libxml2
+  autoreconf -fvi
+  ./configure \
+    --prefix="${WORKSPACE}" \
+    --without-python \
+    --without-lzma \
+    --with-iconv="${WORKSPACE}" \
+    --disable-shared \
+    --enable-static
+  make -j $MJOBS
+  make install
+  build_done "libxml2"
 fi
 
 # gettext: GNU internationalization (i18n) and localization (l10n) library
@@ -248,10 +262,6 @@ if build "gettext"; then
     --without-cvs \
     --without-xz
   make -j $MJOBS
-
-  cd gettext-runtime
-  make install
-  cd ../gettext-tools
   make install
   cp $DIR/intl.pc ${WORKSPACE}/lib/pkgconfig
   build_done "gettext"
