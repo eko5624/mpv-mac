@@ -28,6 +28,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libaribcaption.sh
         ./scripts/libaribcaption.sh
