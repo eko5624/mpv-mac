@@ -59,8 +59,8 @@ jobs:
 
     - name: Build tools
       run: |
-        rm $WORKSPACE/libxml2.done || true
-        rm $WORKSPACE/gettext.done || true
+        rm workspace/libxml2.done || true
+        rm workspace/gettext.done || true
         chmod +x ./build-tools.sh
         ./build-tools.sh
 
