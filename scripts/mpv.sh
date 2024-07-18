@@ -33,7 +33,7 @@ cp build/mpv build/mpv.app/Contents/MacOS
 #cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
-#cp -r $WORKSPACE/share/vulkan build/mpv.app/Contents/Resources
+cp -r $WORKSPACE/share/vulkan build/mpv.app/Contents/Resources
 
 #for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
 #  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
