@@ -9,7 +9,7 @@ git clone https://github.com/mpv-player/mpv.git
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
-#git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
+git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
