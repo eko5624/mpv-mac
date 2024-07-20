@@ -142,6 +142,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uchardet.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vapoursynth.tar.xz
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/mpv.sh
         ./scripts/mpv.sh
