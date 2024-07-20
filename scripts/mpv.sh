@@ -18,6 +18,7 @@ meson setup build \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
+  -Dlibmpv=true \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
   -Dswift-flags="-target x86_64-apple-macos11.0"

@@ -8,8 +8,8 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-make -j $MJOBS amalg BUILDMODE=mixed PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
-make install PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
+make -j $MJOBS amalg BUILDMODE=mixed PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_UNWIND_INTERNAL
+make install PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64 -DLUAJIT_UNWIND_INTERNAL
 
 rm $DIR/opt/lib/*.dylib
 rm -rf lua
