@@ -14,7 +14,7 @@ cd vapoursynth
 	--prefix="$DIR/opt" \
   --disable-silent-rules \
   --disable-dependency-tracking \
-  --with-cython="$WORKSPACE/bin/python" \
+  --with-cython="$WORKSPACE/bin/cython" \
   --with-plugindir="$DIR/opt/lib/vapoursynth" \
   --with-python_prefix="$DIR/opt" \
   --with-python_exec_prefix="$DIR/opt"
