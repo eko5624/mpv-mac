@@ -175,6 +175,8 @@ jobs:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
         body: ${{ steps.note.outputs.note }}
-        files: All*.zip
+        files: |
+          All*.zip
+          libmpv.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}      

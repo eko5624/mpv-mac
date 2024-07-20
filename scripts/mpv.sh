@@ -14,7 +14,7 @@ git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
-  -Dprefix="${WORKSPACE}" \
+  -Dprefix="$DIR/opt" \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
@@ -32,16 +32,20 @@ echo $short_sha > build/SHORT_SHA
 #bundle mpv
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
-#cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
+cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
+cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
 cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
 sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
 
-#for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
-#  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
-#done
-#sudo install_name_tool -change $DIR/opt/lib/libluajit-5.1.2.dylib @executable_path/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/mpv
+for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
+  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
+  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
+done
 
+cd $DIR
+cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib ./opt
+zip libmpv.zip ./opt/*
 
