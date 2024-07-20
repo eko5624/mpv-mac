@@ -6,7 +6,7 @@ on:
   workflow_dispatch:   
 
 jobs:
-  libaribcaption:
+  luajit2:
     runs-on: macos-13
     steps:    
     - name: Checkout
@@ -23,20 +23,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/libaribcaption.sh
-        ./scripts/libaribcaption.sh
+        chmod +x ./scripts/luajit2.sh
+        ./scripts/luajit2.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev
-        assets: libaribcaption*.xz
+        assets: luajit2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -45,7 +39,7 @@ jobs:
       with:
         tag_name: dev
         name: dev
-        files: libaribcaption.tar.xz
+        files: luajit2.tar.xz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
