@@ -7,6 +7,8 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 
+rm $WORKSPACE/lib/*.dylib
+rm -rf $WORKSPACE/lib/lua
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
 # issue: slow OSC loading with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
