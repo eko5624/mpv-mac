@@ -7,6 +7,7 @@ set -a; source build.env; source ver.sh; set +a
 # Video processing framework with simplicity in mind
 cd $PACKAGES
 git clone https://github.com/vapoursynth/vapoursynth.git --branch R$VER_VAPOURSYNTH
+pip install -U cython
 cd vapoursynth
 ./autogen.sh
 ./configure \
