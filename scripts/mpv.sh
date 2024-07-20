@@ -14,7 +14,6 @@ git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
-  -Dprefix="$DIR/opt" \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
@@ -47,8 +46,7 @@ done
 
 cd $DIR
 mkdir opt
-find . -type f -name "libmpv.2.dylib"
-find . -type f -name "libmpv.2.dylib" -print0 | xargs -0 -I {} cp {} opt
+cp $PACKAGES/mpv/build/libmpv.2.dylib opt
 cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib opt
 zip libmpv.zip opt/*
 
