@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-make -j $MJOBS amalg BUILDMODE=mixed PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
+make -j $MJOBS amalg BUILDMODE=static PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
 make install PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
