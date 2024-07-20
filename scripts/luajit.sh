@@ -12,7 +12,7 @@ make -j $MJOBS amalg BUILDMODE=static PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_
 make install PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
-#sed -i "" 's/Libs.private: -Wl,-E -lm -ldl/Libs.private: -lm -ldl/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/Libs.private: -lm -ldl/Libs.private: -Wl,-E -lm -ldl/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf luajit.tar.xz -C $DIR/opt .
