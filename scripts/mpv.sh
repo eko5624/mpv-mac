@@ -46,6 +46,9 @@ for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
 done
 
 cd $DIR
-cp -r $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib opt
+mkdir opt
+find . -type f -name "libmpv.2.dylib"
+find . -type f -name "libmpv.2.dylib" -print0 | xargs -0 -I {} cp {} opt
+cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib opt
 zip libmpv.zip opt/*
 
