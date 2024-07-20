@@ -7,7 +7,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 
-rm $WORKSPACE/lib/*.dylib
+rm $WORKSPACE/lib/libluajit*.dylib
 rm -rf $WORKSPACE/lib/lua
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
