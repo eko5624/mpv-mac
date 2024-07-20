@@ -6,8 +6,8 @@ set -a; source build.env; source ver.sh; set +a
 
 # Just-In-Time Compiler (JIT) for the Lua programming language
 cd $PACKAGES
-git clone https://github.com/openresty/luajit2.git --branch v2.1-agentzh --depth 1
-cd luajit2
+git clone https://github.com/LuaJIT/LuaJIT.git
+cd LuaJIT
 make -j $MJOBS amalg BUILDMODE=mixed PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
 make install PREFIX="$DIR/opt" XCFLAGS=-DLUAJIT_ENABLE_GC64
 
