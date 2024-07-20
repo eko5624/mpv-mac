@@ -2138,7 +2138,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  luajit2:
+  luajit:
     runs-on: macos-13
     steps:    
     - name: Checkout
@@ -2155,14 +2155,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/luajit2.sh
-        ./scripts/luajit2.sh
+        chmod +x ./scripts/luajit.sh
+        ./scripts/luajit.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev
-        assets: luajit2*.xz
+        assets: luajit*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -2171,7 +2171,7 @@ jobs:
       with:
         tag_name: dev
         name: dev
-        files: luajit2.tar.xz
+        files: luajit.tar.xz
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -2324,7 +2324,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   mpv:
-    needs: [ffmpeg, libarchive, luajit2, molten-vk, mujs, uchardet]
+    needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
     runs-on: macos-13
     steps:    
     - name: Checkout
@@ -2418,7 +2418,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/ffmpeg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libarchive.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libb2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/luajit2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/luajit.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uchardet.tar.xz
