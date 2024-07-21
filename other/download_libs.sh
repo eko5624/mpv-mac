@@ -95,19 +95,6 @@ universal | arm64 | x86_64)
   ;;
 esac
 
-SCRIPT_PATH=$(realpath "$0")
-ROOT_PATH=$(dirname "$SCRIPT_PATH")
-
-if [[ $(basename "$ROOT_PATH") != "$PROJECT_NAME" ]]; then
-  while [[ "$ROOT_PATH" != "/" && $(basename "$ROOT_PATH") != "$PROJECT_NAME" ]]; do
-    ROOT_PATH=$(dirname "$ROOT_PATH")
-  done
-  if [[ "$ROOT_PATH" == "/" ]]; then
-    echo "Unable to find the root directory '$PROJECT_NAME' containing the script file." >&2
-    exit 1
-  fi
-fi
-
 DEPS_PATH="$ROOT_PATH/deps"
 LIB_PATH="$DEPS_PATH/lib"
 EXEC_PATH="$DEPS_PATH/executable"
