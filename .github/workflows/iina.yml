@@ -1,0 +1,43 @@
+name: iina
+
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch: 
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - xcode: "15.4"
+            deployment_target: ""
+    runs-on:  macos-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: Checkout iina repository
+        uses: actions/checkout@main
+        with:
+          repository: "iina/iina"
+          ref: "develop"          
+          fetch-depth: 0
+
+      - name: Install dependencies
+        run: |
+          chmod +x ./other/download_libs.sh
+          ./other/download_libs.sh --arch x86_64 --yt-dlp-src github
+
+      - name: Build
+        run: xcodebuild -project iina.xcodeproj ONLY_ACTIVE_ARCH=NO -scheme iina -configuration Nightly ${{ matrix.deployment_target }}
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+
+      - name: Archive
+        run: tar cvJf ~/iina.tar.xz -C /Users/runner/Library/Developer/Xcode/DerivedData/iina-csbkugdtxazzqogjnydbothqrvib/Build/Products/Nightly IINA.app 
+
+      - name: Save artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: IINA
+          path: ~/iina.tar.xz
