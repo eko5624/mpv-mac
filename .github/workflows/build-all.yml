@@ -3,12 +3,23 @@ on:
   #schedule:
   #  - cron: '10 0 * * MON'
     
-  workflow_dispatch:   
+  workflow_dispatch:
+    inputs:   
+      build_target:
+        description: "Build target"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
 
 jobs:
   aribb24:
     needs: [libpng]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -48,6 +59,8 @@ jobs:
 
   brotli:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -85,6 +98,8 @@ jobs:
 
   bzip2:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -122,6 +137,8 @@ jobs:
 
   cjson:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -159,6 +176,8 @@ jobs:
 
   dav1d:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -196,6 +215,8 @@ jobs:
 
   davs2:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -233,6 +254,8 @@ jobs:
 
   expat:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -271,6 +294,8 @@ jobs:
   ffmpeg:
     needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg, zvbi]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -396,6 +421,8 @@ jobs:
   flac:
     needs: [libogg]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -436,6 +463,8 @@ jobs:
   fontconfig:
     needs: [expat, freetype2]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -479,6 +508,8 @@ jobs:
   freetype2:
     needs: [bzip2, libpng]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -519,6 +550,8 @@ jobs:
 
   frei0r:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -556,6 +589,8 @@ jobs:
 
   fribidi:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -593,6 +628,8 @@ jobs:
 
   giflib:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -631,6 +668,8 @@ jobs:
   harfbuzz:
     needs: [freetype2]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -672,6 +711,8 @@ jobs:
 
   highway:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -709,6 +750,8 @@ jobs:
 
   lame:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -747,6 +790,8 @@ jobs:
   lcms2:
     needs: [libjpeg-turbo, libtiff]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -791,6 +836,8 @@ jobs:
   libarchive:
     needs: [bzip2, expat, libb2, lz4, xz, zstd]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -836,6 +883,8 @@ jobs:
   libaribcaption:
     needs: [fontconfig]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -880,6 +929,8 @@ jobs:
   libass:
     needs: [freetype2, fribidi, harfbuzz, libunibreak]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -923,6 +974,8 @@ jobs:
 
   libb2:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -961,6 +1014,8 @@ jobs:
   libbluray:
     needs: [fontconfig]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1005,6 +1060,8 @@ jobs:
   libbs2b:
     needs: [libsndfile]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1050,6 +1107,8 @@ jobs:
 
   libcaca:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1087,6 +1146,8 @@ jobs:
 
   libdovi:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1124,6 +1185,8 @@ jobs:
 
   libdvdcss:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1162,6 +1225,8 @@ jobs:
   libdvdread:
     needs: [libdvdcss]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1202,6 +1267,8 @@ jobs:
   libdvdnav:
     needs: [libdvdread]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1242,6 +1309,8 @@ jobs:
 
   libjpeg-turbo:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1280,6 +1349,8 @@ jobs:
   libjxl:
     needs: [brotli, giflib, highway, libjpeg-turbo, libpng, lcms2]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1328,6 +1399,8 @@ jobs:
 
   libmodplug:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1365,6 +1438,8 @@ jobs:
 
   libmysofa:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1402,6 +1477,8 @@ jobs:
 
   libogg:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1440,6 +1517,8 @@ jobs:
   libplacebo:
     needs: [lcms2, shaderc, vulkan]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1487,6 +1566,8 @@ jobs:
 
   libpng:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1525,6 +1606,8 @@ jobs:
   librist:
     needs: [cjson, mbedtls]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1565,6 +1648,8 @@ jobs:
 
   libsamplerate:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1602,6 +1687,8 @@ jobs:
 
   libsdl:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1640,6 +1727,8 @@ jobs:
   libsndfile:
     needs: [flac, lame, libogg, libvorbis, mpg123, opus]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1685,6 +1774,8 @@ jobs:
   libssh:
     needs: [openssl]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1725,6 +1816,8 @@ jobs:
   libtheora:
     needs: [libogg, libvorbis]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1766,6 +1859,8 @@ jobs:
   libtiff:
     needs: [libjpeg-turbo, xz, zstd]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1808,6 +1903,8 @@ jobs:
 
   libunibreak:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1846,6 +1943,8 @@ jobs:
   libvorbis:
     needs: [libogg]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1885,6 +1984,8 @@ jobs:
 
   libvpx:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1923,6 +2024,8 @@ jobs:
   libwebp:
     needs: [giflib, libjpeg-turbo, libpng, libtiff]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -1969,6 +2072,8 @@ jobs:
   libX11:
     needs: [util-macros, xtrans, libxcb, xorgproto]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2015,6 +2120,8 @@ jobs:
   libXau:
     needs: [util-macros, xorgproto]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2056,6 +2163,8 @@ jobs:
   libxcb:
     needs: [libXau, libXdmcp, xcb-proto]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2100,6 +2209,8 @@ jobs:
   libXdmcp:
     needs: [xorgproto]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2140,6 +2251,8 @@ jobs:
 
   luajit:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2177,6 +2290,8 @@ jobs:
 
   lz4:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2214,6 +2329,8 @@ jobs:
 
   mbedtls:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2251,6 +2368,8 @@ jobs:
 
   molten-vk:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2288,6 +2407,8 @@ jobs:
         
   mpg123:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2326,6 +2447,8 @@ jobs:
   mpv:
     needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2461,6 +2584,8 @@ jobs:
 
   mujs:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2498,6 +2623,8 @@ jobs:
 
   opencore:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2535,6 +2662,8 @@ jobs:
 
   openssl:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2572,6 +2701,8 @@ jobs:
 
   opus:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2610,6 +2741,8 @@ jobs:
   rubberband:
     needs: [libsamplerate, libsndfile]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2656,6 +2789,8 @@ jobs:
 
   shaderc:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2693,6 +2828,8 @@ jobs:
 
   snappy:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2730,6 +2867,8 @@ jobs:
 
   soxr:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2768,6 +2907,8 @@ jobs:
   speex:
     needs: [libogg]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2808,6 +2949,8 @@ jobs:
   srt:
     needs: [openssl]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2847,6 +2990,8 @@ jobs:
 
   svt-av1:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2884,6 +3029,8 @@ jobs:
 
   uavs3d:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2921,6 +3068,8 @@ jobs:
 
   uchardet:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2958,6 +3107,8 @@ jobs:
 
   util-macros:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -2995,6 +3146,8 @@ jobs:
 
   vulkan:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3032,6 +3185,8 @@ jobs:
 
   x264:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3069,6 +3224,8 @@ jobs:
 
   x265:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3106,6 +3263,8 @@ jobs:
 
   xcb-proto:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3144,6 +3303,8 @@ jobs:
   xorgproto:
     needs: [util-macros]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3184,6 +3345,8 @@ jobs:
   xtrans:
     needs: [util-macros, xorgproto]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3224,6 +3387,8 @@ jobs:
 
   xvid:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3261,6 +3426,8 @@ jobs:
 
   xz:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3298,6 +3465,8 @@ jobs:
 
   zimg:
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3336,6 +3505,8 @@ jobs:
   zstd:
     needs: [lz4, xz]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -3377,6 +3548,8 @@ jobs:
   zvbi:
     needs: [libpng]
     runs-on: macos-13
+    env:
+      ARCHS: ${{ inputs.build_target }}
     steps:    
     - name: Checkout
       uses: actions/checkout@main

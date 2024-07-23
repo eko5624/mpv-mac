@@ -8,9 +8,6 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/videolan/dav1d.git
 cd dav1d
-if $MACOS_M1; then
-  export CFLAGS="-arch arm64"
-fi
 meson setup work \
   --prefix="$DIR/opt" \
   --buildtype=release \
