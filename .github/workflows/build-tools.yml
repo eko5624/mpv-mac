@@ -27,7 +27,7 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ github.run_id }}
+        key: tools-${{ matrix.arch }}-${{ github.run_id }}
         restore-keys: tools-
     - name: Switch to Xcode 15.2
       run: |
@@ -72,5 +72,5 @@ jobs:
       if: always()
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ github.run_id }}
+        key: tools-${{ matrix.arch }}-${{ github.run_id }}
 
