@@ -15,7 +15,7 @@ cd mpg123-$VER_MPG123
   --disable-dependency-tracking \
   --enable-static \
   --with-default-audio=coreaudio \
-  --with-cpu=x86-64 \
+  --with-cpu=$ARCHS \
   --disable-shared \
   --enable-static
 make -j $MJOBS
