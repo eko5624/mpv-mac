@@ -32,12 +32,11 @@ jobs:
     steps:    
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -72,12 +71,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -110,12 +108,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -148,12 +145,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -186,12 +182,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -224,12 +219,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -262,12 +256,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -301,12 +294,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -426,12 +418,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -467,12 +458,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -511,12 +501,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -552,12 +541,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -590,12 +578,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -628,12 +615,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -667,12 +653,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -709,12 +694,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -747,12 +731,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -786,12 +769,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -831,12 +813,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -877,12 +858,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -922,12 +902,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -966,12 +945,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1005,12 +983,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1050,12 +1027,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1096,12 +1072,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1134,12 +1109,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1172,12 +1146,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1211,12 +1184,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1252,12 +1224,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1293,12 +1264,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1332,12 +1302,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1381,12 +1350,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1419,12 +1387,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1457,12 +1424,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1496,12 +1462,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1544,12 +1509,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1583,12 +1547,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1624,12 +1587,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1662,12 +1624,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1701,12 +1662,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1746,12 +1706,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1785,12 +1744,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1827,12 +1785,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1870,12 +1827,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1909,12 +1865,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1949,12 +1904,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1988,12 +1942,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2035,12 +1988,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2082,12 +2034,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2124,12 +2075,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2169,12 +2119,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2210,12 +2159,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2248,12 +2196,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2286,12 +2233,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2324,12 +2270,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2362,12 +2307,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2401,12 +2345,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2538,12 +2481,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2576,12 +2518,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2614,12 +2555,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2653,12 +2593,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2700,12 +2639,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2738,12 +2676,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2776,12 +2713,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2815,12 +2751,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2855,12 +2790,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2893,12 +2827,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2931,12 +2864,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2969,12 +2901,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3007,12 +2938,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3045,12 +2975,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3083,12 +3012,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3121,12 +3049,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3159,12 +3086,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3198,12 +3124,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3239,12 +3164,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3280,12 +3204,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3318,12 +3241,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3356,12 +3278,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3395,12 +3316,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3437,12 +3357,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ inputs.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ inputs.arch }}-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
