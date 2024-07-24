@@ -1,4 +1,4 @@
-name: libbluray
+name: vapoursynth
 on:
   #schedule:
   #  - cron: '10 0 * * MON'
