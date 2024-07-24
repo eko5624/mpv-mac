@@ -2506,7 +2506,7 @@ jobs:
         mv mpv-config-main/macos_config All-in-One
         mv packages/mpv/build/mpv.app All-in-One
         mv packages/mpv/build/SHORT_SHA All-in-One
-        zip -r -y All-in-One-${{ env.date }}.zip All-in-One/*
+        zip -r -y All-in-One-$ARCHS.zip All-in-One/*
     - name: Get mpv short sha
       run: |
         echo "sha=$(cat packages/mpv/build/SHORT_SHA)" >> $GITHUB_ENV
@@ -2526,7 +2526,9 @@ jobs:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
         body: ${{ steps.note.outputs.note }}
-        files: All*.zip
+        files: |
+          All*.zip
+          libmpv.zip
 
   mujs:
     runs-on: ${{ inputs.os }}
