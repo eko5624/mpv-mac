@@ -19,7 +19,7 @@ jobs:
           - os: "macos-13"
             arch: "x86_64"
           - os: "macos-14"
-            arch: "arm64"
+            arch: "aarch64"
     steps:
     - name: Checkout
       uses: actions/checkout@main
