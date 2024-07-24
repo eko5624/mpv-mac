@@ -132,6 +132,53 @@ if build "pkgconf"; then
   build_done "pkgconf"
 fi
 
+# zlib: General-purpose lossless data-compression library
+if build "zlib"; then
+  cd $PACKAGES
+  curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_ZLIB.tar.xz"
+  tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
+  cd zlib-$VER_ZLIB
+  ./configure \
+    --prefix="${WORKSPACE}" \
+    --static
+  make -j $MJOBS
+  make install
+  build_done "zlib"
+fi 
+
+# Cryptography and SSL/TLS Toolkit
+# depends on: zlib
+if build "openssl"; then
+  cd $PACKAGES
+  curl -OL "https://www.openssl.org/source/openssl-"${VER_OPENSSL_3}".tar.gz"
+  tar -xvf openssl-"${VER_OPENSSL_3}".tar.gz 2>/dev/null >/dev/null
+  cd openssl-"${VER_OPENSSL_3}"
+  ./config \
+    --prefix="${WORKSPACE}" \
+    --openssldir="${WORKSPACE}" \
+    --with-zlib-include="$WORKSPACE/include" \
+    --with-zlib-lib="$WORKSPACE/lib" \
+    no-shared \
+    zlib
+  make -j $MJOBS
+  make install
+  build_done "openssl"
+fi
+
+# Portable Foreign Function Interface library
+#if build "libffi"; then
+#  cd $PACKAGES
+#  git clone https://github.com/libffi/libffi.git
+#  cd libffi
+#  ./autogen.sh
+#  ./config --prefix="${WORKSPACE}"
+#  make -j $MJOBS
+#  make install
+#  build_done "libffi"
+#fi
+
+# Interpreted, interactive, object-oriented programming language
+# depends on: openssl(zlib), zlib
 if build "python"; then
   cd $PACKAGES
   git clone https://github.com/python/cpython --branch 3.12
@@ -180,20 +227,6 @@ if build "cmake"; then
   make -j $MJOBS
   make install
   build_done "cmake"
-fi  
-
-# zlib: General-purpose lossless data-compression library
-if build "zlib"; then
-  cd $PACKAGES
-  curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_ZLIB.tar.xz"
-  tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
-  cd zlib-$VER_ZLIB
-  ./configure \
-    --prefix="${WORKSPACE}" \
-    --static
-  make -j $MJOBS
-  make install
-  build_done "zlib"
 fi  
 
 # Conversion library
