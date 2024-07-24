@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-#depends on: cjson, mbedtls
 # Reliable Internet Stream Transport (RIST)
+# depends on: cjson, mbedtls
 cd $PACKAGES
 git clone https://code.videolan.org/rist/librist.git
 cd librist

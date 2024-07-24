@@ -5,7 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # OpenType text shaping engine
-# depends on: freetype(bzip2, libpng(zlib)), 
+# depends on: freetype(bzip2, libpng(zlib))
 cd $PACKAGES
 git clone https://github.com/harfbuzz/harfbuzz.git
 cd harfbuzz

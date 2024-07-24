@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-#depends on: zlib
 # Reader for AES SOFA files to get better HRTFs
+#depends on: zlib
 cd $PACKAGES
 git clone --depth 1 --sparse --filter=tree:0 https://github.com/hoene/libmysofa.git
 cd libmysofa

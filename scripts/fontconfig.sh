@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: expat, bzip2, freetype2(bzip2, libpng(zlib)), gettext(libxml2 ncurses)
 # XML-based font configuration API for X Windows
-
+# depends on: expat, bzip2, freetype2(bzip2, libpng(zlib)), gettext(libxml2 ncurses)
 cp $DIR/intl.pc $WORKSPACE/lib/pkgconfig
 rm $WORKSPACE/lib/*.la
 cd $PACKAGES

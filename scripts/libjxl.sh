@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-#depends on: brotli, giflib, highway, jpeg-turbo, libpng(zlib), lcms2(libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz))
 # New file format for still image compression
+#depends on: brotli, giflib, highway, jpeg-turbo, libpng(zlib), lcms2(libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz))
 cd $PACKAGES
 git clone https://github.com/libjxl/libjxl.git
 cd libjxl

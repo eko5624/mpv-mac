@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libogg
 # Vorbis General Audio Compression Codec
+# depends on: libogg
 cd $PACKAGES
 git clone https://github.com/AO-Yumi/vorbis_aotuv.git
 cd vorbis_aotuv

@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: util-macros xorgproto(util-macros)
 # X.Org: X Network Transport layer shared code
-
+# depends on: util-macros xorgproto(util-macros)
 PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 cd $PACKAGES
 curl -OL "https://www.x.org/archive/individual/lib/xtrans-$VER_XTRANS.tar.gz"

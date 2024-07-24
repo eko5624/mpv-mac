@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-#depends on: lz4, xz, zlib
 # Zstandard is a real-time compression algorithm
+# depends on: lz4, xz, zlib
 cd $PACKAGES
 git clone https://github.com/facebook/zstd.git --branch dev
 cd zstd

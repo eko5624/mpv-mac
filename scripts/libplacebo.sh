@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-#depends on: vulkan, lcms2(libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz)), shaderc
 # A Free Implementation of the Unicode Bidirectional Algorithm
-
+#depends on: vulkan, lcms2(libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz)), shaderc
 cd $PACKAGES
 git clone --recursive https://github.com/haasn/libplacebo.git
 cd libplacebo

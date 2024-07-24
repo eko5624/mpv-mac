@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libogg
 # Free lossless audio codec
+# depends on: libogg
 cd $PACKAGES
 git clone https://gitlab.xiph.org/xiph/flac.git
 cd flac

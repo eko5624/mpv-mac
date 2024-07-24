@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: openssl, zlib
 # C library SSHv1/SSHv2 client and server protocols
+# depends on: openssl, zlib
 cd $PACKAGES
 git clone https://gitlab.com/libssh/libssh-mirror.git
 cd libssh-mirror

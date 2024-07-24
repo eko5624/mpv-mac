@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libsamplerate, libsndfile(flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus)
 # Audio time stretcher tool and library
+# depends on: libsamplerate, libsndfile(flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus)
 cd $PACKAGES
 git clone https://github.com/breakfastquay/rubberband.git
 cd rubberband

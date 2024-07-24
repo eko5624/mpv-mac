@@ -5,6 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Cryptography and SSL/TLS Toolkit
+# depends on: zlib
 cd $PACKAGES
 curl -OL "https://www.openssl.org/source/openssl-"${VER_OPENSSL_3}".tar.gz"
 tar -xvf openssl-"${VER_OPENSSL_3}".tar.gz 2>/dev/null >/dev/null

@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libdvdcss
 # C library for reading DVD-video images
+# depends on: libdvdcss
 cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdread/$VER_LIBDVDREAD/libdvdread-$VER_LIBDVDREAD.tar.bz2"
 tar -xvf libdvdread-$VER_LIBDVDREAD.tar.bz2 2>/dev/null >/dev/null

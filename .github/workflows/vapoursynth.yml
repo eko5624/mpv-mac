@@ -42,6 +42,8 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/vapoursynth.sh
         ./scripts/vapoursynth.sh
     - name: Delete

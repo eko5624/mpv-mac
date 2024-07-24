@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: ncurses
 # High quality MPEG Audio Layer III (MP3) encoder
+# depends on: ncurses
 cd $PACKAGES
 curl -OL "http://downloads.sourceforge.net/lame/lame-$VER_LAME.tar.gz"
 tar -xvf lame-$VER_LAME.tar.gz 2>/dev/null >/dev/null

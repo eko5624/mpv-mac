@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: fontconfig(expat, bzip2, freetype2, gettext(libxml2 ncurses)), freetype2(libpng(zlib)), libxml2(ncurses)
 # Blu-Ray disc playback library for media players like VLC
-
+# depends on: fontconfig(expat, bzip2, freetype2, gettext(libxml2 ncurses)), freetype2(libpng(zlib)), libxml2(ncurses)
 rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 curl -OL  "https://download.videolan.org/videolan/libbluray/$VER_LIBBLURAY/libbluray-$VER_LIBBLURAY.tar.bz2"

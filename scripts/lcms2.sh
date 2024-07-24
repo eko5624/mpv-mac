@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz)
 # Color management engine supporting ICC profiles
+# depends on: libjpeg-turbo, libtiff(libjpeg-turbo, zlib, zstd(lz4, xz, zlib), xz)
 cd $PACKAGES
 git clone https://github.com/mm2/Little-CMS.git
 cd Little-CMS

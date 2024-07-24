@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus
 # C library for files containing sampled sound
+# depends on: flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus
 cd $PACKAGES
 git clone https://github.com/libsndfile/libsndfile.git
 cd libsndfile

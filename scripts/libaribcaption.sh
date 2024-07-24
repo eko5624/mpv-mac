@@ -4,9 +4,9 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+# Portable ARIB STD-B24 Caption Decoder/Renderer
 # depends on: fontconfig(expat, bzip2, freetype2, gettext(libxml2 ncurses)
 # depends on: freetype2(bzip2, libpng(zlib)), openssl
-# Portable ARIB STD-B24 Caption Decoder/Renderer
 cd $PACKAGES
 git clone https://github.com/xqq/libaribcaption.git
 cd libaribcaption

@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: bzip2, libpng(zlib)
 # Software library to render fonts
-
+# depends on: bzip2, libpng(zlib)
 cd $PACKAGES
 git clone --recursive https://github.com/freetype/freetype.git
 cd freetype

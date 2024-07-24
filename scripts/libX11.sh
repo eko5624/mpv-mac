@@ -4,10 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: util-macros, xtrans(util-macros xorgproto(util-macros)), libxcb(xcb-proto libXau(util-macros xorgproto(util-macros)), libXdmcp(xorgproto(util-macros))), xorgproto(util-macros)
 # X.Org: Core X11 protocol client library
-
-
+# depends on: util-macros, xtrans(util-macros xorgproto(util-macros)), libxcb(xcb-proto libXau(util-macros xorgproto(util-macros)), libXdmcp(xorgproto(util-macros))), xorgproto(util-macros)
 rm $WORKSPACE/lib/*.la
 PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 cd $PACKAGES

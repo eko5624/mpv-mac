@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: zlib
 # GNOME XML library
+# depends on: zlib
 cd $PACKAGES
 git clone https://github.com/GNOME/libxml2.git
 cd libxml2

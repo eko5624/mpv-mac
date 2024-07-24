@@ -4,9 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: freetype2(libpng(zlib)), fribidi, harfbuzz, libunibreak
 # Subtitle renderer for the ASS/SSA subtitle format
-
+# depends on: freetype2(libpng(zlib)), fribidi, harfbuzz, libunibreak
 rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://github.com/libass/libass.git

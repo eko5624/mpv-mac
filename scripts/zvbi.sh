@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libpng(zlib)
 # A VBI decoding library which can be used by FFmpeg to decode DVB teletext pages and DVB teletext subtitles
+# depends on: libpng(zlib)
 cd $PACKAGES
 git clone https://github.com/zapping-vbi/zvbi.git --branch main
 cd zvbi

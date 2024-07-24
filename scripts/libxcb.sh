@@ -4,10 +4,9 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: xcb-proto, libXau(util-macros xorgproto(util-macros)), libXdmcp(xorgproto(util-macros))
 # X.Org: Interface to the X Window System"protocol
-
-#fix no package 'xcb-proto' found
+# depends on: xcb-proto, libXau(util-macros xorgproto(util-macros)), libXdmcp(xorgproto(util-macros))
+# fix no package 'xcb-proto' found
 PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 cd $PACKAGES
 curl -OL "https://xcb.freedesktop.org/dist/libxcb-$VER_LIBXCB.tar.gz"

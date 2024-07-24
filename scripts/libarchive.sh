@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: bzip2, expat, libb2, lz4, xz, zlib, zstd(lz4, xz, zlib)
 # Multi-format archive and compression library
+# depends on: bzip2, expat, libb2, lz4, xz, zlib, zstd(lz4, xz, zlib)
 cd $PACKAGES
 git clone https://github.com/libarchive/libarchive.git
 cd libarchive

@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: openssl
 # Secure Reliable Transport
+# depends on: openssl(zlib)
 cd $PACKAGES
 git clone https://github.com/Haivision/srt.git
 cd srt

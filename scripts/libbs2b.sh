@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libsndfile(flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus)
 # Bauer stereophonic-to-binaural DSP
+# depends on: libsndfile(flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus)
 cd $PACKAGES
 git clone https://github.com/alexmarsev/libbs2b.git
 cd libbs2b

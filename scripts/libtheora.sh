@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libogg libvorbis(libogg)
 # Open video compression format
+# depends on: libogg libvorbis(libogg)
 cd $PACKAGES
 git clone https://gitlab.xiph.org/xiph/theora.git
 cd theora

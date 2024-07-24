@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
-# depends on: libdvdread(libdvdcss)
 # DVD navigation library
+# depends on: libdvdread(libdvdcss)
 cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdnav/$VER_LIBDVDNAV/libdvdnav-$VER_LIBDVDNAV.tar.bz2"
 tar -xvf libdvdnav-$VER_LIBDVDNAV.tar.bz2 2>/dev/null >/dev/null
