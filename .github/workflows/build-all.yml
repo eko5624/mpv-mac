@@ -14,7 +14,7 @@ on:
         - x86_64
         - arm64
       os:
-        description: "Only macos-14 support aarch64"
+        description: "Only macos-14 support arm64"
         required: false
         default: "macos-13"
         type: choice
