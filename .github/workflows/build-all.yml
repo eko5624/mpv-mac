@@ -4,24 +4,31 @@ on:
   #  - cron: '10 0 * * MON'
     
   workflow_dispatch:
+    inputs:   
+      arch:
+        description: "Build target"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
+      os:
+        description: "Only macos-14 support arm64"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
 
 jobs:
   aribb24:
     needs: [libpng]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:    
     - name: Checkout
       uses: actions/checkout@main
@@ -29,8 +36,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -45,7 +52,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: aribb24*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -53,25 +60,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: aribb24.tar.xz
 
   brotli:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -79,8 +76,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -93,7 +90,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: brotli*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -101,25 +98,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: brotli.tar.xz
 
   bzip2:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -127,8 +114,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -141,7 +128,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: bzip2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -149,25 +136,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: bzip2.tar.xz
 
   cjson:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -175,8 +152,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -189,7 +166,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: cjson*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -197,25 +174,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: cjson.tar.xz
 
   dav1d:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -223,8 +190,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -237,7 +204,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: dav1d*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -245,25 +212,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: dav1d.tar.xz
 
   davs2:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -271,8 +228,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -285,7 +242,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: davs2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -293,25 +250,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: davs2.tar.xz
 
   expat:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -319,8 +266,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -333,7 +280,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: expat*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -341,26 +288,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: expat.tar.xz
 
   ffmpeg:
     needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg, zvbi]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -368,8 +305,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -468,7 +405,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: ffmpeg*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -476,26 +413,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: ffmpeg.tar.xz
 
   flac:
     needs: [libogg]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -503,8 +430,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -519,7 +446,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: flac*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -527,26 +454,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: flac.tar.xz
 
   fontconfig:
     needs: [expat, freetype2]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -554,8 +471,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -573,7 +490,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: fontconfig*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -581,26 +498,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: fontconfig.tar.xz
         
   freetype2:
     needs: [bzip2, libpng]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -608,8 +515,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -625,7 +532,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: freetype2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -633,25 +540,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: freetype2.tar.xz
 
   frei0r:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -659,8 +556,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -673,7 +570,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: frei0r*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -681,25 +578,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: frei0r.tar.xz
 
   fribidi:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -707,8 +594,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -721,7 +608,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: fribidi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -729,25 +616,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: fribidi.tar.xz
 
   giflib:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -755,8 +632,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -769,7 +646,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: giflib*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -777,26 +654,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: giflib.tar.xz
 
   harfbuzz:
     needs: [freetype2]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -804,8 +671,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -822,7 +689,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: harfbuzz*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -830,25 +697,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: harfbuzz.tar.xz
 
   highway:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -856,8 +713,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -870,7 +727,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: highway*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -878,25 +735,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: highway.tar.xz
 
   lame:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -904,8 +751,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -918,7 +765,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: lame*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -926,26 +773,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: lame.tar.xz
 
   lcms2:
     needs: [libjpeg-turbo, libtiff]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -953,8 +790,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -973,7 +810,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: lcms2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -981,26 +818,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: lcms2.tar.xz
 
   libarchive:
     needs: [bzip2, expat, libb2, lz4, xz, zstd]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1008,8 +835,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1029,7 +856,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libarchive*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1037,26 +864,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libarchive.tar.xz
 
   libaribcaption:
     needs: [fontconfig]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1064,8 +881,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1084,7 +901,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libaribcaption*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1092,26 +909,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libaribcaption.tar.xz
 
   libass:
     needs: [freetype2, fribidi, harfbuzz, libunibreak]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1119,8 +926,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1139,7 +946,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libass*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1147,25 +954,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libass.tar.xz
 
   libb2:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1173,8 +970,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1187,7 +984,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libb2*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1195,26 +992,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libb2.tar.xz
   
   libbluray:
     needs: [fontconfig]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1222,8 +1009,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1242,7 +1029,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libbluray*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1250,26 +1037,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libbluray.tar.xz
 
   libbs2b:
     needs: [libsndfile]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1277,8 +1054,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1299,7 +1076,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libbs2b*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1307,25 +1084,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libbs2b.tar.xz
 
   libcaca:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1333,8 +1100,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1347,7 +1114,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libcaca*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1355,25 +1122,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libcaca.tar.xz
 
   libdovi:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1381,8 +1138,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1395,7 +1152,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libdovi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1403,25 +1160,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libdovi.tar.xz
 
   libdvdcss:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1429,8 +1176,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1443,7 +1190,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libdvdcss*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1451,26 +1198,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libdvdcss.tar.xz
 
   libdvdread:
     needs: [libdvdcss]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1478,8 +1215,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1494,7 +1231,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libdvdread*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1502,26 +1239,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libdvdread.tar.xz
 
   libdvdnav:
     needs: [libdvdread]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1529,8 +1256,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1546,7 +1273,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libdvdnav*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1554,25 +1281,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libdvdnav.tar.xz
 
   libjpeg-turbo:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1580,8 +1297,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1594,7 +1311,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libjpeg-turbo*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1602,26 +1319,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libjpeg-turbo.tar.xz
 
   libjxl:
     needs: [brotli, giflib, highway, libjpeg-turbo, libpng, lcms2]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1629,8 +1336,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1654,7 +1361,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libjxl*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1662,25 +1369,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libjxl.tar.xz
 
   libmodplug:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1688,8 +1385,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1702,7 +1399,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libmodplug*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1710,25 +1407,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libmodplug.tar.xz
 
   libmysofa:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1736,8 +1423,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1750,7 +1437,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libmysofa*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1758,25 +1445,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libmysofa.tar.xz
 
   libogg:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1784,8 +1461,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1798,7 +1475,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libogg*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1806,26 +1483,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libogg.tar.xz
 
   libplacebo:
     needs: [lcms2, shaderc, vulkan]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1833,8 +1500,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1857,7 +1524,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libplacebo*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1865,25 +1532,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libplacebo.tar.xz
 
   libpng:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1891,8 +1548,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1905,7 +1562,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libpng*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1913,26 +1570,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libpng.tar.xz
 
   librist:
     needs: [cjson, mbedtls]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1940,8 +1587,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1957,7 +1604,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: librist*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -1965,25 +1612,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: librist.tar.xz
 
   libsamplerate:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -1991,8 +1628,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2005,7 +1642,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libsamplerate*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2013,25 +1650,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libsamplerate.tar.xz
 
   libsdl:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2039,8 +1666,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2053,7 +1680,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libsdl*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2061,26 +1688,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libsdl.tar.xz
 
   libsndfile:
     needs: [flac, lame, libogg, libvorbis, mpg123, opus]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2088,8 +1705,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2109,7 +1726,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libsndfile*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2117,25 +1734,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libsndfile.tar.xz
 
   libssh:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2143,8 +1750,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2157,7 +1764,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libssh*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2165,26 +1772,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libssh.tar.xz
 
   libtheora:
     needs: [libogg, libvorbis]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2192,8 +1789,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2209,7 +1806,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libtheora*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2217,26 +1814,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libtheora.tar.xz
 
   libtiff:
     needs: [libjpeg-turbo, xz, zstd]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2244,8 +1831,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2263,7 +1850,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libtiff*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2271,25 +1858,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libtiff.tar.xz
 
   libunibreak:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2297,8 +1874,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2311,7 +1888,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libunibreak*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2319,26 +1896,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libunibreak.tar.xz
 
   libvorbis:
     needs: [libogg]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2346,8 +1913,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2362,7 +1929,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libvorbis*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2370,25 +1937,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libvorbis.tar.xz
 
   libvpx:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2396,8 +1953,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2410,7 +1967,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libvpx*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2418,26 +1975,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libvpx.tar.xz
 
   libwebp:
     needs: [giflib, libjpeg-turbo, libpng, libtiff]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2445,8 +1992,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2467,7 +2014,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libwebp*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2475,26 +2022,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libwebp.tar.xz
 
   libX11:
     needs: [util-macros, xtrans, libxcb, xorgproto]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2502,8 +2039,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2524,7 +2061,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libX11*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2532,26 +2069,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libX11.tar.xz
 
   libXau:
     needs: [util-macros, xorgproto]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2559,8 +2086,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2576,7 +2103,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libXau*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2584,26 +2111,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libXau.tar.xz
 
   libxcb:
     needs: [libXau, libXdmcp, xcb-proto]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2611,8 +2128,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2631,7 +2148,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libxcb*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2639,26 +2156,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libxcb.tar.xz
 
   libXdmcp:
     needs: [xorgproto]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2666,8 +2173,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2683,7 +2190,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: libXdmcp*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2691,25 +2198,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: libXdmcp.tar.xz
 
   luajit:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2717,8 +2214,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2731,7 +2228,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: luajit*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2739,25 +2236,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: luajit.tar.xz
 
   lz4:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2765,8 +2252,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2779,7 +2266,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: lz4*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2787,25 +2274,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: lz4.tar.xz
 
   mbedtls:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2813,8 +2290,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2827,7 +2304,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: mbedtls*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2835,25 +2312,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: mbedtls.tar.xz
 
   molten-vk:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2861,8 +2328,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2875,7 +2342,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: molten-vk*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2883,25 +2350,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: molten-vk.tar.xz
         
   mpg123:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2909,8 +2366,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2923,7 +2380,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: mpg123*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -2931,26 +2388,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: mpg123.tar.xz
 
   mpv:
     needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -2958,8 +2405,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3082,20 +2529,10 @@ jobs:
         files: All*.zip
 
   mujs:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3103,8 +2540,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3117,7 +2554,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: mujs*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3125,25 +2562,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: mujs.tar.xz
 
   opencore:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3151,8 +2578,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3165,7 +2592,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: opencore*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3173,25 +2600,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: opencore.tar.xz
 
   opus:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3199,8 +2616,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3213,7 +2630,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: opus*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3221,26 +2638,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: opus.tar.xz
 
   rubberband:
     needs: [libsamplerate, libsndfile]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3248,8 +2655,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3271,7 +2678,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: rubberband*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3279,25 +2686,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: rubberband.tar.xz
 
   shaderc:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3305,8 +2702,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3319,7 +2716,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: shaderc*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3327,25 +2724,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: shaderc.tar.xz
 
   snappy:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3353,8 +2740,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3367,7 +2754,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: snappy*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3375,25 +2762,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: snappy.tar.xz
 
   soxr:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3401,8 +2778,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3415,7 +2792,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: soxr*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3423,26 +2800,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: soxr.tar.xz
 
   speex:
     needs: [libogg]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3450,8 +2817,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3466,7 +2833,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: speex*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3474,25 +2841,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: speex.tar.xz
 
   srt:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3500,8 +2857,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3514,7 +2871,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: srt*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3522,25 +2879,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: srt.tar.xz
 
   svt-av1:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3548,8 +2895,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3562,7 +2909,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: svt-av1*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3570,25 +2917,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: svt-av1.tar.xz
 
   uavs3d:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3596,8 +2933,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3610,7 +2947,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: uavs3d*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3618,25 +2955,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: uavs3d.tar.xz
 
   uchardet:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3644,8 +2971,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3658,7 +2985,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: uchardet*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3666,25 +2993,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: uchardet.tar.xz
 
   util-macros:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3692,8 +3009,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3706,7 +3023,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: util-macros*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3714,25 +3031,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: util-macros.tar.xz
 
   vulkan:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3740,8 +3047,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3754,7 +3061,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: vulkan*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3762,25 +3069,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: vulkan.tar.xz
 
   x264:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3788,8 +3085,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3802,7 +3099,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: x264*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3810,25 +3107,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: x264.tar.xz
 
   x265:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3836,8 +3123,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3850,7 +3137,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: x265*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3858,25 +3145,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: x265.tar.xz
 
   xcb-proto:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3884,8 +3161,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3898,7 +3175,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: xcb-proto*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3906,26 +3183,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: xcb-proto.tar.xz
 
   xorgproto:
     needs: [util-macros]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3933,8 +3200,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3949,7 +3216,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: xorgproto*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -3957,26 +3224,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: xorgproto.tar.xz
 
   xtrans:
     needs: [util-macros, xorgproto]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -3984,8 +3241,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4001,7 +3258,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: xtrans*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4009,25 +3266,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: xtrans.tar.xz
 
   xvid:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -4035,8 +3282,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4049,7 +3296,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: xvid*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4057,25 +3304,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: xvid.tar.xz
 
   xz:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -4083,8 +3320,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4097,7 +3334,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: xz*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4105,25 +3342,15 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: xz.tar.xz
 
   zimg:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -4131,8 +3358,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4145,7 +3372,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: zimg*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4153,26 +3380,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: zimg.tar.xz
 
   zstd:
     needs: [lz4, xz]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -4180,8 +3397,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4197,7 +3414,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: zstd*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4205,26 +3422,16 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: zstd.tar.xz
 
   zvbi:
     needs: [libpng]
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:   
     - name: Checkout
       uses: actions/checkout@main
@@ -4232,8 +3439,8 @@ jobs:
       uses: actions/cache/restore@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-${{ matrix.arch }}-
+        key: tools-${{ inputs.arch }}-${{ github.run_id }}
+        restore-keys: tools-${{ inputs.arch }}-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -4248,7 +3455,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ matrix.arch }}
+        tag: dev-${{ inputs.arch }}
         assets: zvbi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -4256,6 +3463,6 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev-${{ matrix.arch }}
-        name: dev-${{ matrix.arch }}
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: zvbi.tar.xz
