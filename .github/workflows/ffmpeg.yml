@@ -3,102 +3,119 @@ on:
   #schedule:
   #  - cron: '10 0 * * MON'
     
-  workflow_dispatch:   
+  workflow_dispatch:
+    inputs:   
+      arch:
+        description: "Build target"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
+      os:
+        description: "Only macos-14 support aarch64"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
 
 jobs:
   ffmpeg:
-    runs-on: macos-13
-    steps:    
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ github.run_id }}
-        restore-keys: tools-
+        key: toolchain-${{ inputs.arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/aribb24.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/brotli.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/cjson.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/dav1d.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/davs2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/flac.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fontconfig.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/freetype2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/frei0r.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/fribidi.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/giflib.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/harfbuzz.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/highway.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lame.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lcms2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libaribcaption.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libass.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbluray.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libbs2b.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libcaca.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdovi.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdcss.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdread.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libdvdnav.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjpeg-turbo.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libjxl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmodplug.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libmysofa.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libplacebo.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/librist.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsamplerate.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsdl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libsndfile.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libssh.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtheora.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libtiff.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libunibreak.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvorbis.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libvpx.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libwebp.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/lz4.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mbedtls.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/mpg123.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opencore.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/openssl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/opus.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/rubberband.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libogg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/shaderc.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/snappy.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/soxr.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/speex.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/srt.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/svt-av1.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/uavs3d.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/vulkan.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x264.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/x265.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xvid.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xz.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zimg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zstd.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/zvbi.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXau.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libXdmcp.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/libxcb.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/util-macros.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xorgproto.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xtrans.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev/xcb-proto.tar.xz     
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libaribcaption.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libass.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbluray.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbs2b.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libcaca.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdovi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjxl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmodplug.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmysofa.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/rubberband.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/shaderc.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/snappy.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/soxr.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/speex.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/srt.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/svt-av1.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uavs3d.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x264.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x265.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xvid.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        brew uninstall --ignore-dependencies freetype
         chmod +x ./scripts/ffmpeg.sh
         ./scripts/ffmpeg.sh
     - name: Collecting logs
@@ -117,7 +134,7 @@ jobs:
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev
+        tag: dev-${{ inputs.arch }}
         assets: ffmpeg*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
@@ -125,8 +142,6 @@ jobs:
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: dev
-        name: dev
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
         files: ffmpeg.tar.xz
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
