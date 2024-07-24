@@ -49,8 +49,8 @@ cd $DIR
 mkdir mpv
 git clone https://github.com/eko5624/mpv-config.git
 mv mpv-config/macos_config mpv
-mv $PACKAGES/mpv/build/mpv.app mpv
-mv $PACKAGES/mpv/build/SHORT_SHA mpv
+cp -r $PACKAGES/mpv/build/mpv.app mpv
+cp $PACKAGES/mpv/build/SHORT_SHA mpv
 zip -r mpv-$ARCHS-git-$short_sha.zip mpv/*
 
 # Zip libmpv
@@ -65,7 +65,7 @@ zip -r libmpv-$ARCHS-$short_sha.zip libmpv/*
 
 # Zip ffmpeg
 mkdir ffmpeg
-mv $WORKSPACE/bin/ffmpeg ffmpeg
+cp $WORKSPACE/bin/ffmpeg ffmpeg
 #mv $WORKSPACE/SHORT_SHA ffmpeg
 #ffmpeg_sha=$(cat $WORKSPACE/SHORT_SHA)
 zip -r ffmpeg-$ARCHS-$ffmpeg_sha.zip ffmpeg/*
