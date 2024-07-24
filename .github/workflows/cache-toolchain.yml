@@ -14,7 +14,7 @@ on:
         type: choice
         options:
         - x86_64
-        - aarch64
+        - arm64
 
 jobs:
   build:
@@ -29,22 +29,22 @@ jobs:
       with:
         path: ${{ github.workspace }}/workspace
         key: toolchain-x86_64
-    - name: Cache toolchain-aarch64
-      if: ${{ inputs.toolchain == 'aarch64' }}
+    - name: Cache toolchain-arm64
+      if: ${{ inputs.toolchain == 'arm64' }}
       uses: actions/cache@main
-      id: toolchain-aarch64
+      id: toolchain-arm64
       with:
         path: ${{ github.workspace }}/workspace
-        key: toolchain-aarch64
+        key: toolchain-arm64
     - name: Setup toolchain-x86_64
       if: ${{ inputs.toolchain == 'x86_64' && steps.toolchain-x86_64.outputs.cache-hit != 'true' }} 
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/tools-x86_64-latest.zip
         unzip tools-x86_64-latest.zip
-    - name: Setup toolchain-aarch64
-      if: ${{ inputs.toolchain == 'aarch64' && steps.toolchain-aarch64.outputs.cache-hit != 'true' }} 
+    - name: Setup toolchain-arm64
+      if: ${{ inputs.toolchain == 'arm64' && steps.toolchain-arm64.outputs.cache-hit != 'true' }} 
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/tools-aarch64-latest.zip
-        unzip tools-aarch64-latest.zip
+        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/tools-arm64-latest.zip
+        unzip tools-arm64-latest.zip
 
 

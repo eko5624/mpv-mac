@@ -1,5 +1,5 @@
 
-name: build-tools
+name: build-toolchain
 
 on:
   #schedule:
@@ -19,7 +19,7 @@ jobs:
           - os: "macos-13"
             arch: "x86_64"
           - os: "macos-14"
-            arch: "aarch64"
+            arch: "arm64"
     steps:
     - name: Checkout
       uses: actions/checkout@main
