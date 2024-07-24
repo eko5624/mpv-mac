@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  mpg123:
+  libsndfile:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +42,21 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/mpg123.sh
-        ./scripts/mpg123.sh
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libsndfile.sh
+        ./scripts/libsndfile.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: mpg123*.xz
+        assets: libsndfile*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,4 +65,97 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: mpg123.tar.xz
+        files: libsndfile.tar.xz  
+
+  libbs2b:
+    needs: [libsndfile]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: toolchain-${{ inputs.arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libbs2b.sh
+        ./scripts/libbs2b.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: libbs2b*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: libbs2b.tar.xz
+
+  rubberband:
+    needs: [libsndfile]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: toolchain-${{ inputs.arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/rubberband.sh
+        ./scripts/rubberband.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: rubberband*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: rubberband.tar.xz
