@@ -77,6 +77,11 @@ cd FFmpeg
   --disable-htmlpages
 make install
 
+# get latest commit sha
+short_sha=$(git rev-parse --short HEAD)
+echo $short_sha > SHORT_SHA
+cp SHORT_SHA $DIR/opt
+
 mkdir -p $DIR/opt/lib/pkgconfig
 find . -type f \( -name "*.pc" ! -name "*uninstalled.pc" \) -print0 | xargs -0 -I {} cp {} $DIR/opt/lib/pkgconfig
 

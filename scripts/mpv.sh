@@ -45,6 +45,15 @@ for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
 done
 
 cd $DIR
+# Zip mpv.app and mpv config files
+mkdir mpv
+git clone https://github.com/eko5624/mpv-config.git
+mv mpv-config/macos_config mpv
+mv $PACKAGES/mpv/build/mpv.app mpv
+mv $PACKAGES/mpv/build/SHORT_SHA mpv
+zip -r mpv-$ARCHS-git-$short_sha.zip mpv/*
+
+# Zip libmpv
 mkdir -p libmpv/include
 cp $PACKAGES/mpv/build/libmpv.2.dylib libmpv
 cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
@@ -52,5 +61,11 @@ cp $PACKAGES/mpv/libmpv/client.h libmpv/include
 cp $PACKAGES/mpv/libmpv/stream_cb.h libmpv/include
 cp $PACKAGES/mpv/libmpv/render.h libmpv/include
 cp $PACKAGES/mpv/libmpv/render_gl.h libmpv/include
-zip libmpv.zip libmpv/*
+zip -r libmpv-$ARCHS-$short_sha.zip libmpv/*
 
+# Zip ffmpeg
+mkdir ffmpeg
+mv $WORKSPACE/bin/ffmpeg ffmpeg
+mv $WORKSPACE/SHORT_SHA ffmpeg
+ffmpeg_sha=$(cat $WORKSPACE/SHORT_SHA)
+zip -r ffmpeg-$ARCHS-$ffmpeg_sha.zip ffmpeg/*

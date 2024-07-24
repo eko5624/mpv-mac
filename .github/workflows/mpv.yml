@@ -127,16 +127,7 @@ jobs:
         chmod +x ./scripts/mpv.sh
         ./scripts/mpv.sh
     - name: Get current timestamp
-      run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV        
-    - name: Zip mpv.app
-      run: |
-        mkdir All-in-One
-        curl -OL https://github.com/eko5624/mpv-config/archive/refs/heads/main.zip
-        unzip main.zip
-        mv mpv-config-main/macos_config All-in-One
-        mv packages/mpv/build/mpv.app All-in-One
-        mv packages/mpv/build/SHORT_SHA All-in-One
-        zip -r -y All-in-One-$ARCHS.zip All-in-One/*
+      run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV
     - name: Get mpv short sha
       run: |
         echo "sha=$(cat packages/mpv/build/SHORT_SHA)" >> $GITHUB_ENV
@@ -157,5 +148,5 @@ jobs:
         name: ${{ env.date }}
         body: ${{ steps.note.outputs.note }}
         files: |
-          All*.zip
-          libmpv.zip    
+          mpv*.zip
+          libmpv*.zip
