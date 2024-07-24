@@ -39,12 +39,12 @@ jobs:
     - name: Setup toolchain-x86_64
       if: ${{ inputs.toolchain == 'x86_64' && steps.toolchain-x86_64.outputs.cache-hit != 'true' }} 
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/tools-x86_64-latest.zip
-        unzip tools-x86_64-latest.zip
+        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/toolchain-x86_64-latest.zip
+        unzip toolchain-x86_64-latest.zip
     - name: Setup toolchain-arm64
       if: ${{ inputs.toolchain == 'arm64' && steps.toolchain-arm64.outputs.cache-hit != 'true' }} 
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/tools-arm64-latest.zip
-        unzip tools-arm64-latest.zip
+        curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/toolchain-arm64-latest.zip
+        unzip toolchain-arm64-latest.zip
 
 

@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      ARCHS: ${{ matrix.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
       matrix:
         os:
@@ -23,12 +26,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools cache
-      uses: actions/cache/restore@main
+    - name: Loading toolchain-${{ matrix.arch }} cache
+      uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
-        restore-keys: tools-
+        key: toolchain-${{ matrix.arch }}
+        restore-keys: toolchain-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -37,40 +40,30 @@ jobs:
       run: |
         find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
         brew unlink python
-    - name: Build tools
-      env:
-        ARCHS: ${{ matrix.arch }} 
+    - name: Build toolchain 
       run: |
-        chmod +x ./build-tools.sh
-        ./build-tools.sh
+        chmod +x ./build-toolchain.sh
+        ./build-toolchain.sh
     - name: Get current timestamp
       run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV 
-    - name: Zip tools 
+    - name: Zip toolchain-${{ matrix.arch }} 
       continue-on-error: true
       run: |
-        zip -r -y tools-${{ matrix.arch }}-${{ env.date }}.zip workspace/*
-        cp tools-${{ matrix.arch }}-${{ env.date }}.zip tools-${{ matrix.arch }}-latest.zip
+        zip -r -y toolchain-${{ matrix.arch }}-${{ env.date }}.zip workspace/*
+        cp toolchain-${{ matrix.arch }}-${{ env.date }}.zip toolchain-${{ matrix.arch }}-latest.zip
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: toolchain
-        assets: tools-${{ matrix.arch }}-latest.zip
+        assets: toolchain-${{ matrix.arch }}-latest.zip
         fail-if-no-assets: false
         fail-if-no-release: false
-    - name: Upload tools
+    - name: Upload toolchain
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
         tag_name: toolchain
         name: toolchain
-        files: tools*.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Saving tools cache
-      uses: actions/cache/save@main
-      if: always()
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: tools-${{ matrix.arch }}-${{ github.run_id }}
+        files: toolchain*.zip
 
