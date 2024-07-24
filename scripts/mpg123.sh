@@ -6,7 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 # MP3 player for Linux and UNIX
 if [ "$ARCHS" == "x86_64" ]; then
-  ARCH="x86_64"
+  ARCH="x86-64"
 elif [ "$ARCHS" == "arm64" ]; then
   ARCH="aarch64"
 fi
