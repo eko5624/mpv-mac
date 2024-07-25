@@ -11,8 +11,9 @@ cd $PACKAGES
 git clone https://github.com/vapoursynth/vapoursynth.git --branch R$VER_VAPOURSYNTH
 cd vapoursynth
 ./autogen.sh
+sed sed -i "" 's|pkglibdir = $(libdir)|pkglibdir = $(exec_prefix)|g' Makefile.in
 ./configure \
-	--prefix="$DIR/opt" \
+  --prefix="$DIR/opt" \
   --disable-silent-rules \
   --disable-dependency-tracking \
   --with-cython="$WORKSPACE/bin/cython" \
