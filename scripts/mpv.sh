@@ -44,6 +44,9 @@ for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
   sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
 done
 
+# Codesign mpv.app
+codesign --deep -fs - build/mpv.app
+
 cd $DIR
 # Zip mpv.app and mpv config files
 mkdir mpv
