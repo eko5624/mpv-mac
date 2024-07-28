@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  vapoursynth:
+  luajit:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,16 +42,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/vapoursynth.sh
-        ./scripts/vapoursynth.sh
+        chmod +x ./scripts/luajit.sh
+        ./scripts/luajit.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: vapoursynth*.xz
+        assets: luajit*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -60,10 +58,10 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: vapoursynth.tar.xz  
+        files: luajit.tar.xz 
 
   mpv:
-    needs: [vapoursynth]
+    needs: [luajit]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
