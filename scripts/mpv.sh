@@ -12,6 +12,8 @@ cd mpv
 # issue: slow OSC loading with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
 #git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
+curl -OL https://patch-diff.githubusercontent.com/raw/mpv-player/mpv/pull/14604.patch
+patch -p1 -i 14604.patch
 meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
