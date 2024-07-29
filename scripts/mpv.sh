@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+rm $WORKSPACE/lib/libvapoursynth*.dylib
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 
@@ -12,8 +13,6 @@ cd mpv
 # issue: slow OSC loading with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
 #git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
-curl -OL https://patch-diff.githubusercontent.com/raw/mpv-player/mpv/pull/14604.patch
-patch -p1 -i 14604.patch
 meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
@@ -34,17 +33,17 @@ echo $short_sha > build/SHORT_SHA
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
 #cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
-cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
+#cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
 cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
 sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
 
-for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
-  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
-  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
-done
+#for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
+#  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
+#  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
+#done
 
 #setting rpath
 rpaths=($(otool -l build/mpv.app/Contents/MacOS/mpv | grep -A2 LC_RPATH | grep path | awk '{ print $2 }'))
