@@ -46,6 +46,13 @@ for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
   sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
 done
 
+#setting rpath
+rpaths=($(otool -l build/mpv.app/Contents/MacOS/mpv | grep -A2 LC_RPATH | grep path | awk '{ print $2 }'))
+for f in "${rpaths[@]}"; do
+  sudo install_name_tool -delete_rpath $f build/mpv.app/Contents/MacOS/mpv
+done
+sudo install_name_tool -add_rpath @executable_path/lib build/mpv.app/Contents/MacOS/mpv
+
 # Codesign mpv.app
 codesign --deep -fs - build/mpv.app
 
