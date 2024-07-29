@@ -9,7 +9,7 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -j $MJOBS amalg BUILDMODE=static CFLAGS+=" -fPIC -DUNICODE" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT" PREFIX="$DIR/opt"
-make install PREFIX="$DIR/opt"
+make CFLAGS+=" -fPIC -DUNICODE" XCFLAGS="-DLUAJIT_ENABLE_LUA52COMPAT" install PREFIX="$DIR/opt"
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
