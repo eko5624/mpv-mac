@@ -32,7 +32,7 @@ echo $short_sha > build/SHORT_SHA
 #bundle mpv
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
-#cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
+cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
 #cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
@@ -40,10 +40,10 @@ cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
 cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
 sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
 
-#for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
-#  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
-#  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
-#done
+for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
+  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
+  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
+done
 
 #setting rpath
 rpaths=($(otool -l build/mpv.app/Contents/MacOS/mpv | grep -A2 LC_RPATH | grep path | awk '{ print $2 }'))
@@ -67,7 +67,7 @@ zip -r mpv-$ARCHS-git-$short_sha.zip mpv/*
 # Zip libmpv
 mkdir -p libmpv/include
 cp $PACKAGES/mpv/build/libmpv.2.dylib libmpv
-#cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
+cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
 cp $PACKAGES/mpv/libmpv/client.h libmpv/include
 cp $PACKAGES/mpv/libmpv/stream_cb.h libmpv/include
 cp $PACKAGES/mpv/libmpv/render.h libmpv/include
