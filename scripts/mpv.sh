@@ -39,9 +39,10 @@ cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
 cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
 sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
 
-for f in build/mpv.app/Contents/MacOS/lib/*.dylib; do
-  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "$f"
-  sudo install_name_tool -change "$DIR/opt/lib/$(basename $f)" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
+mpv_deps=($(otool -L $PACKAGES/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }'))
+for f in "${mpv_deps[@]}"; do
+  sudo install_name_tool -id "@executable_path/lib/$(basename $f)" "build/mpv.app/Contents/MacOS/lib/$(basename $f)"
+  sudo install_name_tool -change "$f" "@executable_path/lib/$(basename $f)" build/mpv.app/Contents/MacOS/mpv
 done
 
 #setting rpath
