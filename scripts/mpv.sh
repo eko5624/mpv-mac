@@ -67,7 +67,7 @@ zip -r mpv-$ARCHS-git-$short_sha.zip mpv/*
 # Zip libmpv
 mkdir -p libmpv/include
 cp $PACKAGES/mpv/build/libmpv.2.dylib libmpv
-cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
+#cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
 cp $PACKAGES/mpv/libmpv/client.h libmpv/include
 cp $PACKAGES/mpv/libmpv/stream_cb.h libmpv/include
 cp $PACKAGES/mpv/libmpv/render.h libmpv/include
