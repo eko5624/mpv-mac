@@ -6,7 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 # Video processing framework with simplicity in mind
 # depends on: zimg
-pip install -U cython wheel
+PKG_CONFIG="pkg-config"
 cd $PACKAGES
 git clone https://github.com/vapoursynth/vapoursynth.git --branch R$VER_VAPOURSYNTH
 cd vapoursynth
