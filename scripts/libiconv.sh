@@ -22,7 +22,7 @@ make -j $MJOBS
 make install
 
 mkdir -p $DIR/opt/lib/pkgconfig
-sed -i "" 's|/Users/runner/work/mpv-mac/mpv-mac/workspace|\${DIR}/opt|g' $DIR/iconv.pc
+sed -i "" 's|@prefix@|'"${DIR}"'/opt|g' $DIR/iconv.pc
 sed -i "" 's|@VERSION@|'"${VER_LIBICONV}"'|g' $DIR/iconv.pc
 cp $DIR/iconv.pc $DIR/opt/lib/pkgconfig
 cat $DIR/opt/lib/pkgconfig/iconv.pc
