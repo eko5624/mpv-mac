@@ -1,5 +1,7 @@
-libdir=/Users/runner/work/mpv-mac/mpv-mac/workspace/lib
-includedir=/Users/runner/work/mpv-mac/mpv-mac/workspace/include
+prefix=@prefix@
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: iconv
 Description: libiconv
