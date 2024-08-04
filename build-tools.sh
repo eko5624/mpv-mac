@@ -247,8 +247,9 @@ if build "libiconv"; then
     --with-pic
   make -j $MJOBS
   make install
-  #sed -i "" 's|@PREFIX@|${WORKSPACE}|g' $DIR/iconv.pc
   cp $DIR/iconv.pc ${WORKSPACE}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' ${WORKSPACE}/lib/pkgconfig/iconv.pc
+  sed -i "" 's|@VERSION@|'"${VER_LIBICONV}"'|g' ${WORKSPACE}/lib/pkgconfig/iconv.pc
   build_done "libiconv"
 fi
 
@@ -297,6 +298,8 @@ if build "gettext"; then
   make -j $MJOBS
   make install
   cp $DIR/intl.pc ${WORKSPACE}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' ${WORKSPACE}/lib/pkgconfig/intl.pc
+  sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' ${WORKSPACE}/lib/pkgconfig/intl.pc
   build_done "gettext"
 fi
 
