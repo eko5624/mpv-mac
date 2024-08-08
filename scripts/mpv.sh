@@ -9,9 +9,9 @@ git clone https://github.com/mpv-player/mpv.git
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
-curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/1.patch
-patch -p1 -i 1.patch
-# issue: slow OSC loading with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
+# workaround slow opening with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
+curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
+patch -p1 -i 2.patch
 #git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
