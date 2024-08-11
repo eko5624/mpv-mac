@@ -9,8 +9,9 @@ git clone https://github.com/mpv-player/mpv.git
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
-# issue: slow OSC loading with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
-#git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
+# workaround slow opening video with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
+curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
+patch -p1 -i 2.patch
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
@@ -20,7 +21,7 @@ meson setup build \
   -Dlibmpv=true \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
-  -Dswift-flags="-target $ARCH-apple-macos11.0"
+  -Dswift-flags="${SWIFT_FLAGS}"
 meson compile -C build
 #meson compile -C build macos-bundle
 
@@ -67,8 +68,8 @@ cp $PACKAGES/mpv/libmpv/render_gl.h libmpv/include
 zip -r libmpv-$ARCHS-$short_sha.zip libmpv/*
 
 # Zip ffmpeg
-#mkdir ffmpeg
-#cp $WORKSPACE/bin/ffmpeg ffmpeg
-#mv $WORKSPACE/SHORT_SHA ffmpeg
-#ffmpeg_sha=$(cat $WORKSPACE/SHORT_SHA)
-#zip -r ffmpeg-$ARCHS-$ffmpeg_sha.zip ffmpeg/*
+mkdir ffmpeg
+cp $WORKSPACE/bin/ffmpeg ffmpeg
+mv $WORKSPACE/SHORT_SHA ffmpeg
+ffmpeg_sha=$(cat $WORKSPACE/SHORT_SHA)
+zip -r ffmpeg-$ARCHS-$ffmpeg_sha.zip ffmpeg/*

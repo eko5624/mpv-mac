@@ -22,6 +22,7 @@ jobs:
     - name: Getting latest stable version of deps
       run: |
         rm ver.sh || true
+        find $(brew --repository)/Library/Taps -type f -iname *rb -exec sed -i "" $'s/def install/def install\\\n    ENV["MACOSX_DEPLOYMENT_TARGET"] = "11"\\\n/' {} \;
         brew update
         deps=('gdbm'
               'xz'
@@ -37,6 +38,7 @@ jobs:
               'm4'
               'autoconf'
               'automake'
+              'libiconv'
               'libtool'
               'ncurses'
               'gettext'
@@ -48,7 +50,7 @@ jobs:
               'libxcb'
               'xtrans'
               'libx11'
-              'python@3.11'
+              'python@3.12'
               'cmake'
               'libtiff'
               'lame'
@@ -57,6 +59,7 @@ jobs:
               'opencore-amr'
               'mpg123'
               'mujs'
+              'vapoursynth'
               'xvid')
         for i in "${deps[@]}"; do
           k=$(echo $i | tr '-' '_' | tr '.' '_' | tr '@' '_' | tr '[:lower:]' '[:upper:]')
