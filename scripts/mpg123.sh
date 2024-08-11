@@ -5,7 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 if [ "$ARCHS" == "x86_64" ]; then
-  CPU_ARCH="x86_64"
+  CPU_ARCH="x86-64"
 elif [ "$ARCHS" == "arm64" ]; then
   CPU_ARCH="aarch64"
 fi
