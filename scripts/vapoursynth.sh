@@ -35,6 +35,10 @@ find $(brew --repository)/Library/Taps -type f -iname *rb -exec sed -i "" $'s/de
 brew install vapoursynth
 rm `brew --prefix vapoursynth`/lib/pkgconfig/*.pc
 cp vapoursynth*.pc `brew --prefix vapoursynth`/lib/pkgconfig
+sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' `brew --prefix vapoursynth`/lib/pkgconfig/vapoursynth-script.pc
+sed -i "" 's|@VERSION@|'"${VER_VAPOURSYNTH}"'|g' `brew --prefix vapoursynth`/lib/pkgconfig/vapoursynth-script.pc
+sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' `brew --prefix vapoursynth`/lib/pkgconfig/vapoursynth-script.pc
+sed -i "" 's|@VERSION@|'"${VER_VAPOURSYNTH}"'|g' `brew --prefix vapoursynth`/lib/pkgconfig/lib/pkgconfig/vapoursynth.pc
 
 cd $DIR
 tar -zcvf vapoursynth.tar.xz -C `brew --prefix vapoursynth` .

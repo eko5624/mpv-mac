@@ -4,6 +4,12 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+if [ "$ARCHS" == "x86_64" ]; then
+  CPU_ARCH="x86_64"
+elif [ "$ARCHS" == "arm64" ]; then
+  CPU_ARCH="aarch64"
+fi
+
 # MP3 player for Linux and UNIX
 cd $PACKAGES
 curl -OL "https://downloads.sourceforge.net/project/mpg123/mpg123/$VER_MPG123/mpg123-$VER_MPG123.tar.bz2"
@@ -15,7 +21,7 @@ cd mpg123-$VER_MPG123
   --disable-dependency-tracking \
   --enable-static \
   --with-default-audio=coreaudio \
-  --with-cpu=$ARCH \
+  --with-cpu=$CPU_ARCH \
   --disable-shared \
   --enable-static
 make -j $MJOBS
