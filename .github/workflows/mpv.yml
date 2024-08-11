@@ -190,3 +190,4 @@ jobs:
         files: |
           mpv*.zip
           libmpv*.zip
+          ffmpeg*.zip
