@@ -10,9 +10,10 @@ git clone https://github.com/mpv-player/mpv.git
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
 # workaround slow opening with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
-curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
-patch -p1 -i 2.patch
-#git reset --hard cb75ecf19f28cfa00ecd348da13bca2550e85963
+#curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
+#patch -p1 -i 2.patch
+sed -i "" 's|.cocoa_cb_10bit_context = true,|.cocoa_cb_10bit_context = true|g' osdep/mac/app_bridge.m
+sed -i "" '|.cocoa_cb_output_csp = MAC_CSP_AUTO,|d' osdep/mac/app_bridge.m
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
@@ -33,8 +34,7 @@ echo $short_sha > build/SHORT_SHA
 #bundle mpv
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
-#cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
-#cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
+cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
@@ -69,6 +69,7 @@ zip -r mpv-$ARCHS-git-$short_sha.zip mpv/*
 # Zip libmpv
 mkdir -p libmpv/include
 cp $PACKAGES/mpv/build/libmpv.2.dylib libmpv
+cp $PACKAGES/mpv/build/mpv.app/Contents/MacOS/lib/*.dylib libmpv
 cp $PACKAGES/mpv/libmpv/client.h libmpv/include
 cp $PACKAGES/mpv/libmpv/stream_cb.h libmpv/include
 cp $PACKAGES/mpv/libmpv/render.h libmpv/include
