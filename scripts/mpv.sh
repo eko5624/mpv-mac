@@ -12,8 +12,8 @@ cd mpv
 # workaround slow opening with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
 #curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
 #patch -p1 -i 2.patch
-sed -i "" 's|.cocoa_cb_10bit_context = true,|.cocoa_cb_10bit_context = true|g' osdep/mac/app_bridge.m
-sed -i "" '/.cocoa_cb_output_csp = MAC_CSP_AUTO,/d' osdep/mac/app_bridge.m
+sed -i "" '/wantsExtendedDynamicRangeContent = true/d' video/out/mac/gl_layer.swift
+sed -i "" '/wantsExtendedDynamicRangeOpenGLSurface = true/d' video/out/mac/view.swift
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
