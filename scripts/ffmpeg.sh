@@ -8,10 +8,10 @@ set -a; source build.env; source ver.sh; set +a
 # depends on: libxcb[xcb-proto libXau(xorgproto(util-macros)), libXdmcp(xorgproto)]
 cp $DIR/intl.pc $WORKSPACE/lib/pkgconfig
 cd $PACKAGES
-#git clone https://github.com/FFmpeg/FFmpeg.git
-#cd FFmpeg
-git clone https://github.com/librempeg/librempeg.git
-cd librempeg
+git clone https://github.com/FFmpeg/FFmpeg.git
+cd FFmpeg
+curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/1.patch
+patch -p1 -i 1.patch
 ./configure \
   --prefix="$DIR/opt" \
   --pkg-config-flags=--static \
