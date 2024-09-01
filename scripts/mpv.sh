@@ -33,7 +33,7 @@ echo $short_sha > build/SHORT_SHA
 cp -r TOOLS/osxbundle/mpv.app build
 cp build/mpv build/mpv.app/Contents/MacOS
 cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
-cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
+#cp $WORKSPACE/lib/libvapoursynth-script.0.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
