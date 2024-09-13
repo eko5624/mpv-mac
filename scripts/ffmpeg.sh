@@ -10,8 +10,15 @@ cp $DIR/intl.pc $WORKSPACE/lib/pkgconfig
 cd $PACKAGES
 git clone https://github.com/FFmpeg/FFmpeg.git
 cd FFmpeg
+
+# fix checks for small buffers
 curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/1.patch
 patch -p1 -i 1.patch
+
+# --enable-libvvdec
+curl -OL https://raw.githubusercontent.com/wiki/fraunhoferhhi/vvdec/data/patch/v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
+patch -p1 -i v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
+
 ./configure \
   --prefix="$DIR/opt" \
   --pkg-config-flags=--static \
@@ -63,6 +70,7 @@ patch -p1 -i 1.patch
   --enable-libuavs3d \
   --enable-libvorbis \
   --enable-libvpx \
+  --enable-libvvdec \
   --enable-libwebp \
   --enable-libx264 \
   --enable-libx265 \
