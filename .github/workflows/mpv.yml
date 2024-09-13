@@ -101,6 +101,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/svt-av1.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uavs3d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vvdec.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x264.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x265.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xvid.tar.xz
