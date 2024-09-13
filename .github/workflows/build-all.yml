@@ -286,7 +286,7 @@ jobs:
         files: expat.tar.xz
 
   ffmpeg:
-    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, x264, x265, xvid, zimg, zvbi]
+    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, vvdec, x264, x265, xvid, zimg, zvbi]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -364,6 +364,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/svt-av1.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uavs3d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vvdec.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x264.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x265.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xvid.tar.xz
@@ -2415,6 +2416,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/svt-av1.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uavs3d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vvdec.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x264.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/x265.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xvid.tar.xz
@@ -2995,6 +2997,43 @@ jobs:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: vulkan.tar.xz
+
+  vvdec:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-${{ inputs.arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: toolchain-${{ inputs.arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/vvdec.sh
+        ./scripts/vvdec.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: vvdec*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: vvdec.tar.xz
 
   x264:
     runs-on: ${{ inputs.os }}
