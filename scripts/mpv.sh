@@ -9,9 +9,6 @@ git clone https://github.com/mpv-player/mpv.git
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
-# workaround slow opening video with vo=libmpv(https://github.com/mpv-player/mpv/issues/14465)
-curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/mpv/pull/2.patch
-patch -p1 -i 2.patch
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
