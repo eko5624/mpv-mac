@@ -1,0 +1,33 @@
+name: reset-commit
+on: 
+  workflow_dispatch:
+    inputs:
+      command:
+        description: 'Input commit id'
+        required: true
+        type: string
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.BOT }}
+    - name: Install git
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install git
+    - name: Set env
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Build
+      run: |
+        git reset --hard ${{ github.event.inputs.command }}
+    - name: release
+      run: |
+        git commit -am "Automate" || echo "nothing updated"
+        git push -f

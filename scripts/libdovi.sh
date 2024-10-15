@@ -9,17 +9,11 @@ if [ ! -d "$WORKSPACE/rust/.cargo" ]; then
   export RUSTUP_HOME="${WORKSPACE}"/rust/.rustup
   export CARGO_HOME="${WORKSPACE}"/rust/.cargo
   curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
-  if [ "$ARCHS" == "x86_64" ]; then
-    curl -OL https://github.com/lu-zero/cargo-c/releases/download/v0.9.31/cargo-c-macos.zip
-  elif [ "$ARCHS" == "arm64" ]; then
-    curl -OL https://github.com/lu-zero/cargo-c/releases/latest/download/cargo-c-macos.zip
-  fi
-  unzip cargo-c-macos.zip -d "$WORKSPACE/rust/.rustup/toolchains/stable-$ARCH-apple-darwin/bin"
+  $CARGO_HOME/bin/cargo install cargo-c
 fi
 if [ ! -d "$WORKSPACE/rust/.rustup" ]; then
   $WORKSPACE/rust/.cargo/bin/rustup default stable-$ARCH-apple-darwin
 fi
-
 PATH="$WORKSPACE/rust/.rustup/toolchains/stable-$ARCH-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git

@@ -6,7 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 # Cryptographic & SSL/TLS library
 cd $PACKAGES
-git clone https://github.com/Mbed-TLS/mbedtls
+git clone https://github.com/Mbed-TLS/mbedtls.git --branch mbedtls-3.6.1
 cd mbedtls
 git submodule update --init --recursive
 # enable pthread mutexes
