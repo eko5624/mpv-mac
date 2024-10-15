@@ -10,9 +10,7 @@ if [ ! -d "$WORKSPACE/rust/.cargo" ]; then
   export CARGO_HOME="${WORKSPACE}"/rust/.cargo
   curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   if [ "$ARCHS" == "x86_64" ]; then
-    rustup toolchain install 1.77.2-x86_64-apple-darwin
-    rustup default 1.77.2-x86_64-apple-darwin
-    curl -OL https://github.com/lu-zero/cargo-c/releases/download/v0.9.31/cargo-c-macos.zip
+    curl -OL https://github.com/lu-zero/cargo-c/releases/latest/download/cargo-c-macos.zip
   elif [ "$ARCHS" == "arm64" ]; then
     curl -OL https://github.com/lu-zero/cargo-c/releases/latest/download/cargo-c-macos.zip
   fi
