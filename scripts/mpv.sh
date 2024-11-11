@@ -6,6 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
+git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 cd mpv
