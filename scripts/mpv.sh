@@ -7,7 +7,9 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
-git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
+curl -OL https://github.com/mpv-player/mpv/pull/15329.patch
+patch -p1 -i 15329.patch
+#git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 
 LDFLAGS+=" -Wl,-no_compact_unwind"
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
