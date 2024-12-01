@@ -1,4 +1,4 @@
-name: lame
+name: libiconv
 on:
   #schedule:
   #  - cron: '10 0 * * MON'
