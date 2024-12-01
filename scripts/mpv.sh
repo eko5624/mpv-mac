@@ -16,6 +16,7 @@ LDFLAGS+=" -Wl,-no_compact_unwind"
 meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
+  --cross-file="$DIR/macos_x86_64.txt" \
   -Db_lto=true \
   -Db_lto_mode=thin \
   -Dlibmpv=true \

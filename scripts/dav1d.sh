@@ -12,6 +12,7 @@ meson setup work \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
+  --cross-file="$DIR/macos_x86_64.txt" \
   --default-library=static \
   -Denable_tests=false
 meson compile -C work
