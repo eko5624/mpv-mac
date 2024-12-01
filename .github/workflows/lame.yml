@@ -1,4 +1,4 @@
-name: libiconv
+name: lame
 on:
   #schedule:
   #  - cron: '10 0 * * MON'
@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  libiconv:
+  lame:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -31,25 +31,25 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Loading toolchain-arm64 cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        key: toolchain-arm64
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/libiconv.sh
-        ./scripts/libiconv.sh
+        chmod +x ./scripts/lame.sh
+        ./scripts/lame.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libiconv*.xz
+        assets: lame*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,4 +58,4 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libiconv.tar.xz
+        files: lame.tar.xz
