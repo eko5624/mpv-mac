@@ -14,7 +14,7 @@ cd lame-$VER_LAME
 # https://sourceforge.net/p/lame/mailman/message/36081038/
 sed -i "" '/lame_init_old/d' include/libmp3lame.sym
 ./configure \
-  --host=x86_64 \
+  --host=x86_64-apple-macos11 \
   --target=x86_64-apple-macos11 \
   --prefix="$DIR/opt" \
   --disable-debug \
