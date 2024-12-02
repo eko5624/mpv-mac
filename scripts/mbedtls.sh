@@ -7,8 +7,9 @@ set -a; source build.env; source ver.sh; set +a
 # Cryptographic & SSL/TLS library
 cd $PACKAGES
 LATEST_TAG=$(curl -s "https://api.github.com/repos/Mbed-TLS/mbedtls/releases/latest" | jq -r .tag_name)
-git clone https://github.com/Mbed-TLS/mbedtls.git --branch $LATEST_TAG
-cd mbedtls
+curl -OL https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/$LATEST_TAG.tar.gz
+tar xzf $LATEST_TAG.tar.gz 2>/dev/null >/dev/null
+cd mbedtls-$LATEST_TAG
 git submodule update --init --recursive
 # enable pthread mutexes
 sed -i "" 's|//#define MBEDTLS_THREADING_PTHREAD|#define MBEDTLS_THREADING_PTHREAD|g' include/mbedtls/mbedtls_config.h
