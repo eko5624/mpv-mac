@@ -16,7 +16,7 @@ meson setup build \
   --buildtype=release \
   --default-library=static \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/macos_x86_64.txt" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Duse_mbedtls=true \
   -Dbuiltin_mbedtls=false \
   -Dbuilt_tools=false \

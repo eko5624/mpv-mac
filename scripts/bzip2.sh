@@ -12,7 +12,7 @@ meson setup work \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/macos_x86_64.txt" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
   --default-library=static
 meson compile -C work
 meson install -C work

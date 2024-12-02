@@ -13,7 +13,7 @@ meson setup build \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --default-library=static \
-  --cross-file="$DIR/macos_x86_64.txt" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
