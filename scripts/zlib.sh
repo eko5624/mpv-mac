@@ -11,8 +11,7 @@ tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
 cd zlib-$VER_ZLIB
 ./configure \
   --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static
+  --static
 make -j $MJOBS
 make install
 
