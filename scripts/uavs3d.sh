@@ -12,11 +12,9 @@ mkdir -p build/linux && cd build/linux
 cmake ../.. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_x86_64.txt" \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DCMAKE_SYSTEM_PROCESSOR=x86_64 \
-  -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
   -DBUILD_SHARED_LIBS=OFF \
   -DCOMPILE_10BIT=ON
 cmake --build . -j $MJOBS
