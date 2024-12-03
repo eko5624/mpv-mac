@@ -19,9 +19,8 @@ mkdir out && cd out
 cmake .. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_x86_64.txt" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
   -DCMAKE_BUILD_TYPE=Release \
   -DPython3_EXECUTABLE="$WORKSPACE/bin/python3" \
   -DENABLE_PROGRAMS=OFF \
