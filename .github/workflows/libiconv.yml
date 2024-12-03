@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  libcaca:
+  mbedtls:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -40,16 +40,22 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Setup Python
+      uses: actions/setup-python@main
+      with:
+        python-version: '3.12'        
+    - name: Install python dependencies
+      run: pip install meson ninja
     - name: Build
       run: |
-        chmod +x ./scripts/libcaca.sh
-        ./scripts/libcaca.sh
+        chmod +x ./scripts/mbedtls.sh
+        ./scripts/mbedtls.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libcaca*.xz
+        assets: mbedtls*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,4 +64,92 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libcaca.tar.xz
+        files: mbedtls.tar.xz
+
+  svt-av1:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-arm64 cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: toolchain-arm64
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Setup Python
+      uses: actions/setup-python@main
+      with:
+        python-version: '3.12'        
+    - name: Install python dependencies
+      run: pip install meson ninja
+    - name: Build
+      run: |
+        chmod +x ./scripts/svt-av1.sh
+        ./scripts/svt-av1.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: svt-av1*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: svt-av1.tar.xz
+
+  uavs3d:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-arm64 cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/workspace
+        key: toolchain-arm64
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Setup Python
+      uses: actions/setup-python@main
+      with:
+        python-version: '3.12'        
+    - name: Install python dependencies
+      run: pip install meson ninja
+    - name: Build
+      run: |
+        chmod +x ./scripts/uavs3d.sh
+        ./scripts/uavs3d.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: uavs3d*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: uavs3d.tar.xz
+
+        
