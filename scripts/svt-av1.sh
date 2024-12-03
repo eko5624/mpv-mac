@@ -12,6 +12,7 @@ mkdir out && cd out
 cmake .. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/toolchain.cmake" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
   -DCMAKE_SYSTEM_PROCESSOR=x86_64 \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
