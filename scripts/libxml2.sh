@@ -5,7 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # GNOME XML library
-# depends on: zlib
+# depends on: libiconv, zlib
 cd $PACKAGES
 git clone https://github.com/GNOME/libxml2.git
 cd libxml2
@@ -18,10 +18,11 @@ cd libxml2
 autoreconf -fvi
 ./configure \
   --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static \
   --without-python \
-  --without-lzma
+  --without-lzma \
+  --with-iconv="${WORKSPACE}" \
+  --disable-shared \
+  --enable-static
 make -j $MJOBS
 make install
 

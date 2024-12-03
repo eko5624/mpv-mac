@@ -12,6 +12,7 @@ cd x264
   --prefix="$DIR/opt" \
   --enable-static \
   --enable-lto \
+  --disable-asm \
   --disable-cli \
   --disable-opencl
 make -j $MJOBS

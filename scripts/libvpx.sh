@@ -18,10 +18,10 @@ cd build
   --disable-examples \
   --disable-unit-tests \
   --disable-shared \
+  --disable-runtime-cpu-detect \
   --enable-static \
   --enable-pic \
   --enable-vp9-highbitdepth \
-  --enable-runtime-cpu-detect \
   --as=yasm
 make -j $MJOBS
 make install
