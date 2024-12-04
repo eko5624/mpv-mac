@@ -2302,6 +2302,12 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Setup Python
+      uses: actions/setup-python@main
+      with:
+        python-version: '3.12'        
+    - name: Install python dependencies
+      run: pip install meson ninja    
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
