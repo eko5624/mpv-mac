@@ -11,7 +11,6 @@ curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
 tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
 cd gettext-$VER_GETTEXT
 ./configure \
-  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt"\
   --enable-static \
   --disable-shared \
@@ -27,8 +26,10 @@ cd gettext-$VER_GETTEXT
   --without-git \
   --without-cvs \
   --without-xz
-make
+make -j $MJOBS
 make install
+
+mkdir -p $DIR/opt/lib/pkgconfig
 cp $DIR/intl.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/intl.pc
 sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' $DIR/opt/lib/pkgconfig/intl.pc
