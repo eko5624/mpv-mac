@@ -14,7 +14,7 @@ cd xcb-proto-${VER_XCB_PROTO}
   --sysconfdir="$DIR/opt/etc" \
   --localstatedir="$DIR/opt/var" \
   --disable-silent-rules \
-  PYTHON="${WORKSPACE}"/bin/python3
+  PYTHON="$pythonLocation"
 make -j $MJOBS
 make install
 
