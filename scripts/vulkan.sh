@@ -14,9 +14,8 @@ mkdir out && cd out
 cmake .. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
   -DCMAKE_BUILD_TYPE=Release
 cmake --install .
 
@@ -25,9 +24,8 @@ mkdir out && cd out
 cmake .. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DCMAKE_OSX_ARCHITECTURES=x86_64 \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_FIND_ROOT_PATH="$DIR/opt" \
   -DVULKAN_HEADERS_INSTALL_DIR="$DIR/opt" \
