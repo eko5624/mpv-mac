@@ -8,8 +8,8 @@ build() {
   echo ""
   echo "building $1"
   echo "======================="
-  if [ -f "$WORKSPACE/$1.done" ]; then
-    echo "$1 already built. Remove $WORKSPACE/$1.done lockfile to rebuild it."
+  if [ -f "$TOOLS/$1.done" ]; then
+    echo "$1 already built. Remove $TOOLS/$1.done lockfile to rebuild it."
     return 1
   else
     return 0
@@ -17,23 +17,8 @@ build() {
 }
 
 build_done() {
-  echo "" > "$WORKSPACE/$1.done"
+  echo "" > "$TOOLS/$1.done"
 }
-
-# Manage compile and link flags for libraries
-if build "pkg-config"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://pkgconfig.freedesktop.org/releases/pkg-config-${VER_PKG_CONFIG}.tar.gz"
-  tar -xvf pkg-config-${VER_PKG_CONFIG}.tar.gz 2>/dev/null >/dev/null
-  cd pkg-config-${VER_PKG_CONFIG}
-  ./configure \
-    --silent --prefix="${WORKSPACE}" \
-    --with-pc-path="${WORKSPACE}"/lib/pkgconfig \
-    --with-internal-glib
-  make -j $MJOBS
-  make install
-  build_done "pkg-config"
-fi  
 
 # Modular BSD reimplementation of NASM
 if build "yasm"; then
@@ -41,7 +26,7 @@ if build "yasm"; then
   curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
   tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
   cd yasm-$VER_YASM
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "yasm"
@@ -54,7 +39,7 @@ if build "nasm"; then
   tar -xvf nasm-$VER_NASM.tar.xz 2>/dev/null >/dev/null
   cd nasm-$VER_NASM
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --disable-shared \
     --enable-static
   make -j $MJOBS
@@ -68,7 +53,7 @@ if build "m4"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/m4/m4-$VER_M4.tar.gz"
   tar -xvf m4-$VER_M4.tar.gz 2>/dev/null >/dev/null
   cd m4-$VER_M4
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "m4"
@@ -81,7 +66,7 @@ if build "autoconf"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/autoconf/autoconf-$VER_AUTOCONF.tar.gz"
   tar -xvf autoconf-$VER_AUTOCONF.tar.gz 2>/dev/null >/dev/null
   cd autoconf-$VER_AUTOCONF
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "autoconf"
@@ -94,7 +79,7 @@ if build "automake"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/automake/automake-$VER_AUTOMAKE.tar.gz"
   tar -xvf automake-$VER_AUTOMAKE.tar.gz 2>/dev/null >/dev/null
   cd automake-$VER_AUTOMAKE
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "automake"
@@ -108,7 +93,7 @@ if build "libtool"; then
   tar -xvf libtool-$VER_LIBTOOL.tar.gz 2>/dev/null >/dev/null
   cd libtool-$VER_LIBTOOL
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --enable-static \
     --disable-shared
   make -j $MJOBS
@@ -125,12 +110,40 @@ if build "pkgconf"; then
   LIBTOOLIZE="libtoolize"
   ./autogen.sh
   ./configure \
-    --prefix="${WORKSPACE}" \
-    --with-pkg-config-dir="${WORKSPACE}/lib/pkgconfig":"${WORKSPACE}/share/pkgconfig"
+    --prefix="${TOOLS}" \
+    --with-pkg-config-dir="${TOOLS}/lib/pkgconfig":"${TOOLS}/share/pkgconfig"
   make -j $MJOBS
   make install
   build_done "pkgconf"
 fi
+
+# zlib: General-purpose lossless data-compression library
+if build "zlib"; then
+  cd $PACKAGES
+  curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_ZLIB.tar.xz"
+  tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
+  cd zlib-$VER_ZLIB
+  ./configure \
+    --prefix="${TOOLS}" \
+    --static
+  make -j $MJOBS
+  make install
+  build_done "zlib"
+fi 
+
+# Portable Foreign Function Interface library
+#if build "libffi"; then
+#  cd $PACKAGES
+#  git clone https://github.com/libffi/libffi.git
+#  cd libffi
+#  ./autogen.sh
+#  ./config --prefix="${TOOLS}"
+#  make -j $MJOBS
+#  make install
+#  build_done "libffi"
+#fi
+
+# Interpreted, interactive, object-oriented programming language
 
 # Text-based UI library
 #if build "ncurses"; then
@@ -138,8 +151,82 @@ fi
 #  curl -OL "https://ftpmirror.gnu.org/ncurses/ncurses-$VER_NCURSES.tar.gz"
 #  tar -xvf ncurses-$VER_NCURSES.tar.gz 2>/dev/null >/dev/null
 #  cd ncurses-$VER_NCURSES
-#  ./configure --prefix="${WORKSPACE}"
+#  ./configure --prefix="${TOOLS}"
 #  make -j $MJOBS
 #  make install
 #  build_done "ncurses"
-#fi
+#fi  
+
+# Conversion library
+if build "libiconv"; then
+  cd $PACKAGES
+  curl -OL "https://ftp.gnu.org/gnu/libiconv/libiconv-$VER_LIBICONV.tar.gz"
+  tar -xvf libiconv-$VER_LIBICONV.tar.gz 2>/dev/null >/dev/null
+  cd libiconv-$VER_LIBICONV
+  #curl -OL "https://raw.githubusercontent.com/Homebrew/patches/9be2793af/libiconv/patch-utf8mac.diff"
+  #patch -p1 -i patch-utf8mac.diff
+  ./configure \
+    --prefix="${TOOLS}" \
+    --disable-debug \
+    --disable-dependency-tracking \
+    --enable-extra-encodings \
+    --disable-shared \
+    --enable-static \
+    --with-pic
+  make -j $MJOBS
+  make install
+  cp $DIR/iconv.pc ${TOOLS}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${TOOLS}"'|g' ${TOOLS}/lib/pkgconfig/iconv.pc
+  sed -i "" 's|@VERSION@|'"${VER_LIBICONV}"'|g' ${TOOLS}/lib/pkgconfig/iconv.pc
+  build_done "libiconv"
+fi
+
+# libxml2: GNOME XML library
+# depends on: libiconv, zlib
+if build "libxml2"; then
+  cd $PACKAGES
+  git clone https://github.com/GNOME/libxml2.git --branch master --depth 1
+  cd libxml2
+  autoreconf -fvi
+  ./configure \
+    --prefix="${TOOLS}" \
+    --without-python \
+    --without-lzma \
+    --with-iconv="${TOOLS}" \
+    --disable-shared \
+    --enable-static
+  make -j $MJOBS
+  make install
+  build_done "libxml2"
+fi
+
+# gettext: GNU internationalization (i18n) and localization (l10n) library
+# depends on: libxml2(zlib), ncurses
+if build "gettext"; then
+  cd $PACKAGES
+  curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
+  tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
+  cd gettext-$VER_GETTEXT
+  ./configure \
+    --prefix="${TOOLS}" \
+    --enable-static \
+    --disable-shared \
+    --disable-silent-rules \
+    --with-libiconv-prefix="${TOOLS}" \
+    --with-included-gettext \
+    --with-included-glib \
+    --with-included-libcroco \
+    --with-included-libunistring \
+    --with-included-libxml \
+    --disable-java \
+    --disable-csharp \
+    --without-git \
+    --without-cvs \
+    --without-xz
+  make -j $MJOBS
+  make install
+  cp $DIR/intl.pc ${TOOLS}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${TOOLS}"'|g' ${TOOLS}/lib/pkgconfig/intl.pc
+  sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' ${TOOLS}/lib/pkgconfig/intl.pc
+  build_done "gettext"
+fi
