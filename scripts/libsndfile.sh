@@ -24,7 +24,7 @@ cmake .. \
   -DENABLE_PACKAGE_CONFIG=ON \
   -DINSTALL_PKGCONFIG_MODULE=ON \
   -DBUILD_EXAMPLES=OFF \
-  -DPYTHON_EXECUTABLE="${WORKSPACE}"/bin/python3
+  -DPYTHON_EXECUTABLE=$pythonLocation/bin/python3
 cmake --build . -j $MJOBS
 cmake --install .
 
