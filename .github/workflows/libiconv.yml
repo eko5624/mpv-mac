@@ -24,7 +24,6 @@ on:
 
 jobs:
   gettext:
-    needs: [libxml2]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
