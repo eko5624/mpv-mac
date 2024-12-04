@@ -12,6 +12,7 @@ git clone https://github.com/libass/libass.git
 cd libass
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-fontconfig \
   --disable-shared \
