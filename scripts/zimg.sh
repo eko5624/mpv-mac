@@ -10,6 +10,7 @@ git clone --recursive https://github.com/sekrit-twc/zimg.git --branch master
 cd zimg
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static
