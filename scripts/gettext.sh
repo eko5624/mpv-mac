@@ -26,7 +26,7 @@ cd gettext-$VER_GETTEXT
   --without-git \
   --without-cvs \
   --without-xz
-make -j $MJOBS
+make
 make install
 cp $DIR/intl.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/intl.pc
