@@ -10,7 +10,7 @@ cd $PACKAGES
 git clone https://code.videolan.org/rist/librist.git
 cd librist
 #fix error: no member named 'st_mtim' in 'struct stat'
-patch -p1 -i ../../librist-fix-st_mtim.patch
+#patch -p1 -i ../../librist-fix-st_mtim.patch
 meson setup build \
   --prefix="$DIR/opt" \
   --buildtype=release \

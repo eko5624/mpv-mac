@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  mbedtls:
+  x264:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -40,22 +40,16 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
-        chmod +x ./scripts/mbedtls.sh
-        ./scripts/mbedtls.sh
+        chmod +x ./scripts/x264.sh
+        ./scripts/x264.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: mbedtls*.xz
+        assets: x264*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -64,50 +58,8 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: mbedtls.tar.xz
+        files: x264.tar.xz
 
-  xcb-proto:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-arm64 cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-arm64
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
-    - name: Build
-      run: |
-        chmod +x ./scripts/xcb-proto.sh
-        ./scripts/xcb-proto.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: xcb-proto*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: xcb-proto.tar.xz
 
 
         
