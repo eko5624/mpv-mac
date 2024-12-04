@@ -2506,7 +2506,7 @@ jobs:
       with:
         python-version: '3.12'        
     - name: Install python dependencies
-      run: pip install meson ninja
+      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         chmod +x ./scripts/mbedtls.sh
