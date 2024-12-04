@@ -23,52 +23,6 @@ on:
         - macos-14
 
 jobs:
-  librist:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-arm64 cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-arm64
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/librist.sh
-        ./scripts/librist.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: librist*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: librist.tar.xz
-
   x264:
     runs-on: ${{ inputs.os }}
     env:
