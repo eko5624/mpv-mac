@@ -28,7 +28,7 @@ cd gettext-$VER_GETTEXT
   --without-xz
 make -j $MJOBS
 make install
-cp $DIR/intl.pc ${WORKSPACE}/lib/pkgconfig
+cp $DIR/intl.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/intl.pc
 sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' $DIR/opt/lib/pkgconfig/intl.pc
 
