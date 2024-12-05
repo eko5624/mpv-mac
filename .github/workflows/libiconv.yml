@@ -34,7 +34,7 @@ jobs:
     - name: Loading toolchain-arm64 cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
+        path: ${{ github.workspace }}/tools
         key: toolchain-arm64
     - name: Switch to Xcode 15.2
       run: |
