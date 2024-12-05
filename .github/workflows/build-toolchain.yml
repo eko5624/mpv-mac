@@ -29,7 +29,7 @@ jobs:
     - name: Loading toolchain-${{ matrix.arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
+        path: ${{ github.workspace }}/tools
         key: toolchain-${{ matrix.arch }}
         restore-keys: toolchain-
     - name: Switch to Xcode 15.2
@@ -49,7 +49,7 @@ jobs:
     - name: Zip toolchain-${{ matrix.arch }} 
       continue-on-error: true
       run: |
-        zip -r -y toolchain-${{ matrix.arch }}-${{ env.date }}.zip workspace/*
+        zip -r -y toolchain-${{ matrix.arch }}-${{ env.date }}.zip tools/*
         cp toolchain-${{ matrix.arch }}-${{ env.date }}.zip toolchain-${{ matrix.arch }}-latest.zip
     - name: Delete
       uses: mknejp/delete-release-assets@v1

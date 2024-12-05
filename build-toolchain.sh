@@ -18,7 +18,7 @@ build() {
 
 build_done() {
   echo "" > "$TOOLS/$1.done"
-}
+} 
 
 # Modular BSD reimplementation of NASM
 if build "yasm"; then
@@ -131,6 +131,25 @@ if build "zlib"; then
   build_done "zlib"
 fi 
 
+# Cryptography and SSL/TLS Toolkit
+# depends on: zlib
+if build "openssl"; then
+  cd $PACKAGES
+  curl -OL "https://www.openssl.org/source/openssl-"${VER_OPENSSL_3}".tar.gz"
+  tar -xvf openssl-"${VER_OPENSSL_3}".tar.gz 2>/dev/null >/dev/null
+  cd openssl-"${VER_OPENSSL_3}"
+  ./config \
+    --prefix="${TOOLS}" \
+    --openssldir="${TOOLS}" \
+    --with-zlib-include="$TOOLS/include" \
+    --with-zlib-lib="$TOOLS/lib" \
+    no-shared \
+    zlib
+  make -j $MJOBS
+  make install
+  build_done "openssl"
+fi
+
 # Portable Foreign Function Interface library
 #if build "libffi"; then
 #  cd $PACKAGES
@@ -144,6 +163,29 @@ fi
 #fi
 
 # Interpreted, interactive, object-oriented programming language
+# depends on: openssl(zlib), zlib
+if build "python"; then
+  cd $PACKAGES
+  git clone https://github.com/python/cpython --branch 3.12
+  cd cpython
+  ./configure \
+    --prefix="${TOOLS}"
+  make -j $MJOBS
+  make install
+  cd "${TOOLS}"/bin
+  ln -s python3.12 python
+  build_done "python"
+
+  #pip3 meson ninja jsonschema Jinja2
+  if ! [[ -x $(command -v "pip3") ]]; then
+    python3 -m ensurepip --upgrade
+  fi
+
+  pip3 install pip setuptools --quiet --upgrade --no-cache-dir --disable-pip-version-check
+  for r in meson ninja jsonschema Jinja2 pytest; do
+      pip3 install ${r} --quiet --upgrade --no-cache-dir --disable-pip-version-check
+  done
+fi
 
 # Text-based UI library
 #if build "ncurses"; then
@@ -156,6 +198,21 @@ fi
 #  make install
 #  build_done "ncurses"
 #fi  
+
+if build "cmake"; then
+  cd $PACKAGES
+  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
+  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
+  cd cmake-$VER_CMAKE
+  ./configure \
+    --prefix="${TOOLS}" \
+    --parallel="${MJOBS}" \
+    -- \
+    -DCMake_BUILD_LTO=ON
+  make -j $MJOBS
+  make install
+  build_done "cmake"
+fi  
 
 # Conversion library
 if build "libiconv"; then
