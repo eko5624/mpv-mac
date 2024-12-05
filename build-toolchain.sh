@@ -169,9 +169,7 @@ if build "python"; then
   git clone https://github.com/python/cpython --branch 3.13
   cd cpython
   ./configure \
-    --prefix="${TOOLS}" \
-    --enable-ipv6 \
-    --with-openssl=${TOOLS}
+    --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   cd "${TOOLS}"/bin
