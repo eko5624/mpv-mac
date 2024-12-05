@@ -21,7 +21,7 @@ cd libxcb-$VER_LIBXCB
   --disable-silent-rules \
   --enable-devel-docs=no \
   --with-doxygen=no \
-  PYTHON=$pythonLocation/bin/python3
+  PYTHON=$TOOLS/bin/python3
 make -j $MJOBS
 make install
 

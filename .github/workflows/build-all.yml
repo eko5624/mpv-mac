@@ -81,12 +81,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/brotli.sh
@@ -123,13 +117,7 @@ jobs:
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer    
     - name: Build
       run: |
         chmod +x ./scripts/bzip2.sh
@@ -167,12 +155,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/cjson.sh
@@ -210,12 +192,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         chmod +x ./scripts/dav1d.sh
@@ -584,12 +560,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/frei0r.sh
@@ -627,12 +597,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         chmod +x ./scripts/fribidi.sh
@@ -749,13 +713,7 @@ jobs:
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest    
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -798,12 +756,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/highway.sh
@@ -924,12 +876,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -976,12 +922,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -1430,12 +1370,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/libjpeg-turbo.sh
@@ -1474,12 +1408,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
@@ -1567,12 +1495,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
@@ -1649,13 +1571,7 @@ jobs:
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest 
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer   
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
@@ -1745,12 +1661,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
@@ -1828,12 +1738,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/libsdl.sh
@@ -1872,12 +1776,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
@@ -1923,12 +1821,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
@@ -2301,13 +2193,7 @@ jobs:
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja    
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
@@ -2507,12 +2393,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         chmod +x ./scripts/mbedtls.sh
@@ -2625,12 +2505,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
@@ -2916,12 +2790,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja jsonschema Jinja2 pytest
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
@@ -2968,11 +2836,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
       run: pip install meson ninja
     - name: Build
       run: |
@@ -3011,12 +2874,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/snappy.sh
@@ -3054,12 +2911,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/soxr.sh
@@ -3138,12 +2989,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
@@ -3184,12 +3029,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/svt-av1.sh
@@ -3227,12 +3066,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/uavs3d.sh
@@ -3270,12 +3103,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/uchardet.sh
@@ -3350,12 +3177,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/vulkan.sh
@@ -3393,12 +3214,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/vvdec.sh
@@ -3473,12 +3288,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/x265.sh
@@ -3516,12 +3325,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/xcb-proto.sh
@@ -3789,12 +3592,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Setup Python
-      uses: actions/setup-python@main
-      with:
-        python-version: '3.12'        
-    - name: Install python dependencies
-      run: pip install meson ninja
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz        
