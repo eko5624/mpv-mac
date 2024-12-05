@@ -171,9 +171,6 @@ if build "python"; then
   ./configure \
     --prefix="${TOOLS}" \
     --enable-ipv6 \
-    --datarootdir=${TOOLS}/share \
-    --datadir=${TOOLS}/share \
-    --without-ensurepip \
     --with-openssl=${TOOLS}
   make -j $MJOBS
   make install
