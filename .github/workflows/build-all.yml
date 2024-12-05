@@ -2836,7 +2836,6 @@ jobs:
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-      run: pip install meson ninja
     - name: Build
       run: |
         chmod +x ./scripts/shaderc.sh
