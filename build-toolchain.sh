@@ -2,7 +2,7 @@
 set -e
 
 cd "$(dirname "$0")"
-set -a; source build.env; source ver.sh; set +a
+set -a; source tools.env; source ver.sh; set +a
 
 build() {
   echo ""
