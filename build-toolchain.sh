@@ -204,24 +204,24 @@ fi
 #  build_done "ncurses"
 #fi  
 
-if build "cmake"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
-  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
-  CXXFLAGS_BACKUP=$CXXFLAGS
-  export CXXFLAGS+=" -std=c++11"
-  cd cmake-$VER_CMAKE
-  ./configure \
-    --prefix="${TOOLS}" \
-    --parallel="${MJOBS}" \
-    -- \
-    -DCMAKE_USE_OPENSSL=OFF \
-    -DCMake_BUILD_LTO=ON
-  make -j $MJOBS
-  make install
-  build_done "cmake"
-  export CXXFLAGS=$CXXFLAGS_BACKUP
-fi  
+#if build "cmake"; then
+#  cd $PACKAGES
+#  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
+#  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
+#  CXXFLAGS_BACKUP=$CXXFLAGS
+#  export CXXFLAGS+=" -std=c++11"
+#  cd cmake-$VER_CMAKE
+#  ./configure \
+#    --prefix="${TOOLS}" \
+#    --parallel="${MJOBS}" \
+#    -- \
+#    -DCMAKE_USE_OPENSSL=OFF \
+#    -DCMake_BUILD_LTO=ON
+#  make -j $MJOBS
+#  make install
+#  build_done "cmake"
+#  export CXXFLAGS=$CXXFLAGS_BACKUP
+#fi  
 
 # Conversion library
 if build "libiconv"; then
