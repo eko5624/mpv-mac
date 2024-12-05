@@ -166,14 +166,19 @@ fi
 # depends on: openssl(zlib), zlib
 if build "python"; then
   cd $PACKAGES
-  git clone https://github.com/python/cpython --branch 3.12
+  git clone https://github.com/python/cpython --branch 3.13
   cd cpython
   ./configure \
-    --prefix="${TOOLS}"
+    --prefix="${TOOLS}" \
+    --enable-ipv6 \
+    --datarootdir=${TOOLS}/share \
+    --datadir=${TOOLS}/share \
+    --without-ensurepip \
+    --with-openssl=${TOOLS}
   make -j $MJOBS
   make install
   cd "${TOOLS}"/bin
-  ln -s python3.12 python
+  ln -s python3.13 python
   build_done "python"
 
   #pip3 meson ninja jsonschema Jinja2
@@ -203,15 +208,19 @@ if build "cmake"; then
   cd $PACKAGES
   curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
   tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
+  CXXFLAGS_BACKUP=$CXXFLAGS
+  export CXXFLAGS+=" -std=c++11"
   cd cmake-$VER_CMAKE
   ./configure \
     --prefix="${TOOLS}" \
     --parallel="${MJOBS}" \
     -- \
+    -DCMAKE_USE_OPENSSL=OFF \
     -DCMake_BUILD_LTO=ON
   make -j $MJOBS
   make install
   build_done "cmake"
+  export CXXFLAGS=$CXXFLAGS_BACKUP
 fi  
 
 # Conversion library
