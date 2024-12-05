@@ -181,7 +181,7 @@ if build "python"; then
     python3 -m ensurepip --upgrade
   fi
 
-  #pip3 install pip setuptools --quiet --upgrade --no-cache-dir --disable-pip-version-check
+  pip3 install pip setuptools --quiet --upgrade --no-cache-dir --disable-pip-version-check
   for r in meson ninja jsonschema Jinja2 pytest; do
       pip3 install ${r} --quiet --upgrade --no-cache-dir --disable-pip-version-check
   done
