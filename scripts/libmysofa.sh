@@ -7,7 +7,7 @@ set -a; source build.env; source ver.sh; set +a
 # Reader for AES SOFA files to get better HRTFs
 #depends on: zlib
 cd $PACKAGES
-git clone --depth 1 --sparse --filter=tree:0 https://github.com/hoene/libmysofa.git
+git clone https://github.com/hoene/libmysofa.git
 cd libmysofa
 #git sparse-checkout set --no-cone '/*' '!tests'
 mkdir out && cd out
