@@ -45,6 +45,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/aribb24.sh
         ./scripts/aribb24.sh
@@ -384,6 +385,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/ffmpeg.sh
         ./scripts/ffmpeg.sh
@@ -482,6 +484,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/fontconfig.sh
         ./scripts/fontconfig.sh
@@ -524,6 +527,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/freetype2.sh
         ./scripts/freetype2.sh
@@ -640,6 +644,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/gettext.sh
         ./scripts/gettext.sh
@@ -720,6 +725,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz 
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz       
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/harfbuzz.sh
         ./scripts/harfbuzz.sh
@@ -839,6 +845,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz    
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/lcms2.sh
         ./scripts/lcms2.sh
@@ -885,6 +892,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libarchive.sh
         ./scripts/libarchive.sh
@@ -930,6 +938,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libaribcaption.sh
         ./scripts/libaribcaption.sh
@@ -975,6 +984,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libass.sh
         ./scripts/libass.sh
@@ -1059,6 +1069,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libbluray.sh
         ./scripts/libbluray.sh
@@ -1105,6 +1116,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libbs2b.sh
         ./scripts/libbs2b.sh
@@ -1256,6 +1268,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libdvdread.sh
         ./scripts/libdvdread.sh
@@ -1297,6 +1310,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libdvdnav.sh
         ./scripts/libdvdnav.sh
@@ -1421,6 +1435,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libjxl.sh
         ./scripts/libjxl.sh
@@ -1498,6 +1513,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libmysofa.sh
         ./scripts/libmysofa.sh
@@ -1584,6 +1600,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libplacebo.sh
         ./scripts/libplacebo.sh
@@ -1624,6 +1641,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libpng.sh
         ./scripts/libpng.sh
@@ -1665,6 +1683,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/librist.sh
         ./scripts/librist.sh
@@ -1784,6 +1803,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libsndfile.sh
         ./scripts/libsndfile.sh
@@ -1824,6 +1844,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libssh.sh
         ./scripts/libssh.sh
@@ -1865,6 +1886,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libtheora.sh
         ./scripts/libtheora.sh
@@ -1909,6 +1931,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libtiff.sh
         ./scripts/libtiff.sh
@@ -2070,6 +2093,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libwebp.sh
         ./scripts/libwebp.sh
@@ -2116,6 +2140,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libX11.sh
         ./scripts/libX11.sh
@@ -2157,6 +2182,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libXau.sh
         ./scripts/libXau.sh
@@ -2201,6 +2227,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libxcb.sh
         ./scripts/libxcb.sh
@@ -2242,6 +2269,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libXdmcp.sh
         ./scripts/libXdmcp.sh
@@ -2283,6 +2311,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libxml2.sh
         ./scripts/libxml2.sh
@@ -2592,6 +2621,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uchardet.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/mpv.sh
         ./scripts/mpv.sh
@@ -2716,6 +2746,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/openssl.sh
         ./scripts/openssl.sh
@@ -2800,6 +2831,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/rubberband.sh
         ./scripts/rubberband.sh
@@ -2951,6 +2983,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/speex.sh
         ./scripts/speex.sh
@@ -2992,6 +3025,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/srt.sh
         ./scripts/srt.sh
@@ -3406,6 +3440,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/xtrans.sh
         ./scripts/xtrans.sh
@@ -3596,6 +3631,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz        
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/zstd.sh
         ./scripts/zstd.sh
@@ -3637,6 +3673,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/zvbi.sh
         ./scripts/zvbi.sh
