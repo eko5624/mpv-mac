@@ -13,7 +13,7 @@ sed "s/,--version-script//g" build/make/Makefile >build/make/Makefile.patched
 sed "s/-Wl,--no-undefined -Wl,-soname/-Wl,-undefined,error -Wl,-install_name/g" build/make/Makefile.patched >build/make/Makefile
 cd build
 ../configure \
-  --host=x86_64-apple-darwin \
+  --target=x86_64-darwin20-gcc \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-examples \
