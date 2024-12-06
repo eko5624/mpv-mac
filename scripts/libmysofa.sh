@@ -9,7 +9,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone --depth 1 --sparse --filter=tree:0 https://github.com/hoene/libmysofa.git
 cd libmysofa
-git sparse-checkout set --no-cone '/*' '!tests'
+#git sparse-checkout set --no-cone '/*' '!tests'
 mkdir out && cd out
 cmake .. \
   -G "Ninja" \
