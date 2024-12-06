@@ -438,6 +438,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        mkdir workspace
         tar -xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
         chmod +x ./scripts/flac.sh
         ./scripts/flac.sh
@@ -2009,6 +2010,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        mkdir workspace
         tar xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
         chmod +x ./scripts/libvorbis.sh
         ./scripts/libvorbis.sh
@@ -3399,6 +3401,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
+        mkdir workspace
         tar xvf util-macros.tar.xz -C workspace 2>/dev/null >/dev/null
         chmod +x ./scripts/xorgproto.sh
         ./scripts/xorgproto.sh
