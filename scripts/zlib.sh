@@ -15,6 +15,24 @@ cd zlib-$VER_ZLIB
 make -j $MJOBS
 make install
 
+mkdir build && cd build
+cmake .. \
+  -G "Ninja" \
+  -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
+  -DCMAKE_OSX_ARCHITECTURES=x86_64 \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
+  -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
+  -DINSTALL_PKGCONFIG_DIR="$DIR/opt/lib/pkgconfig" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DSKIP_INSTALL_LIBRARIES=OFF \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DZLIB_COMPAT=ON \
+  -DZLIB_ENABLE_TESTS=OFF \
+  -DZLIBNG_ENABLE_TESTS=OFF
+cmake --build .
+cmake --install .
+
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR

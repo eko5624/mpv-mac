@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  libogg:
+  zlib:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +42,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/libogg.sh
-        ./scripts/libogg.sh
+        chmod +x ./scripts/zlib.sh
+        ./scripts/zlib.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libogg*.xz
+        assets: zlib*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,7 +58,7 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libogg.tar.xz
+        files: zlib.tar.xz
   
 
 
