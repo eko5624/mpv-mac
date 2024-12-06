@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  libsndfile:
+  rubberband:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -45,19 +45,21 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/libsndfile.sh
-        ./scripts/libsndfile.sh
+        chmod +x ./scripts/rubberband.sh
+        ./scripts/rubberband.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libsndfile*.xz
+        assets: rubberband*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -66,4 +68,4 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libsndfile.tar.xz
+        files: rubberband.tar.xz
