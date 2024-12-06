@@ -16,7 +16,6 @@ curl -OL "https://downloads.sourceforge.net/project/mpg123/mpg123/$VER_MPG123/mp
 tar -xvf mpg123-$VER_MPG123.tar.bz2 2>/dev/null >/dev/null
 cd mpg123-$VER_MPG123
 ./configure \
-  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-dependency-tracking \
