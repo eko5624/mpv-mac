@@ -9,19 +9,18 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/AO-Yumi/vorbis_aotuv.git
 cd vorbis_aotuv
-chmod +x ./autogen.sh
-./autogen.sh
-sed -i "" 's/ -force_cpusubtype_ALL//g' configure
-./configure \
-  --host=x86_64-apple-darwin \
-  --prefix="$DIR/opt" \
-  --with-ogg-libraries="${WORKSPACE}"/lib \
-  --with-ogg-includes="${WORKSPACE}"/include/ \
-  --disable-oggtest \
-  --disable-shared \
-  --enable-static
-make -j $MJOBS
-make install
+mkdir out && cd out
+cmake .. \
+  -G "Ninja" \
+  -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
+  -DCMAKE_OSX_ARCHITECTURES=x86_64 \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
+  -DBUILD_SHARED_LIBS=OFF
+cmake --build . -j $MJOBS
+cmake --install .
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
