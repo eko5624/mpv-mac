@@ -10,8 +10,7 @@ cd $PACKAGES
 curl -OL "https://www.openssl.org/source/openssl-"${VER_OPENSSL_3}".tar.gz"
 tar -xvf openssl-"${VER_OPENSSL_3}".tar.gz 2>/dev/null >/dev/null
 cd openssl-"${VER_OPENSSL_3}"
-./config \
-  --host=x86_64-apple-darwin \
+./Configure \
   --prefix="$DIR/opt" \
   --openssldir="$DIR/opt" \
   --with-zlib-include="$WORKSPACE/include" \
