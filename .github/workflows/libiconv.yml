@@ -23,7 +23,8 @@ on:
         - macos-14
 
 jobs:
-  zlib:
+  libtheora:
+    needs: [libogg, libvorbis]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +43,18 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/zlib.sh
-        ./scripts/zlib.sh
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libtheora.sh
+        ./scripts/libtheora.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: zlib*.xz
+        assets: libtheora*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,7 +63,7 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: zlib.tar.xz
+        files: libtheora.tar.xz
   
 
 

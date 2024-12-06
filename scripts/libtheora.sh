@@ -9,13 +9,13 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://gitlab.xiph.org/xiph/theora.git
 cd theora
-cp "${WORKSPACE}"/share/libtool/*/config.{guess,sub} ./
+cp "${TOOLS}"/share/libtool/*/config.{guess,sub} ./
 ./autogen.sh
 ./configure \
   --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --with-ogg-libraries="${WORKSPACE}"/lib \
-  --with-ogg-includes="${WORKSPACE}"/include/ \
+  --with-ogg-includes="${WORKSPACE}"/include \
   --with-vorbis-libraries="${WORKSPACE}"/lib \
   --with-vorbis-includes="${WORKSPACE}"/include/ \
   --disable-oggtest \
