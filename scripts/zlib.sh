@@ -10,6 +10,7 @@ curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_
 tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
 cd zlib-$VER_ZLIB
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --static
 make -j $MJOBS

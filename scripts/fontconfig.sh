@@ -13,6 +13,7 @@ git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-docs \
   --disable-shared \

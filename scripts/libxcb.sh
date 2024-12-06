@@ -13,6 +13,7 @@ curl -OL "https://xcb.freedesktop.org/dist/libxcb-$VER_LIBXCB.tar.gz"
 tar -xvf libxcb-$VER_LIBXCB.tar.gz 2>/dev/null >/dev/null
 cd libxcb-$VER_LIBXCB
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --sysconfdir="$DIR/opt/etc" \
   --localstatedir="$DIR/opt/var" \

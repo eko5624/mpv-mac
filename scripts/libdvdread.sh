@@ -11,6 +11,7 @@ curl -OL "https://download.videolan.org/pub/videolan/libdvdread/$VER_LIBDVDREAD/
 tar -xvf libdvdread-$VER_LIBDVDREAD.tar.bz2 2>/dev/null >/dev/null
 cd libdvdread-$VER_LIBDVDREAD
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

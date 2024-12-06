@@ -10,6 +10,7 @@ curl -OL "https://downloads.xvid.com/downloads/xvidcore-$VER_XVID.tar.gz"
 tar -xvf xvidcore-$VER_XVID.tar.gz 2>/dev/null >/dev/null
 cd xvidcore/build/generic
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

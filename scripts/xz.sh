@@ -10,6 +10,7 @@ curl -OL "https://github.com/tukaani-project/xz/releases/download/v$VER_XZ/xz-$V
 tar -xvf xz-$VER_XZ.tar.gz 2>/dev/null >/dev/null
 cd xz-$VER_XZ
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-nls \

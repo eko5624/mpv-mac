@@ -10,6 +10,7 @@ git clone https://github.com/libsndfile/libsamplerate.git
 cd libsamplerate
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

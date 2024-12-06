@@ -13,6 +13,7 @@ cd freetype
 sed -i "" 's/glibtoolize/libtoolize/g' autogen.sh
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --enable-freetype-config \
   --without-harfbuzz \

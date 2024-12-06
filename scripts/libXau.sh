@@ -13,6 +13,7 @@ tar -xvf libXau-$VER_LIBXAU.tar.xz 2>/dev/null >/dev/null
 cd libXau-$VER_LIBXAU
 export PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

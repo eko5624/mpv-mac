@@ -15,6 +15,7 @@ cd libX11-$VER_LIBX11
 export LC_ALL=""
 export LC_CTYPE="C"
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

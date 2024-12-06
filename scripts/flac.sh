@@ -11,6 +11,7 @@ git clone https://gitlab.xiph.org/xiph/flac.git
 cd flac
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --enable-static \
   --disable-shared \

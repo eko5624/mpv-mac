@@ -13,6 +13,7 @@ cd libmodplug
 #execute patch -p1 -i configure-big_sur.diff || true
 autoreconf -fvi
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-dependency-tracking \

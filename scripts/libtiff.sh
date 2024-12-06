@@ -11,6 +11,7 @@ curl -OL  "https://download.osgeo.org/libtiff/tiff-$VER_LIBTIFF.tar.xz"
 tar -xvf tiff-$VER_LIBTIFF.tar.xz 2>/dev/null >/dev/null
 cd tiff-$VER_LIBTIFF
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-lzma \

@@ -12,6 +12,7 @@ curl -OL  "https://download.videolan.org/videolan/libbluray/$VER_LIBBLURAY/libbl
 tar -xvf libbluray-$VER_LIBBLURAY.tar.bz2 2>/dev/null >/dev/null
 cd libbluray-$VER_LIBBLURAY
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-silent-rules \

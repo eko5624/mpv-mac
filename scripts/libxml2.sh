@@ -17,6 +17,7 @@ cd libxml2
 #execute patch -p1 -i fix_crash.patch
 autoreconf -fvi
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --without-python \
   --without-lzma \

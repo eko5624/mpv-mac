@@ -10,6 +10,7 @@ cd $PACKAGES
 git clone https://github.com/glennrp/libpng.git
 cd libpng
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

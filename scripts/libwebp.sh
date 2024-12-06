@@ -11,6 +11,7 @@ git clone https://chromium.googlesource.com/webm/libwebp.git
 cd libwebp
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-gl \

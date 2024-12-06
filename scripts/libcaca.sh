@@ -13,7 +13,7 @@ curl $CURL_RETRIES -OL https://github.com/cacalabs/libcaca/pull/70.patch
 patch -p1 -i 70.patch
 ./bootstrap
 ./configure \
-  --host=x86_64-apple-macos11 \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

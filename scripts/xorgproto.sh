@@ -12,6 +12,7 @@ curl -OL "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-$VER_X
 tar -xvf xorgproto-$VER_XORGPROTO.tar.gz 2>/dev/null >/dev/null
 cd xorgproto-$VER_XORGPROTO
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --sysconfdir=$DIR/opt/etc \
   --localstatedir=$DIR/opt/var \

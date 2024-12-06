@@ -10,6 +10,7 @@ git clone https://github.com/adah1972/libunibreak.git
 cd libunibreak
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

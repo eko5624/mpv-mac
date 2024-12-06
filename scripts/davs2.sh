@@ -9,6 +9,7 @@ cd $PACKAGES
 git clone https://github.com/pkuvcl/davs2.git
 cd davs2/build/linux
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

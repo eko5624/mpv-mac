@@ -13,6 +13,7 @@ chmod +x ./autogen.sh
 ./autogen.sh
 sed -i "" 's/ -force_cpusubtype_ALL//g' configure
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --with-ogg-libraries="${WORKSPACE}"/lib \
   --with-ogg-includes="${WORKSPACE}"/include/ \

@@ -12,6 +12,7 @@ cd theora
 cp "${WORKSPACE}"/share/libtool/*/config.{guess,sub} ./
 ./autogen.sh
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --with-ogg-libraries="${WORKSPACE}"/lib \
   --with-ogg-includes="${WORKSPACE}"/include/ \

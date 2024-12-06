@@ -10,6 +10,7 @@ git clone https://github.com/libexpat/libexpat.git
 cd libexpat/expat
 autoreconf -fiv
 ./configure \
+  --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared
 make -j $MJOBS
