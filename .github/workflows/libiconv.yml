@@ -24,7 +24,6 @@ on:
 
 jobs:
   libtheora:
-    needs: [libogg, libvorbis]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
