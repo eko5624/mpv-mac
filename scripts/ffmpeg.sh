@@ -26,7 +26,11 @@ patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
 
 ./configure \
   --prefix="$DIR/opt" \
-  --pkg-config-flags=--static \
+  --pkg-config-flags=-static \
+  --disable-runtime-cpudetect \
+  --enable-cross-compile \
+  --target-os=darwin \
+  --arch=x86_64 \
   --disable-debug \
   --disable-doc \
   --enable-gpl \
@@ -39,6 +43,7 @@ patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
   --enable-pthreads \
   --enable-version3 \
   --extra-cflags="${CFLAGS}" \
+  --extra-cxxflags="${CXXFLAGS}" \
   --extra-ldflags="${LDFLAGS}" \
   --enable-frei0r \
   --enable-lcms2 \
