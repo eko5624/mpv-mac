@@ -13,9 +13,8 @@ meson setup build \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
-  --cross-file="./cross/macos-x86_64.txt" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Ddefault_library=static \
-  -Dfft=builtin \
   -Dresampler=libsamplerate \
   -Djni=disabled
 meson compile -C build
