@@ -21,7 +21,9 @@ cmake .. \
   -DBUILD_SHARED_LIBS=OFF \
   -DBUILD_DOCS=OFF \
   -DBUILD_EXAMPLES=OFF \
-  -DBUILD_TESTING=OFF
+  -DBUILD_TESTING=OFF \
+  -DINSTALL_MANPAGES=OFF \
+  -DWITH_OGG=OFF
 cmake --build . -j $MJOBS
 cmake --install .
 
