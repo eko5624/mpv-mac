@@ -11,16 +11,18 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
-./autogen.sh
-./configure \
-  --host=x86_64-apple-darwin \
+meson setup build \
   --prefix="$DIR/opt" \
-  --disable-docs \
-  --disable-shared \
-  --enable-static \
-  --with-libiconv="$WORKSPACE"
-make -j $MJOBS
-make install
+  --buildtype=release \
+  --default-library=static \
+  --libdir="$DIR/opt/lib" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
+  -Dwrap_mode=nodownload \
+  -Ddoc=disabled \
+  -Dtests=disabled \
+  -Dtools=disabled
+meson compile -C build
+meson install -C build
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 #fix Undefined symbols when linked: "_libintl_dgettext", referenced from: _FcConfigFileInfoIterGet in libfontconfig.a(fccfg.o)
