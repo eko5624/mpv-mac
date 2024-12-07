@@ -6,11 +6,10 @@ set -a; source build.env; source ver.sh; set +a
 
 # Portable ARIB STD-B24 Caption Decoder/Renderer
 # depends on: fontconfig(expat, bzip2, freetype2, gettext(libxml2 ncurses)
-# depends on: freetype2(bzip2, libpng(zlib)), openssl
+# depends on: freetype2(bzip2, libpng(zlib))
 cd $PACKAGES
 git clone https://github.com/xqq/libaribcaption.git
 cd libaribcaption
-ln -s $WORKSPACE/include/openssl include/openssl
 mkdir out && cd out
 cmake .. \
   -G "Ninja" \
