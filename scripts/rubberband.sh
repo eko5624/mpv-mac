@@ -15,8 +15,7 @@ meson setup build \
   --libdir="$DIR/opt/lib" \
   --cross-file="$DIR/meson_$ARCHS.txt" \
   -Ddefault_library=static \
-  -Dresampler=libsamplerate \
-  -Djni=disabled
+  -Dresampler=libsamplerate
 meson compile -C build
 meson install -C build
 
