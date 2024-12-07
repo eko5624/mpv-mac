@@ -22,8 +22,7 @@ cmake .. \
   -DBUILD_DOCS=OFF \
   -DBUILD_EXAMPLES=OFF \
   -DBUILD_TESTING=OFF \
-  -DINSTALL_MANPAGES=OFF \
-  -DWITH_OGG=OFF
+  -DINSTALL_MANPAGES=OFF
 cmake --build . -j $MJOBS
 cmake --install .
 
