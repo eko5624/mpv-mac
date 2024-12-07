@@ -12,10 +12,12 @@ cd xvidcore/build/generic
 ./configure \
   --host=x86_64-apple-darwin \
   --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static
+  --disable-assembly
 make -j $MJOBS
 make install
+
+#cp ../../src/xvid.h $DIR/opt/include
+#mv $DIR/opt/lib/xvidcore.a $DIR/opt/lib/libxvidcore.a
 
 cd $DIR
 tar -zcvf xvid.tar.xz -C $DIR/opt .
