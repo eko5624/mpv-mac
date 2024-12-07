@@ -9,13 +9,7 @@ cd $PACKAGES
 curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_ZLIB.tar.xz"
 tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
 cd zlib-$VER_ZLIB
-./configure \
-  --prefix="$DIR/opt" \
-  --static
-make -j $MJOBS
-make install
-
-mkdir build && cd build
+mkdir out && cd out
 cmake .. \
   -G "Ninja" \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
