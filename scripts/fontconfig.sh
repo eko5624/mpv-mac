@@ -17,8 +17,7 @@ cd fontconfig
   --prefix="$DIR/opt" \
   --disable-docs \
   --disable-shared \
-  --enable-static \
-  --with-libiconv="$WORKSPACE"
+  --enable-iconv
 make -j $MJOBS
 make install
 
