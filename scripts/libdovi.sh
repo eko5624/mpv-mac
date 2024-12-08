@@ -5,7 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Library to read and write Dolby Vision metadata (C-API)
-cargo install cargo-c
+LD_PRELOAD= cargo install cargo-c
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
