@@ -5,7 +5,30 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Library to read and write Dolby Vision metadata (C-API)
-LD_PRELOAD= cargo install cargo-c
+if [ ! -d "$TOOLS/rust/.cargo" ]; then
+  export RUSTUP_HOME="${TOOLS}"/rust/.rustup
+  export CARGO_HOME="${TOOLS}"/rust/.cargo
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
+  rustup update
+  LD_PRELOAD= $CARGO_HOME/bin/cargo install cargo-c
+  cat <<EOF >$CARGO_HOME/config.toml
+  [net]
+  git-fetch-with-cli = true
+
+  [target.x86_64-apple-darwin]
+  linker = "clang"
+  ar = "ar"
+  rustflags = ["-C", "target-cpu=x86-64"]
+
+  [profile.release]
+  panic = "abort"
+  strip = true
+  EOF
+fi
+if [ ! -d "$TOOLS/rust/.rustup" ]; then
+  $TOOLS/rust/.cargo/bin/rustup default stable-$ARCH-apple-darwin
+fi
+PATH="$TOOLS/rust/.rustup/toolchains/stable-$ARCH-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
@@ -20,7 +43,7 @@ cargo cinstall \
   --release \
   --library-type=staticlib
 
-sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/opt/TOOLS/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf libdovi.tar.xz -C $DIR/opt .
