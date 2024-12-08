@@ -44,7 +44,7 @@ patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
   --enable-version3 \
   --extra-cflags="${CFLAGS}" \
   --extra-cxxflags="${CXXFLAGS}" \
-  --extra-ldflags="${LDFLAGS}" \
+  --extra-ldflags="${LDFLAGS} -Wl,--allow-multiple-definition" \
   --enable-frei0r \
   --enable-lcms2 \
   --enable-libaribb24 \

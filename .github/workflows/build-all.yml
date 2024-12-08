@@ -318,6 +318,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
@@ -332,6 +333,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjxl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmodplug.tar.xz
@@ -2365,6 +2367,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
