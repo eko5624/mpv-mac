@@ -210,8 +210,7 @@ fi
 #    --prefix="${TOOLS}" \
 #    --parallel="${MJOBS}" \
 #    -- \
-#    -DCMAKE_USE_OPENSSL=OFF \
-#    -DCMake_BUILD_LTO=ON
+#    -DCMAKE_USE_OPENSSL=OFF
 #  make -j $MJOBS
 #  make install
 #  build_done "cmake"
