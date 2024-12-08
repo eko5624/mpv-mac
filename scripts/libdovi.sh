@@ -10,6 +10,7 @@ cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
 mkdir build
+export LD_PRELOAD=""
 export CARGO_BUILD_TARGET_DIR=build
 export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 cargo cinstall \
