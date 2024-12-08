@@ -9,6 +9,7 @@ cd $PACKAGES
 git clone https://github.com/KhronosGroup/Vulkan-Headers.git --branch main
 git clone https://github.com/KhronosGroup/Vulkan-Loader.git --branch main
 
+export CFLAGS+=" -Dparse_number=cjson_parse_number"
 cd Vulkan-Headers
 mkdir out && cd out
 cmake .. \
