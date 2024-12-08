@@ -27,6 +27,26 @@ autoreconf -fvi
 make -j $MJOBS
 make install
 
+mkdir out && cd out
+cmake .. \
+  -G "Ninja" \
+  -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
+  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
+  -DCMAKE_OSX_ARCHITECTURES=x86_64 \
+  -DCMAKE_OSX_DEPLOYMENT_TARGET=11 \
+  -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DBUILD_SHARED_LIBS=OFF \
+  -DLIBXML2_WITH_ZLIB=ON \
+  -DLIBXML2_WITH_ICONV=ON \
+  -DLIBXML2_WITH_LZMA=OFF \
+  -DLIBXML2_WITH_PYTHON=OFF \
+  -DLIBXML2_WITH_TESTS=OFF \
+  -DLIBXML2_WITH_HTTP=OFF \
+  -DLIBXML2_WITH_PROGRAMS=OFF
+cmake --build . -j $MJOBS
+cmake --install .
+
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
