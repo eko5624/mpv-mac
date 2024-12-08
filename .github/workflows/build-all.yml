@@ -139,43 +139,6 @@ jobs:
         name: dev-${{ inputs.arch }}
         files: bzip2.tar.xz
 
-  cjson:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-arm64 cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/tools
-        key: toolchain-arm64
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        chmod +x ./scripts/cjson.sh
-        ./scripts/cjson.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: cjson*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: cjson.tar.xz
-
   dav1d:
     runs-on: ${{ inputs.os }}
     env:
@@ -288,7 +251,7 @@ jobs:
         files: expat.tar.xz
 
   ffmpeg:
-    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, vvdec, x264, x265, xvid, zimg, zvbi]
+    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, vvdec, x264, x265, xvid, zimg, zvbi]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -310,7 +273,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
@@ -341,7 +303,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
@@ -1610,48 +1571,6 @@ jobs:
         name: dev-${{ inputs.arch }}
         files: libpng.tar.xz
 
-  librist:
-    needs: [cjson, mbedtls]
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-arm64 cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/tools
-        key: toolchain-arm64
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        mkdir workspace
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/librist.sh
-        ./scripts/librist.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: librist*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: librist.tar.xz
-
   libsamplerate:
     runs-on: ${{ inputs.os }}
     env:
@@ -2407,7 +2326,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
@@ -2438,7 +2356,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
