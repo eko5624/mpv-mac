@@ -5,16 +5,6 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Library to read and write Dolby Vision metadata (C-API)
-if [ ! -d "$TOOLS/rust/.cargo" ]; then
-  export RUSTUP_HOME="${TOOLS}"/rust/.rustup
-  export CARGO_HOME="${TOOLS}"/rust/.cargo
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target aarch64-apple-darwin --no-modify-path
-  $CARGO_HOME/bin/cargo install cargo-c
-fi
-if [ ! -d "$TOOLS/rust/.rustup" ]; then
-  $TOOLS/rust/.cargo/bin/rustup default stable-aarch64-apple-darwin
-fi
-PATH="$TOOLS/rust/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
