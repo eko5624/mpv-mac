@@ -43,7 +43,7 @@ cargo cinstall \
   --release \
   --library-type=staticlib
 
-sed -i "" 's/opt/TOOLS/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf libdovi.tar.xz -C $DIR/opt .
