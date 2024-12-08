@@ -68,7 +68,6 @@ patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
   --enable-libopencore_amrwb \
   --enable-libopus \
   --enable-libplacebo \
-  --enable-librist \
   --enable-librubberband \
   --enable-libsnappy \
   --enable-libsoxr \
