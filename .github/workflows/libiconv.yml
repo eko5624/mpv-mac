@@ -24,7 +24,6 @@ on:
 
 jobs:
   libxml2:
-    needs: [libiconv, zlib]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
