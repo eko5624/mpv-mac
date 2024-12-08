@@ -17,7 +17,7 @@ cd openssl-"${VER_OPENSSL_3}"
   --with-zlib-lib="$WORKSPACE/lib" \
   no-shared \
   zlib \
-  darwin64-x86_64
+  darwin64-x86_64-cc
 make -j $MJOBS
 make install
 
