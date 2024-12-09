@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  vulkan:
+  zvbi:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +42,19 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/vulkan.sh
-        ./scripts/vulkan.sh
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/zvbi.sh
+        ./scripts/zvbi.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: vulkan*.xz
+        assets: zvbi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,10 +63,56 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: vulkan.tar.xz
+        files: zvbi.tar.xz
+
+  libass:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Loading toolchain-arm64 cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: toolchain-arm64
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz        
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libass.sh
+        ./scripts/libass.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: libass*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@master
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: libass.tar.xz
 
   ffmpeg:
-    needs: [vulkan]
+    needs: [zvbi, libass]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -83,7 +134,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
@@ -114,7 +164,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz

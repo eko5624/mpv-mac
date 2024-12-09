@@ -10,18 +10,21 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://github.com/libass/libass.git
 cd libass
-./autogen.sh
-./configure \
-  --host=x86_64-apple-darwin \
+meson setup build \
   --prefix="$DIR/opt" \
-  --disable-fontconfig \
-  --disable-shared \
-  --enable-static
-make -j $MJOBS
-make install
+  --default-library=static \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
+  -Dwrap_mode=nodownload \
+  -Dbuildtype=release \
+  -Dcoretext=enabled \
+  -Dasm=enabled \
+  -Dlibunibreak=enabled \
+  -Dfontconfig=disabled \
+  -Ddirectwrite=disabled
+meson compile -C build
+meson install -C build
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
-sed -i "" 's/-liconv //g' $DIR/opt/lib/pkgconfig/*.pc
 cat $DIR/opt/lib/pkgconfig/libass.pc
 cd $DIR
 tar -zcvf libass.tar.xz -C $DIR/opt .

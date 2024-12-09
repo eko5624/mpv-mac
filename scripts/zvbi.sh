@@ -18,12 +18,10 @@ cd zvbi
   --without-x \
   --disable-shared \
   --enable-static
-make -C src
-make -C src install
-make SUBDIRS=. install
+make -j $MJOBS
+make install
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
-sed -i "" 's/-liconv //g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf zvbi.tar.xz -C $DIR/opt .
