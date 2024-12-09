@@ -44,7 +44,7 @@ mkdir -p $DIR/opt/lib/pkgconfig
 cp loader/libvulkan.a $DIR/opt/lib
 cp $DIR/vulkan.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/vulkan.pc
-sed -i "" 's|@VERSION@|'"${VER_VULKAN}"'|g' $DIR/vulkan.pc
+sed -i "" 's|@VULKAN_LOADER_VERSION@|'"${VER_VULKAN}"'|g' $DIR/opt/lib/pkgconfig/vulkan.pc
 
 cd $DIR
 tar -zcvf vulkan.tar.xz -C $DIR/opt .
