@@ -21,6 +21,7 @@ make -j $MJOBS
 make install
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/-liconv //g' $DIR/opt/lib/pkgconfig/*.pc
 cat $DIR/opt/lib/pkgconfig/libass.pc
 cd $DIR
 tar -zcvf libass.tar.xz -C $DIR/opt .

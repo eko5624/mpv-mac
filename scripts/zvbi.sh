@@ -23,6 +23,7 @@ make -C src install
 make SUBDIRS=. install
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/-liconv //g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf zvbi.tar.xz -C $DIR/opt .
