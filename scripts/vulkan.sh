@@ -9,7 +9,6 @@ cd $PACKAGES
 git clone https://github.com/KhronosGroup/Vulkan-Headers.git --branch main
 git clone https://github.com/KhronosGroup/Vulkan-Loader.git --branch main
 
-export CFLAGS+=" -Dparse_number=cjson_parse_number"
 cd Vulkan-Headers
 mkdir out && cd out
 cmake .. \
@@ -45,6 +44,7 @@ mkdir -p $DIR/opt/lib/pkgconfig
 cp loader/libvulkan.a $DIR/opt/lib
 cp $DIR/vulkan.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/vulkan.pc
+sed -i "" 's|@VERSION@|'"${VER_VULKAN}"'|g' $DIR/vulkan.pc
 
 cd $DIR
 tar -zcvf vulkan.tar.xz -C $DIR/opt .
