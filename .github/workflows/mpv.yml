@@ -31,15 +31,15 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Loading toolchain-arm64 cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: toolchain-arm64
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer 
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
