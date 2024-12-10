@@ -9,18 +9,18 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone --recursive https://github.com/freetype/freetype.git
 cd freetype
-#fix glibtoolize: command not found
-sed -i "" 's/glibtoolize/libtoolize/g' autogen.sh
-./autogen.sh
-./configure \
-  --host=x86_64-apple-darwin \
+meson setup build \
   --prefix="$DIR/opt" \
-  --enable-freetype-config \
-  --without-harfbuzz \
-  --disable-shared \
-  --enable-static
-make -j $MJOBS
-make install
+  --buildtype=release \
+  --default-library=static \
+  --libdir="$DIR/opt/lib" \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
+  -Dwrap_mode=nodownload \
+  -Dharfbuzz=disabled \
+  -Dbrotli=disabled \
+  -Dzlib=system
+meson compile -C build
+meson install -C build
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
