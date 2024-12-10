@@ -102,6 +102,7 @@ cp SHORT_SHA $DIR/opt
 
 mkdir -p $DIR/opt/lib/pkgconfig
 find . -type f \( -name "*.pc" ! -name "*uninstalled.pc" \) -print0 | xargs -0 -I {} cp {} $DIR/opt/lib/pkgconfig
+sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf ffmpeg.tar.xz -C $DIR/opt .
