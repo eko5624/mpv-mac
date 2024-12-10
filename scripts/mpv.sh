@@ -8,7 +8,7 @@ cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
-
+ln -s $WORKSPACE/include/libplacebo libplacebo
 CXXFLAGS+=" -I$WORKSPACE/include/libplacebo"
 #LDFLAGS+=" -Wl,-no_compact_unwind"
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
