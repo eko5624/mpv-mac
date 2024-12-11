@@ -41,6 +41,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/toolchain/toolchain-x86_64-latest.zip
         unzip toolchain-x86_64-latest.zip
+        mv workspace tools
     - name: Setup toolchain-arm64
       if: ${{ inputs.toolchain == 'arm64' && steps.toolchain-arm64.outputs.cache-hit != 'true' }} 
       run: |
