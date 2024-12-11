@@ -31,11 +31,11 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-x86_64 cache
+    - name: Loading toolchain-arm64 cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: toolchain-x86_64
+        key: toolchain-arm64
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
