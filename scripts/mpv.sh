@@ -19,7 +19,7 @@ ln -s $WORKSPACE/include/libswresample libswresample
 ln -s $WORKSPACE/include/libswscale libswscale
 ln -s $WORKSPACE/include/vulkan vulkan
 ln -s $WORKSPACE/include/vk_video vk_video
-#LDFLAGS+=" -Wl,-no_compact_unwind"
+LDFLAGS+=" -Wl,-no_compact_unwind"
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
