@@ -59,7 +59,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -96,7 +96,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -133,7 +133,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -170,7 +170,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -207,7 +207,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -244,7 +244,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -370,7 +370,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -418,7 +418,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -461,7 +461,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -498,7 +498,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -535,7 +535,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -578,7 +578,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -615,7 +615,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -659,7 +659,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -696,7 +696,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -733,7 +733,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -779,7 +779,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -826,7 +826,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -875,7 +875,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -922,7 +922,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -959,7 +959,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1008,7 +1008,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1045,7 +1045,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1082,7 +1082,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1119,7 +1119,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1156,7 +1156,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1197,7 +1197,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1239,7 +1239,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1276,7 +1276,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1313,7 +1313,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1364,7 +1364,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1401,7 +1401,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1442,7 +1442,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1479,7 +1479,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1529,7 +1529,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1570,7 +1570,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1607,7 +1607,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1644,7 +1644,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1686,7 +1686,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1728,7 +1728,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1773,7 +1773,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1810,7 +1810,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1851,7 +1851,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1888,7 +1888,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1936,7 +1936,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1983,7 +1983,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2025,7 +2025,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2070,7 +2070,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2112,7 +2112,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2154,7 +2154,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2191,7 +2191,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2228,7 +2228,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2265,7 +2265,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2302,7 +2302,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2429,7 +2429,7 @@ jobs:
           note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
           core.setOutput("note", note);
     - name: Create Release
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
@@ -2470,7 +2470,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2507,7 +2507,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2548,7 +2548,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2585,7 +2585,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2626,7 +2626,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2663,7 +2663,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2700,7 +2700,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2737,7 +2737,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2778,7 +2778,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2820,7 +2820,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2857,7 +2857,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2894,7 +2894,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2931,7 +2931,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2968,7 +2968,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3005,7 +3005,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3042,7 +3042,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3079,7 +3079,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3116,7 +3116,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3153,7 +3153,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3194,7 +3194,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3236,7 +3236,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3273,7 +3273,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3310,7 +3310,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3347,7 +3347,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3384,7 +3384,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3427,7 +3427,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3472,7 +3472,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
