@@ -54,7 +54,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
