@@ -10,6 +10,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/xqq/libaribcaption.git
 cd libaribcaption
+ln -s ${WORKSPACE}/include/openssl include/openssl
 mkdir out && cd out
 cmake .. \
   -G "Ninja" \
