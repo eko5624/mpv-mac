@@ -121,7 +121,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libb2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/luajit.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/molten-vk.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mujs.tar.xz
+        #curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uchardet.tar.xz
         mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
@@ -143,7 +143,7 @@ jobs:
           note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
           core.setOutput("note", note);
     - name: Create Release
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
