@@ -25,8 +25,6 @@ meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
   --cross-file="$DIR/meson_$ARCHS.txt" \
-  -Db_lto=true \
-  -Db_lto_mode=thin \
   -Dlibmpv=true \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
