@@ -4,7 +4,7 @@ sdkroot = '/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.plat
 [host_machine]
 system = 'darwin'
 cpu_family = 'x86_64'
-cpu = 'amd64'
+cpu = 'x86_64'
 endian = 'little'
 
 [binaries]
