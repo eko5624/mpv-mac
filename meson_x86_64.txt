@@ -1,7 +1,6 @@
 [constants]
 sdkroot = '/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
 
-
 [host_machine]
 system = 'darwin'
 cpu_family = 'x86_64'
