@@ -10,8 +10,7 @@ cd $PACKAGES
 git clone https://github.com/nkoriyama/aribb24.git
 cd aribb24
 ./bootstrap
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

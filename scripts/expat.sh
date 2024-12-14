@@ -9,8 +9,7 @@ cd $PACKAGES
 git clone https://github.com/libexpat/libexpat.git
 cd libexpat/expat
 autoreconf -fiv
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared
 make -j $MJOBS

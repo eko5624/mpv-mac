@@ -12,8 +12,7 @@ curl -OL "https://www.x.org/archive/individual/lib/xtrans-$VER_XTRANS.tar.gz"
 tar -xvf xtrans-$VER_XTRANS.tar.gz 2>/dev/null >/dev/null
 cd xtrans-$VER_XTRANS
 #sed -i "" 's/# include <sys\/stropts.h>/# include <sys\/ioctl.h>/g' Xtranslcl.c
-./configure \
---host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
 --prefix="$DIR/opt" \
 --enable-docs=no
 make -j $MJOBS

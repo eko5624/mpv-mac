@@ -12,8 +12,7 @@ cd $PACKAGES
 curl -OL "https://xcb.freedesktop.org/dist/libxcb-$VER_LIBXCB.tar.gz"
 tar -xvf libxcb-$VER_LIBXCB.tar.gz 2>/dev/null >/dev/null
 cd libxcb-$VER_LIBXCB
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --sysconfdir="$DIR/opt/etc" \
   --localstatedir="$DIR/opt/var" \

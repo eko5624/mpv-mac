@@ -9,8 +9,7 @@ cd $PACKAGES
 curl -OL "https://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-$VER_OPENCORE_AMR.tar.gz"
 tar -xvf opencore-amr-$VER_OPENCORE_AMR.tar.gz 2>/dev/null >/dev/null
 cd opencore-amr-$VER_OPENCORE_AMR
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

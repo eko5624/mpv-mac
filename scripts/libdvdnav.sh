@@ -10,8 +10,7 @@ cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdnav/$VER_LIBDVDNAV/libdvdnav-$VER_LIBDVDNAV.tar.bz2"
 tar -xvf libdvdnav-$VER_LIBDVDNAV.tar.bz2 2>/dev/null >/dev/null
 cd libdvdnav-$VER_LIBDVDNAV
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

@@ -11,8 +11,7 @@ cd $PACKAGES
 curl -OL  "https://download.videolan.org/videolan/libbluray/$VER_LIBBLURAY/libbluray-$VER_LIBBLURAY.tar.bz2"
 tar -xvf libbluray-$VER_LIBBLURAY.tar.bz2 2>/dev/null >/dev/null
 cd libbluray-$VER_LIBBLURAY
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-silent-rules \

@@ -11,8 +11,7 @@ cd $PACKAGES
 git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-docs \
   --disable-shared \

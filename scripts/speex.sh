@@ -10,8 +10,7 @@ cd $PACKAGES
 git clone https://github.com/xiph/speex.git --branch master
 cd speex
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

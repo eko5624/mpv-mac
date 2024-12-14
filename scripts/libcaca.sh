@@ -12,8 +12,7 @@ cd libcaca
 curl $CURL_RETRIES -OL https://github.com/cacalabs/libcaca/pull/70.patch
 patch -p1 -i 70.patch
 ./bootstrap
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

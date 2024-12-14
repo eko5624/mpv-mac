@@ -10,8 +10,7 @@ cd $PACKAGES
 curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
 tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
 cd gettext-$VER_GETTEXT
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt"\
   --enable-static \
   --disable-shared \

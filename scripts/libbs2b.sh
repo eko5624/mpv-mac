@@ -13,8 +13,7 @@ cd libbs2b
 curl -OL https://raw.githubusercontent.com/shinchiro/mpv-winbuild-cmake/master/packages/libbs2b-0001-build-library-only.patch
 patch -p1 -i libbs2b-0001-build-library-only.patch
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

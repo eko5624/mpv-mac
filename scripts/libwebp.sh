@@ -10,8 +10,7 @@ cd $PACKAGES
 git clone https://chromium.googlesource.com/webm/libwebp.git
 cd libwebp
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-gl \

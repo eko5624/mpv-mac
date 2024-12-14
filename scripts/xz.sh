@@ -9,8 +9,7 @@ cd $PACKAGES
 curl -OL "https://github.com/tukaani-project/xz/releases/download/v$VER_XZ/xz-$VER_XZ.tar.gz"
 tar -xvf xz-$VER_XZ.tar.gz 2>/dev/null >/dev/null
 cd xz-$VER_XZ
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-nls \

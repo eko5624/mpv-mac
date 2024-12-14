@@ -12,8 +12,7 @@ curl -OL "https://www.x.org/archive/individual/lib/libXdmcp-$VER_LIBXDMCP.tar.xz
 tar -xvf libXdmcp-$VER_LIBXDMCP.tar.xz 2>/dev/null >/dev/null
 cd libXdmcp-$VER_LIBXDMCP
 export PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

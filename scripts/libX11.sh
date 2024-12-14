@@ -14,8 +14,7 @@ tar -xvf libX11-$VER_LIBX11.tar.gz 2>/dev/null >/dev/null
 cd libX11-$VER_LIBX11
 export LC_ALL=""
 export LC_CTYPE="C"
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

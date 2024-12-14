@@ -9,8 +9,7 @@ cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdcss/$VER_LIBDVDCSS/libdvdcss-$VER_LIBDVDCSS.tar.bz2"
 tar -xvf libdvdcss-$VER_LIBDVDCSS.tar.bz2 2>/dev/null >/dev/null
 cd libdvdcss-$VER_LIBDVDCSS
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

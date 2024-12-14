@@ -9,7 +9,7 @@ cd $PACKAGES
 curl -OL "https://www.x.org/archive/individual/util/util-macros-${VER_UTIL_MACROS}.tar.xz"
 tar -xvf util-macros-${VER_UTIL_MACROS}.tar.xz 2>/dev/null >/dev/null
 cd util-macros-${VER_UTIL_MACROS}
-./configure --host=$ARCHS-apple-darwin --prefix="$DIR/opt"
+./configure $BUILD_HOST --prefix="$DIR/opt"
 make -j $MJOBS
 make install
 

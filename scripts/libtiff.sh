@@ -10,8 +10,7 @@ cd $PACKAGES
 curl -OL  "https://download.osgeo.org/libtiff/tiff-$VER_LIBTIFF.tar.xz"
 tar -xvf tiff-$VER_LIBTIFF.tar.xz 2>/dev/null >/dev/null
 cd tiff-$VER_LIBTIFF
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-lzma \

@@ -9,8 +9,7 @@ cd $PACKAGES
 git clone --recursive https://github.com/sekrit-twc/zimg.git --branch master
 cd zimg
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

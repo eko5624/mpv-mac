@@ -11,8 +11,7 @@ git clone https://gitlab.xiph.org/xiph/theora.git
 cd theora
 cp "${TOOLS}"/share/libtool/*/config.{guess,sub} ./
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --with-ogg-libraries="${WORKSPACE}"/lib \
   --with-ogg-includes="${WORKSPACE}"/include \

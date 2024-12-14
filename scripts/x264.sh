@@ -8,8 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://code.videolan.org/videolan/x264.git --branch master
 cd x264
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --enable-static \
   --enable-lto \

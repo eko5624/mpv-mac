@@ -12,8 +12,7 @@ cd libb2
 # Fix -flat_namespace being used on Big Sur and later.
 #curl -OL "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
 #patch -p1 -i configure-big_sur.diff
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-silent-rules \

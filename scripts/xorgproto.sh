@@ -11,8 +11,7 @@ cd $PACKAGES
 curl -OL "https://xorg.freedesktop.org/archive/individual/proto/xorgproto-$VER_XORGPROTO.tar.gz"
 tar -xvf xorgproto-$VER_XORGPROTO.tar.gz 2>/dev/null >/dev/null
 cd xorgproto-$VER_XORGPROTO
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --sysconfdir=$DIR/opt/etc \
   --localstatedir=$DIR/opt/var \

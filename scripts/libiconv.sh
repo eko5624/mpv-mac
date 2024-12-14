@@ -10,8 +10,7 @@ tar -xvf libiconv-$VER_LIBICONV.tar.gz 2>/dev/null >/dev/null
 cd libiconv-$VER_LIBICONV
 #curl -OL "https://raw.githubusercontent.com/Homebrew/patches/9be2793af/libiconv/patch-utf8mac.diff"
 #patch -p1 -i patch-utf8mac.diff
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-dependency-tracking \

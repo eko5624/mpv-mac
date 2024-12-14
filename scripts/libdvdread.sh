@@ -10,8 +10,7 @@ cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdread/$VER_LIBDVDREAD/libdvdread-$VER_LIBDVDREAD.tar.bz2"
 tar -xvf libdvdread-$VER_LIBDVDREAD.tar.bz2 2>/dev/null >/dev/null
 cd libdvdread-$VER_LIBDVDREAD
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

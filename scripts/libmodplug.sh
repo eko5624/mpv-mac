@@ -12,8 +12,7 @@ cd libmodplug
 #curl -OL "https://raw.githubusercontent.com/Homebrew/formula-patches/03cf8088210822aa2c1ab544ed58ea04c897d9c4/libtool/configure-big_sur.diff"
 #execute patch -p1 -i configure-big_sur.diff || true
 autoreconf -fvi
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-dependency-tracking \
