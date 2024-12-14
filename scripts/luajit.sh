@@ -9,7 +9,6 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
-  DEFAULT_CC=clang \
   CROSS=clang \
   TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
@@ -18,7 +17,6 @@ make -C src \
   PREFIX="$DIR/opt" \
   amalg
 make \
-  DEFAULT_CC=clang \
   CROSS=clang \
   TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
