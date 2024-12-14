@@ -20,6 +20,7 @@ CFLAGS+=" -I$WORKSPACE/include/libswresample"
 CFLAGS+=" -I$WORKSPACE/include/libswscale"
 CFLAGS+=" -I$WORKSPACE/include/vulkan"
 CFLAGS+=" -I$WORKSPACE/include/vk_video"
+CPPFLAGS="$CFLAGS"
 meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
