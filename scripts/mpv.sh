@@ -6,6 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
+export PKG_CONFIG_PATH="$WORKSPACE/lib/pkgconfig:$PKG_CONFIG_PATH"
 cd mpv
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
