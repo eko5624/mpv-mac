@@ -13,10 +13,10 @@ cp "${TOOLS}"/share/libtool/*/config.{guess,sub} ./
 ./autogen.sh
 ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
-  --with-ogg-libraries="${WORKSPACE}"/lib \
-  --with-ogg-includes="${WORKSPACE}"/include \
-  --with-vorbis-libraries="${WORKSPACE}"/lib \
-  --with-vorbis-includes="${WORKSPACE}"/include/ \
+  --with-ogg-libraries="${WORKSPACE}/lib" \
+  --with-ogg-includes="${WORKSPACE}/include" \
+  --with-vorbis-libraries="${WORKSPACE}/lib" \
+  --with-vorbis-includes="${WORKSPACE}/include" \
   --disable-oggtest \
   --disable-vorbistest \
   --disable-examples \
