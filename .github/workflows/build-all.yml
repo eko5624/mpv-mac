@@ -833,7 +833,7 @@ jobs:
         files: libarchive.tar.xz
 
   libaribcaption:
-    needs: [fontconfig]
+    needs: [fontconfig, openssl]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
