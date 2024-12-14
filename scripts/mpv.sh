@@ -24,7 +24,6 @@ meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
   --cross-file="$DIR/meson_$ARCHS.txt" \
-  -Dlibmpv=true \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
   -Dswift-flags="${SWIFT_FLAGS}"
