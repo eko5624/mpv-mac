@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  libdovi:
+  xvid:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +42,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/libdovi.sh
-        ./scripts/libdovi.sh
+        chmod +x ./scripts/xvid.sh
+        ./scripts/xvid.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libdovi*.xz
+        assets: xvid*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,9 +58,9 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libdovi.tar.xz
+        files: xvid.tar.xz
 
-  molten-vk:
+  libvpx:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -79,14 +79,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/molten-vk.sh
-        ./scripts/molten-vk.sh
+        chmod +x ./scripts/libvpx.sh
+        ./scripts/libvpx.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: molten-vk*.xz
+        assets: libvpx*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -95,5 +95,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: molten-vk.tar.xz
+        files: libvpx.tar.xz
 
