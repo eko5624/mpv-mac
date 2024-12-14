@@ -8,8 +8,24 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-make -j $MJOBS amalg XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" PREFIX="$DIR/opt"
-make XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" install PREFIX="$DIR/opt"
+make -C src \
+  DEFAULT_CC=clang \
+  CROSS=clang \
+  TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
+  TARGET_SYS=Darwin \
+  BUILDMODE=static \
+  XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
+  PREFIX="$DIR/opt" \
+  amalg
+make \
+  DEFAULT_CC=clang \
+  CROSS=clang \
+  TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
+  TARGET_SYS=Darwin \
+  BUILDMODE=static \
+  XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
+  PREFIX="$DIR/opt" \
+  install
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
