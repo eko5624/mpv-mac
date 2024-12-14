@@ -11,14 +11,12 @@ cd LuaJIT
 make -C src \
   TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
-  BUILDMODE=static \
   XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
   PREFIX="$DIR/opt" \
   amalg
 make \
   TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
-  BUILDMODE=static \
   XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
   PREFIX="$DIR/opt" \
   install

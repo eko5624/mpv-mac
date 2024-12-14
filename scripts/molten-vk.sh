@@ -15,6 +15,7 @@ sed -i '' 's/XCODEBUILD := .*/XCODEBUILD := '"${xcodebuild}"'/' Makefile
 ./fetchDependencies --macos
 make macos
 sed -i '' "s|./libMoltenVK|../../../Frameworks/libMoltenVK|g" Package/Latest/MoltenVK/dynamic/dylib/macOS/MoltenVK_icd.json
+mkdir -p "$DIR/opt/lib"
 mkdir -p "$DIR/opt/share/vulkan/icd.d"
 install -vm755 Package/Latest/MoltenVK/dynamic/dylib/macOS/libMoltenVK.dylib "$DIR/opt/lib"
 install -vm644 Package/Latest/MoltenVK/dynamic/dylib/macOS/MoltenVK_icd.json "$DIR/opt/share/vulkan/icd.d"
