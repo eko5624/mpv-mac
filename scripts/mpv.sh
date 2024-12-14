@@ -9,6 +9,17 @@ git clone https://github.com/mpv-player/mpv.git
 cd mpv
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
+CFLAGS+=" -I$WORKSPACE/include/libplacebo"
+CFLAGS+=" -I$WORKSPACE/include/libavcodec"
+CFLAGS+=" -I$WORKSPACE/include/libavdevice"
+CFLAGS+=" -I$WORKSPACE/include/libavfilter"
+CFLAGS+=" -I$WORKSPACE/include/libavformat"
+CFLAGS+=" -I$WORKSPACE/include/libavutil"
+CFLAGS+=" -I$WORKSPACE/include/libpostproc"
+CFLAGS+=" -I$WORKSPACE/include/libswresample"
+CFLAGS+=" -I$WORKSPACE/include/libswscale"
+CFLAGS+=" -I$WORKSPACE/include/vulkan"
+CFLAGS+=" -I$WORKSPACE/include/vk_video"
 meson setup build \
   --buildtype=release \
   -Dwrap_mode=nodownload \
