@@ -13,8 +13,7 @@ cd lame-$VER_LAME
 # Fix undefined symbol error _lame_init_old
 # https://sourceforge.net/p/lame/mailman/message/36081038/
 sed -i "" '/lame_init_old/d' include/libmp3lame.sym
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-shared \

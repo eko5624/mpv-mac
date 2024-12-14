@@ -10,11 +10,12 @@ cd $PACKAGES
 git clone https://gitlab.xiph.org/xiph/flac.git
 cd flac
 ./autogen.sh
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --enable-static \
   --disable-shared \
+  --with-ogg-includes="$WORKSPACE/include" \
+  --with-ogg-libraries="$WORKSPACE/lib" \
   --disable-doxygen-docs \
   --disable-xmms-plugin \
   --disable-thorough-tests \
