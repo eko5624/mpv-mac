@@ -12,7 +12,7 @@ git clone https://github.com/KhronosGroup/MoltenVK.git --branch main
 cd MoltenVK
 sed -i '' 's/xcodebuild "$@"/'"${xcodebuild}"' "$@"/g' fetchDependencies
 sed -i '' 's/XCODEBUILD := .*/XCODEBUILD := '"${xcodebuild}"'/' Makefile
-./fetchDependencies --macos --v-headers-root "$DIR/opt"
+./fetchDependencies --macos
 make macos
 sed -i '' "s|./libMoltenVK|../../../Frameworks/libMoltenVK|g" Package/Latest/MoltenVK/dynamic/dylib/macOS/MoltenVK_icd.json
 mkdir -p "$DIR/opt/share/vulkan/icd.d"
