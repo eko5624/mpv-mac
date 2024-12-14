@@ -10,7 +10,7 @@ curl -OL "https://downloads.sourceforge.net/project/opencore-amr/opencore-amr/op
 tar -xvf opencore-amr-$VER_OPENCORE_AMR.tar.gz 2>/dev/null >/dev/null
 cd opencore-amr-$VER_OPENCORE_AMR
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

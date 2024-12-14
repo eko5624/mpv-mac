@@ -11,7 +11,7 @@ git clone https://github.com/zapping-vbi/zvbi.git --branch main
 cd zvbi
 ./autogen.sh
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-silent-rules \

@@ -15,8 +15,8 @@ patch -p1 -i mujs-0001-add-exe-to-binary-name.patch
 #curl -OL https://raw.githubusercontent.com/eko5624/mpv-macos-intel/macOS-10.13/mujs-finding-libmujs.diff
 #xecute patch -p1 -i mujs-finding-libmujs.diff
 mkdir build
-make OUT=build prefix="$DIR/opt" host=x86_64-apple-darwin
-make OUT=build prefix="$DIR/opt" host=x86_64-apple-darwin install
+make OUT=build prefix="$DIR/opt" host=$ARCHS-apple-darwin
+make OUT=build prefix="$DIR/opt" host=$ARCHS-apple-darwin install
 
 #workaround Could not resolve library: build/release/libmujs.dylib
 #sudo install_name_tool -id "$DIR/opt/lib/libmujs.dylib" "$DIR/opt/lib/libmujs.dylib"

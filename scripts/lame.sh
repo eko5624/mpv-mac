@@ -14,7 +14,7 @@ cd lame-$VER_LAME
 # https://sourceforge.net/p/lame/mailman/message/36081038/
 sed -i "" '/lame_init_old/d' include/libmp3lame.sym
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-shared \

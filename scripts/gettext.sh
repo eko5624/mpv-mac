@@ -11,7 +11,7 @@ curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
 tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
 cd gettext-$VER_GETTEXT
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt"\
   --enable-static \
   --disable-shared \

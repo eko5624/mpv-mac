@@ -11,7 +11,7 @@ curl -OL "https://download.videolan.org/pub/videolan/libdvdnav/$VER_LIBDVDNAV/li
 tar -xvf libdvdnav-$VER_LIBDVDNAV.tar.bz2 2>/dev/null >/dev/null
 cd libdvdnav-$VER_LIBDVDNAV
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \

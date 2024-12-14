@@ -11,7 +11,7 @@ git clone https://github.com/nkoriyama/aribb24.git
 cd aribb24
 ./bootstrap
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

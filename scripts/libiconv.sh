@@ -11,7 +11,7 @@ cd libiconv-$VER_LIBICONV
 #curl -OL "https://raw.githubusercontent.com/Homebrew/patches/9be2793af/libiconv/patch-utf8mac.diff"
 #patch -p1 -i patch-utf8mac.diff
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-debug \
   --disable-dependency-tracking \

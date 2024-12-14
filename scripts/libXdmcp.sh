@@ -13,7 +13,7 @@ tar -xvf libXdmcp-$VER_LIBXDMCP.tar.xz 2>/dev/null >/dev/null
 cd libXdmcp-$VER_LIBXDMCP
 export PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

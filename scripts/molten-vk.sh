@@ -5,7 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 builddir="Package/Latest/MoltenVK/dynamic/dylib/macOS"
-xcodebuild="xcodebuild ARCHS=x86_64 ONLY_ACTIVE_ARCH=YES"
+xcodebuild="xcodebuild ARCHS=$ARCHS ONLY_ACTIVE_ARCH=YES"
 # Implementation of the Vulkan graphics and compute API on top of Metal
 cd $PACKAGES
 git clone https://github.com/KhronosGroup/MoltenVK.git --branch main

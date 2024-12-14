@@ -11,7 +11,7 @@ git clone https://github.com/xiph/speex.git --branch master
 cd speex
 ./autogen.sh
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static

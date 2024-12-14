@@ -12,19 +12,6 @@ if [ ! -d "$TOOLS/rust/.cargo" ]; then
   $CARGO_HOME/bin/rustup update
   curl -OL https://github.com/lu-zero/cargo-c/releases/latest/download/cargo-c-macos.zip
   7z x cargo-c-macos.zip -o$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
-  cat <<EOF >$CARGO_HOME/config.toml
-  [net]
-  git-fetch-with-cli = true
-
-  [target.x86_64-apple-darwin]
-  linker = "clang"
-  ar = "ar"
-  rustflags = ["-C", "target-cpu=x86-64"]
-
-  [profile.release]
-  panic = "abort"
-  strip = true
-EOF
 fi
 
 if [ ! -d "$TOOLS/rust/.rustup" ]; then

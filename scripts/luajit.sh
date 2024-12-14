@@ -9,13 +9,13 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
-  TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
+  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
   PREFIX="$DIR/opt" \
   amalg
 make \
-  TARGET_FLAGS="-arch x86_64 -isysroot $SDKROOT" \
+  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
   PREFIX="$DIR/opt" \

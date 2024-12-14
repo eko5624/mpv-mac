@@ -29,7 +29,7 @@ patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
   --disable-runtime-cpudetect \
   --enable-cross-compile \
   --target-os=darwin \
-  --arch=x86_64 \
+  --arch=$ARCHS \
   --disable-debug \
   --disable-doc \
   --enable-gpl \

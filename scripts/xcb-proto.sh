@@ -10,7 +10,7 @@ curl -OL "https://xorg.freedesktop.org/archive/individual/proto/xcb-proto-${VER_
 tar -xvf xcb-proto-${VER_XCB_PROTO}.tar.xz 2>/dev/null >/dev/null
 cd xcb-proto-${VER_XCB_PROTO}
 ./configure \
-  --host=x86_64-apple-darwin \
+  --host=$ARCHS-apple-darwin \
   --prefix="$DIR/opt" \
   --sysconfdir="$DIR/opt/etc" \
   --localstatedir="$DIR/opt/var" \
