@@ -23,7 +23,7 @@ on:
         - macos-14
 
 jobs:
-  xvid:
+  aribb24:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -42,14 +42,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/xvid.sh
-        ./scripts/xvid.sh
+        chmod +x ./scripts/aribb24.sh
+        ./scripts/aribb24.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: xvid*.xz
+        assets: aribb24*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -58,42 +58,6 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: xvid.tar.xz
+        files: aribb24.tar.xz
 
-  libvpx:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-arm64 cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/tools
-        key: toolchain-arm64
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        chmod +x ./scripts/libvpx.sh
-        ./scripts/libvpx.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: libvpx*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: libvpx.tar.xz
 
