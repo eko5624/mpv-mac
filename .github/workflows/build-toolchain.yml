@@ -1,5 +1,5 @@
 
-name: build-toolchain
+name: build-tools
 
 on:
   #schedule:
@@ -26,12 +26,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ matrix.arch }} cache
+    - name: Loading tools-${{ matrix.arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ matrix.arch }}
-        restore-keys: toolchain-
+        key: tools-${{ matrix.arch }}
+        restore-keys: tools-
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -40,30 +40,30 @@ jobs:
       run: |
         find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print
         brew unlink python
-    - name: Build toolchain 
+    - name: Build tools 
       run: |
-        chmod +x ./build-toolchain.sh
-        ./build-toolchain.sh
+        chmod +x ./build-tools.sh
+        ./build-tools.sh
     - name: Get current timestamp
       run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV 
-    - name: Zip toolchain-${{ matrix.arch }} 
+    - name: Zip tools-${{ matrix.arch }} 
       continue-on-error: true
       run: |
-        zip -r -y toolchain-${{ matrix.arch }}-${{ env.date }}.zip workspace/*
-        cp toolchain-${{ matrix.arch }}-${{ env.date }}.zip toolchain-${{ matrix.arch }}-latest.zip
+        zip -r -y tools-${{ matrix.arch }}-${{ env.date }}.zip workspace/*
+        cp tools-${{ matrix.arch }}-${{ env.date }}.zip tools-${{ matrix.arch }}-latest.zip
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        tag: toolchain
-        assets: toolchain-${{ matrix.arch }}-latest.zip
+        tag: tools
+        assets: tools-${{ matrix.arch }}-latest.zip
         fail-if-no-assets: false
         fail-if-no-release: false
-    - name: Upload toolchain
+    - name: Upload tools
       continue-on-error: true
       uses: softprops/action-gh-release@master
       with:
-        tag_name: toolchain
-        name: toolchain
-        files: toolchain*.zip
+        tag_name: tools
+        name: tools
+        files: tools*.zip
 

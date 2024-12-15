@@ -8,8 +8,8 @@ build() {
   echo ""
   echo "building $1"
   echo "======================="
-  if [ -f "$WORKSPACE/$1.done" ]; then
-    echo "$1 already built. Remove $WORKSPACE/$1.done lockfile to rebuild it."
+  if [ -f "$TOOLS/$1.done" ]; then
+    echo "$1 already built. Remove $TOOLS/$1.done lockfile to rebuild it."
     return 1
   else
     return 0
@@ -17,7 +17,7 @@ build() {
 }
 
 build_done() {
-  echo "" > "$WORKSPACE/$1.done"
+  echo "" > "$TOOLS/$1.done"
 }
 
 # Manage compile and link flags for libraries
@@ -27,8 +27,8 @@ if build "pkg-config"; then
   tar -xvf pkg-config-${VER_PKG_CONFIG}.tar.gz 2>/dev/null >/dev/null
   cd pkg-config-${VER_PKG_CONFIG}
   ./configure \
-    --silent --prefix="${WORKSPACE}" \
-    --with-pc-path="${WORKSPACE}"/lib/pkgconfig \
+    --silent --prefix="${TOOLS}" \
+    --with-pc-path="${TOOLS}"/lib/pkgconfig \
     --with-internal-glib
   make -j $MJOBS
   make install
@@ -41,7 +41,7 @@ if build "yasm"; then
   curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
   tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
   cd yasm-$VER_YASM
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "yasm"
@@ -54,7 +54,7 @@ if build "nasm"; then
   tar -xvf nasm-$VER_NASM.tar.xz 2>/dev/null >/dev/null
   cd nasm-$VER_NASM
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --disable-shared \
     --enable-static
   make -j $MJOBS
@@ -68,7 +68,7 @@ if build "m4"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/m4/m4-$VER_M4.tar.gz"
   tar -xvf m4-$VER_M4.tar.gz 2>/dev/null >/dev/null
   cd m4-$VER_M4
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "m4"
@@ -81,7 +81,7 @@ if build "autoconf"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/autoconf/autoconf-$VER_AUTOCONF.tar.gz"
   tar -xvf autoconf-$VER_AUTOCONF.tar.gz 2>/dev/null >/dev/null
   cd autoconf-$VER_AUTOCONF
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "autoconf"
@@ -94,7 +94,7 @@ if build "automake"; then
   curl $CURL_RETRIES -OL "https://ftp.gnu.org/gnu/automake/automake-$VER_AUTOMAKE.tar.gz"
   tar -xvf automake-$VER_AUTOMAKE.tar.gz 2>/dev/null >/dev/null
   cd automake-$VER_AUTOMAKE
-  ./configure --prefix="${WORKSPACE}"
+  ./configure --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   build_done "automake"
@@ -108,7 +108,7 @@ if build "libtool"; then
   tar -xvf libtool-$VER_LIBTOOL.tar.gz 2>/dev/null >/dev/null
   cd libtool-$VER_LIBTOOL
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --enable-static \
     --disable-shared
   make -j $MJOBS
@@ -125,8 +125,8 @@ if build "pkgconf"; then
   LIBTOOLIZE="libtoolize"
   ./autogen.sh
   ./configure \
-    --prefix="${WORKSPACE}" \
-    --with-pkg-config-dir="${WORKSPACE}/lib/pkgconfig":"${WORKSPACE}/share/pkgconfig"
+    --prefix="${TOOLS}" \
+    --with-pkg-config-dir="${TOOLS}/lib/pkgconfig":"${TOOLS}/share/pkgconfig"
   make -j $MJOBS
   make install
   build_done "pkgconf"
@@ -139,7 +139,7 @@ if build "zlib"; then
   tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
   cd zlib-$VER_ZLIB
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --static
   make -j $MJOBS
   make install
@@ -154,10 +154,10 @@ if build "openssl"; then
   tar -xvf openssl-"${VER_OPENSSL_3}".tar.gz 2>/dev/null >/dev/null
   cd openssl-"${VER_OPENSSL_3}"
   ./config \
-    --prefix="${WORKSPACE}" \
-    --openssldir="${WORKSPACE}" \
-    --with-zlib-include="$WORKSPACE/include" \
-    --with-zlib-lib="$WORKSPACE/lib" \
+    --prefix="${TOOLS}" \
+    --openssldir="${TOOLS}" \
+    --with-zlib-include="$TOOLS/include" \
+    --with-zlib-lib="$TOOLS/lib" \
     no-shared \
     zlib
   make -j $MJOBS
@@ -171,7 +171,7 @@ fi
 #  git clone https://github.com/libffi/libffi.git
 #  cd libffi
 #  ./autogen.sh
-#  ./config --prefix="${WORKSPACE}"
+#  ./config --prefix="${TOOLS}"
 #  make -j $MJOBS
 #  make install
 #  build_done "libffi"
@@ -184,10 +184,10 @@ if build "python"; then
   git clone https://github.com/python/cpython --branch 3.12
   cd cpython
   ./configure \
-    --prefix="${WORKSPACE}"
+    --prefix="${TOOLS}"
   make -j $MJOBS
   make install
-  cd "${WORKSPACE}"/bin
+  cd "${TOOLS}"/bin
   ln -s python3.12 python
   build_done "python"
 
@@ -208,26 +208,26 @@ fi
 #  curl -OL "https://ftpmirror.gnu.org/ncurses/ncurses-$VER_NCURSES.tar.gz"
 #  tar -xvf ncurses-$VER_NCURSES.tar.gz 2>/dev/null >/dev/null
 #  cd ncurses-$VER_NCURSES
-#  ./configure --prefix="${WORKSPACE}"
+#  ./configure --prefix="${TOOLS}"
 #  make -j $MJOBS
 #  make install
 #  build_done "ncurses"
 #fi  
 
-if build "cmake"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
-  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
-  cd cmake-$VER_CMAKE
-  ./configure \
-    --prefix="${WORKSPACE}" \
-    --parallel="${MJOBS}" \
-    -- \
-    -DCMake_BUILD_LTO=ON
-  make -j $MJOBS
-  make install
-  build_done "cmake"
-fi  
+#if build "cmake"; then
+#  cd $PACKAGES
+#  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
+#  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
+#  cd cmake-$VER_CMAKE
+#  ./configure \
+#    --prefix="${TOOLS}" \
+#    --parallel="${MJOBS}" \
+#    -- \
+#    -DCMake_BUILD_LTO=ON
+#  make -j $MJOBS
+#  make install
+#  build_done "cmake"
+#fi  
 
 # Conversion library
 if build "libiconv"; then
@@ -238,7 +238,7 @@ if build "libiconv"; then
   #curl -OL "https://raw.githubusercontent.com/Homebrew/patches/9be2793af/libiconv/patch-utf8mac.diff"
   #patch -p1 -i patch-utf8mac.diff
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --disable-debug \
     --disable-dependency-tracking \
     --enable-extra-encodings \
@@ -247,9 +247,9 @@ if build "libiconv"; then
     --with-pic
   make -j $MJOBS
   make install
-  cp $DIR/iconv.pc ${WORKSPACE}/lib/pkgconfig
-  sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' ${WORKSPACE}/lib/pkgconfig/iconv.pc
-  sed -i "" 's|@VERSION@|'"${VER_LIBICONV}"'|g' ${WORKSPACE}/lib/pkgconfig/iconv.pc
+  cp $DIR/iconv.pc ${TOOLS}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${TOOLS}"'|g' ${TOOLS}/lib/pkgconfig/iconv.pc
+  sed -i "" 's|@VERSION@|'"${VER_LIBICONV}"'|g' ${TOOLS}/lib/pkgconfig/iconv.pc
   build_done "libiconv"
 fi
 
@@ -261,10 +261,10 @@ if build "libxml2"; then
   cd libxml2
   autoreconf -fvi
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --without-python \
     --without-lzma \
-    --with-iconv="${WORKSPACE}" \
+    --with-iconv="${TOOLS}" \
     --disable-shared \
     --enable-static
   make -j $MJOBS
@@ -280,11 +280,11 @@ if build "gettext"; then
   tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
   cd gettext-$VER_GETTEXT
   ./configure \
-    --prefix="${WORKSPACE}" \
+    --prefix="${TOOLS}" \
     --enable-static \
     --disable-shared \
     --disable-silent-rules \
-    --with-libiconv-prefix="${WORKSPACE}" \
+    --with-libiconv-prefix="${TOOLS}" \
     --with-included-gettext \
     --with-included-glib \
     --with-included-libcroco \
@@ -297,9 +297,9 @@ if build "gettext"; then
     --without-xz
   make -j $MJOBS
   make install
-  cp $DIR/intl.pc ${WORKSPACE}/lib/pkgconfig
-  sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' ${WORKSPACE}/lib/pkgconfig/intl.pc
-  sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' ${WORKSPACE}/lib/pkgconfig/intl.pc
+  cp $DIR/intl.pc ${TOOLS}/lib/pkgconfig
+  sed -i "" 's|@prefix@|'"${TOOLS}"'|g' ${TOOLS}/lib/pkgconfig/intl.pc
+  sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' ${TOOLS}/lib/pkgconfig/intl.pc
   build_done "gettext"
 fi
 
