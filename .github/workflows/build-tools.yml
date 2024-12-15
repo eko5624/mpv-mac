@@ -29,7 +29,7 @@ jobs:
     - name: Loading tools-${{ matrix.arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.tools }}/tools
+        path: ${{ github.workspace }}/tools
         key: tools-${{ matrix.arch }}
         restore-keys: tools-
     - name: Switch to Xcode 15.2
