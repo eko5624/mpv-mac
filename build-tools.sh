@@ -276,7 +276,7 @@ fi
 # depends on: libxml2(zlib), ncurses
 if build "gettext"; then
   cd $PACKAGES
-  curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
+  curl -OL "https://ftp.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
   tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
   cd gettext-$VER_GETTEXT
   ./configure \
