@@ -1,5 +1,5 @@
 
-name: cache-toolchain
+name: cache-tools
 
 on:
   #schedule:
@@ -7,8 +7,8 @@ on:
     
   workflow_dispatch:
     inputs:
-      toolchain:
-        description: "toolchain"
+      tools:
+        description: "tools for building"
         required: false
         default: "x86_64"
         type: choice
@@ -22,27 +22,27 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-    - name: Cache toolchain-x86_64
-      if: ${{ inputs.toolchain == 'x86_64' }}
+    - name: Cache tools-x86_64
+      if: ${{ inputs.tools == 'x86_64' }}
       uses: actions/cache@main
-      id: toolchain-x86_64
+      id: tools-x86_64
       with:
         path: ${{ github.workspace }}/tools
-        key: toolchain-x86_64
-    - name: Cache toolchain-arm64
-      if: ${{ inputs.toolchain == 'arm64' }}
+        key: tools-x86_64
+    - name: Cache tools-arm64
+      if: ${{ inputs.tools == 'arm64' }}
       uses: actions/cache@main
-      id: toolchain-arm64
+      id: tools-arm64
       with:
         path: ${{ github.workspace }}/tools
-        key: toolchain-arm64
-    - name: Setup toolchain-x86_64
-      if: ${{ inputs.toolchain == 'x86_64' && steps.toolchain-x86_64.outputs.cache-hit != 'true' }} 
+        key: tools-arm64
+    - name: Setup tools-x86_64
+      if: ${{ inputs.tools == 'x86_64' && steps.tools-x86_64.outputs.cache-hit != 'true' }} 
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/tools/tools-x86_64-latest.zip
         unzip tools-x86_64-latest.zip
-    - name: Setup toolchain-arm64
-      if: ${{ inputs.toolchain == 'arm64' && steps.toolchain-arm64.outputs.cache-hit != 'true' }} 
+    - name: Setup tools-arm64
+      if: ${{ inputs.tools == 'arm64' && steps.tools-arm64.outputs.cache-hit != 'true' }} 
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/tools/tools-arm64-latest.zip
         unzip tools-arm64-latest.zip
