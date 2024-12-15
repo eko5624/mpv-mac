@@ -2,7 +2,7 @@
 set -e
 
 cd "$(dirname "$0")"
-set -a; source build.env; source ver.sh; set +a
+set -a; source tools.env; source ver.sh; set +a
 
 build() {
   echo ""
@@ -19,21 +19,6 @@ build() {
 build_done() {
   echo "" > "$TOOLS/$1.done"
 }
-
-# Manage compile and link flags for libraries
-if build "pkg-config"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://pkgconfig.freedesktop.org/releases/pkg-config-${VER_PKG_CONFIG}.tar.gz"
-  tar -xvf pkg-config-${VER_PKG_CONFIG}.tar.gz 2>/dev/null >/dev/null
-  cd pkg-config-${VER_PKG_CONFIG}
-  ./configure \
-    --silent --prefix="${TOOLS}" \
-    --with-pc-path="${TOOLS}"/lib/pkgconfig \
-    --with-internal-glib
-  make -j $MJOBS
-  make install
-  build_done "pkg-config"
-fi  
 
 # Modular BSD reimplementation of NASM
 if build "yasm"; then

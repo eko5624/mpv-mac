@@ -1,0 +1,51 @@
+
+name: cache-tools
+
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch:
+    inputs:
+      tools:
+        description: "tools"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Cache tools-x86_64
+      if: ${{ inputs.tools == 'x86_64' }}
+      uses: actions/cache@main
+      id: tools-x86_64
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-x86_64
+    - name: Cache tools-arm64
+      if: ${{ inputs.tools == 'arm64' }}
+      uses: actions/cache@main
+      id: tools-arm64
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-arm64
+    - name: Setup tools-x86_64
+      if: ${{ inputs.tools == 'x86_64' && steps.tools-x86_64.outputs.cache-hit != 'true' }} 
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/tools/tools-x86_64-latest.zip
+        unzip tools-x86_64-latest.zip
+        mv workspace tools
+    - name: Setup tools-arm64
+      if: ${{ inputs.tools == 'arm64' && steps.tools-arm64.outputs.cache-hit != 'true' }} 
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/tools/tools-arm64-latest.zip
+        unzip tools-arm64-latest.zip
+
+
