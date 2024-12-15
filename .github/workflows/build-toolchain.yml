@@ -1,5 +1,5 @@
 
-name: build-tools
+name: Build tools
 
 on:
   #schedule:
