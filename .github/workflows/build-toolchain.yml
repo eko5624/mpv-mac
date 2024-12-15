@@ -4,8 +4,24 @@ name: build-tools
 on:
   #schedule:
   #  - cron: '10 0 * * MON'
-    
   workflow_dispatch:
+    inputs:   
+      arch:
+        description: "Build target"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
+      os:
+        description: "Building tools for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
 
 jobs:
   build:
@@ -13,16 +29,6 @@ jobs:
     env:
       ARCHS: ${{ matrix.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    strategy:
-      matrix:
-        os:
-          - "macos-13"
-          - "macos-14"
-        include:
-          - os: "macos-13"
-            arch: "x86_64"
-          - os: "macos-14"
-            arch: "arm64"
     steps:
     - name: Checkout
       uses: actions/checkout@main
