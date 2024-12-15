@@ -25,18 +25,18 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
+    runs-on: ${{ inputs.os }}
     env:
-      ARCHS: ${{ matrix.arch }}
+      ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-${{ matrix.arch }} cache
+    - name: Loading tools-${{ inputs.arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-${{ matrix.arch }}
+        key: tools-${{ inputs.arch }}
         restore-keys: tools-
     - name: Switch to Xcode 15.2
       run: |
@@ -52,17 +52,17 @@ jobs:
         ./build-tools.sh
     - name: Get current timestamp
       run: echo "date=$(date +%Y-%m-%d)" >> $GITHUB_ENV 
-    - name: Zip tools-${{ matrix.arch }} 
+    - name: Zip tools-${{ inputs.arch }} 
       continue-on-error: true
       run: |
-        zip -r -y tools-${{ matrix.arch }}-${{ env.date }}.zip tools/*
-        cp tools-${{ matrix.arch }}-${{ env.date }}.zip tools-${{ matrix.arch }}-latest.zip
+        zip -r -y tools-$ARCHS-${{ env.date }}.zip tools/*
+        cp tools-$ARCHS-${{ env.date }}.zip tools-$ARCHS-latest.zip
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: tools
-        assets: tools-${{ matrix.arch }}-latest.zip
+        assets: tools-$ARCHS-latest.zip
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
