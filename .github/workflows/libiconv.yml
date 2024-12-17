@@ -5,6 +5,14 @@ on:
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,14 +21,6 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
   aribb24:
