@@ -23,40 +23,36 @@ on:
         - arm64
 
 jobs:
-  aribb24:
+  libdovi:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:    
+    steps:   
     - name: Checkout
       uses: actions/checkout@main
     - name: Setting tools arch
       id: tools-arch
-      run: echo "tools_arch=$(uname -m)" >> $GITHUB_ENV
-    - name: Loading tools-${{ env.tools_arch }} cache
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-${{ env.tools_arch }}
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        mkdir workspace
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/aribb24.sh
-        ./scripts/aribb24.sh
+        chmod +x ./scripts/libdovi.sh
+        ./scripts/libdovi.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: aribb24*.xz
+        assets: libdovi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -65,6 +61,6 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: aribb24.tar.xz
+        files: libdovi.tar.xz
 
 
