@@ -1,4 +1,4 @@
-#!/bin/bash
+y#!/bin/bash
 set -e
 
 cd "$(dirname "$0")" && cd ..
@@ -10,7 +10,9 @@ if [ ! -d "$TOOLS/rust/.cargo" ]; then
   export CARGO_HOME="${TOOLS}/rust/.cargo"
   curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   if [ "$(uname -m)" == "x86_64" ]; then
-    $CARGO_HOME/bin/cargo install --version "0.9.31+cargo-0.78" cargo-c
+    #$CARGO_HOME/bin/cargo install --version "0.9.31+cargo-0.78" cargo-c
+    curl -OL https://github.com/lu-zero/cargo-c/releases/download/v0.9.31/cargo-c-macos.zip
+    7z x cargo-c-macos.zip -o$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
   else
     curl -OL https://github.com/lu-zero/cargo-c/releases/latest/download/cargo-c-macos.zip
     7z x cargo-c-macos.zip -o$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
