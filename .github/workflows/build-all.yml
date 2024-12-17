@@ -32,11 +32,14 @@ jobs:
     steps:    
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -73,11 +76,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -110,11 +116,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -147,11 +156,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -184,11 +196,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -221,11 +236,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -259,11 +277,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -385,11 +406,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -433,11 +457,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -475,11 +502,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -512,11 +542,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -550,11 +583,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -592,11 +628,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -630,11 +669,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -673,11 +715,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -710,11 +755,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -748,11 +796,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -794,11 +845,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -841,11 +895,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -891,11 +948,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -937,11 +997,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -975,11 +1038,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1023,11 +1089,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1060,11 +1129,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1097,11 +1169,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1134,11 +1209,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1172,11 +1250,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1213,11 +1294,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1254,11 +1338,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1291,11 +1378,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1329,11 +1419,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1379,11 +1472,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1417,11 +1513,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1457,11 +1556,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1495,11 +1597,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1545,11 +1650,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1585,11 +1693,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1622,11 +1733,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1660,11 +1774,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1702,11 +1819,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1744,11 +1864,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1788,11 +1911,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1826,11 +1952,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1866,11 +1995,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1904,11 +2036,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1952,11 +2087,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1999,11 +2137,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2041,11 +2182,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2086,11 +2230,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2128,11 +2275,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2169,11 +2319,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2206,11 +2359,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2243,11 +2399,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2280,11 +2439,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2318,11 +2480,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2448,11 +2613,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2485,11 +2653,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2523,11 +2694,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2563,11 +2737,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2601,11 +2778,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2641,11 +2821,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2678,11 +2861,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2715,11 +2901,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2753,11 +2942,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2794,11 +2986,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2835,11 +3030,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2872,11 +3070,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2909,11 +3110,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2946,11 +3150,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2983,11 +3190,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3020,11 +3230,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3057,11 +3270,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3094,11 +3310,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3131,11 +3350,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3169,11 +3391,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3210,11 +3435,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3251,11 +3479,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3288,11 +3519,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3325,11 +3559,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3362,11 +3599,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3400,11 +3640,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3443,11 +3686,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "tool_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ steps.tools-arch.outputs.tool_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ steps.tools-arch.outputs.tool_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
