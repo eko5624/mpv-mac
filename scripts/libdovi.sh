@@ -7,8 +7,10 @@ set -a; source build.env; source ver.sh; set +a
 # Library to read and write Dolby Vision metadata (C-API)
 if [ "$ARCHS" == "x86_64" ]; then
   rustup target add x86_64-apple-darwin
+  cargo install cargo-c
 elif [ "$ARCHS" == "x86_64" ]; then
   rustup target add aarch64-apple-darwin
+  cargo install cargo-c
 fi
 
 cd $PACKAGES
@@ -17,7 +19,7 @@ cd dovi_tool/dolby_vision
 mkdir build
 export CARGO_BUILD_TARGET_DIR=build
 export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-cargo build \
+cargo cinstall \
   --manifest-path=Cargo.toml \
   --prefix="$DIR/opt" \
   --target=$ARCH-apple-darwin \
