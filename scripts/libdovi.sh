@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 if [ "$ARCHS" == "x86_64" ]; then
   rustup target add x86_64-apple-darwin
   cargo install cargo-c
-elif [ "$ARCHS" == "x86_64" ]; then
+elif [ "$ARCHS" == "arm64" ]; then
   rustup target add aarch64-apple-darwin
   cargo install cargo-c
 fi
