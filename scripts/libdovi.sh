@@ -26,7 +26,7 @@ cargo build \
   --release \
   --lib
 
-sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
+#sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf libdovi.tar.xz -C $DIR/opt .
