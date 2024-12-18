@@ -12,7 +12,7 @@ if [ ! -d "$TOOLS/rust/.cargo" ]; then
   if [ "$(uname -m)" == "x86_64" ]; then
     $TOOLS/rust/.cargo/bin/rustup toolchain install stable-x86_64-apple-darwin
     $TOOLS/rust/.cargo/bin/rustup default stable-x86_64-apple-darwin
-    LD_PRELOAD= $TOOLS/rust/.cargo/bin/cargo install cargo-c --profile=release-strip --features=vendored-openssl
+    LD_PRELOAD= $TOOLS/rust/.cargo/bin/cargo install cargo-c --profile=release-strip
     #$CARGO_HOME/bin/cargo install --version "0.9.31+cargo-0.78" cargo-c
     #curl -OL https://github.com/lu-zero/cargo-c/releases/download/v0.9.31/cargo-c-macos.zip
     #7z x cargo-c-macos.zip -o$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
