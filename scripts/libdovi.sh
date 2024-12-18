@@ -16,12 +16,10 @@ fi
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool
-cargo build --release
 cargo build --release \
   --manifest-path=Cargo.toml \
   --target-dir="$DIR/opt" \
   --target=$ARCH-apple-darwin \
-  --release \
   --lib
 
 #sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
