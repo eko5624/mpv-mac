@@ -19,8 +19,7 @@ cd dovi_tool
 cargo build --release \
   --manifest-path=Cargo.toml \
   --target-dir="$DIR/opt" \
-  --target=$ARCH-apple-darwin \
-  --lib
+  --target=$ARCH-apple-darwin
 
 #sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
