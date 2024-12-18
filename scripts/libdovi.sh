@@ -25,7 +25,7 @@ if [ ! -d "$TOOLS/rust/.rustup" ]; then
   $TOOLS/rust/.cargo/bin/rustup target add aarch64-apple-darwin
 fi
 
-PATH="$TOOLS/rust/.rustup/toolchains/stable-x86_64-apple-darwin/bin:$PATH"
+PATH="$TOOLS/rust/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
