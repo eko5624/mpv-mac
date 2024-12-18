@@ -23,6 +23,7 @@ fi
 if [ ! -d "$TOOLS/rust/.rustup" ]; then
   #$TOOLS/rust/.cargo/bin/rustup default stable-x86_64-apple-darwin
   $TOOLS/rust/.cargo/bin/rustup target add aarch64-apple-darwin
+  $TOOLS/rust/.cargo/bin/rustup default stable-aarch64-apple-darwin
 fi
 
 PATH="$TOOLS/rust/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
