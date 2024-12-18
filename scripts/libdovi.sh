@@ -8,9 +8,11 @@ set -a; source build.env; source ver.sh; set +a
 if [ ! -d "$TOOLS/rust/.cargo" ]; then
   export RUSTUP_HOME="${TOOLS}/rust/.rustup"
   export CARGO_HOME="${TOOLS}/rust/.cargo"
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target x86_64-apple-darwin --no-modify-path
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   if [ "$(uname -m)" == "x86_64" ]; then
-    $CARGO_HOME/bin/cargo install cargo-c
+    $TOOLS/rust/.cargo/bin/rustup toolchain install stable-x86_64-apple-darwin
+    $TOOLS/rust/.cargo/bin/rustup default stable-x86_64-apple-darwin
+    LD_PRELOAD= $TOOLS/rust/.cargo/bin/cargo install cargo-c --profile=release-strip --features=vendored-openssl
     #$CARGO_HOME/bin/cargo install --version "0.9.31+cargo-0.78" cargo-c
     #curl -OL https://github.com/lu-zero/cargo-c/releases/download/v0.9.31/cargo-c-macos.zip
     #7z x cargo-c-macos.zip -o$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
@@ -23,10 +25,9 @@ fi
 if [ ! -d "$TOOLS/rust/.rustup" ]; then
   #$TOOLS/rust/.cargo/bin/rustup default stable-x86_64-apple-darwin
   $TOOLS/rust/.cargo/bin/rustup target add aarch64-apple-darwin
-  $TOOLS/rust/.cargo/bin/rustup default stable-aarch64-apple-darwin
 fi
 
-PATH="$TOOLS/rust/.rustup/toolchains/stable-aarch64-apple-darwin/bin:$PATH"
+PATH="${TOOLS}/rust/.cargo/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
