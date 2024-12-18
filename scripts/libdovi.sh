@@ -17,7 +17,7 @@ cd dovi_tool/dolby_vision
 mkdir build
 export CARGO_BUILD_TARGET_DIR=build
 export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
-cargo cinstall \
+cargo build \
   --manifest-path=Cargo.toml \
   --prefix="$DIR/opt" \
   --target=$ARCH-apple-darwin \
