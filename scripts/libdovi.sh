@@ -15,10 +15,7 @@ fi
 
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
-cd dovi_tool/dolby_vision
-mkdir build
-export CARGO_BUILD_TARGET_DIR=build
-export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
+cd dovi_tool
 cargo build \
   --manifest-path=Cargo.toml \
   --target-dir="$DIR/opt" \
