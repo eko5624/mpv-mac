@@ -11,8 +11,8 @@ if [ "$ARCHS" == "x86_64" ]; then
 elif [ "$ARCHS" == "arm64" ]; then
   rustup target add aarch64-apple-darwin
   #rustup default aarch64-apple-darwin
-  rustup default stable-aarch64-apple-darwin
   cargo install cargo-c
+  rustup default stable-aarch64-apple-darwin
 fi
 
 cd $PACKAGES
