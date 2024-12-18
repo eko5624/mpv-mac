@@ -21,9 +21,10 @@ export CARGO_BUILD_TARGET_DIR=build
 export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=1
 cargo build \
   --manifest-path=Cargo.toml \
+  --target-dir="$DIR/opt" \
   --target=$ARCH-apple-darwin \
   --release \
-  --library-type=staticlib
+  --lib
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
