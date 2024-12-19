@@ -13,9 +13,9 @@ if [ "$(uname -m)" == "x86_64" ]; then
   7z x cargo-c-macos-x86_64.zip
   cp cargo-c-bin/* $RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin
   PATH="$RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin:$PATH"
-  if [ "$ARCHS" == "arm64" ]; then
-    $CARGO_HOME/bin/rustup target add x86_64-apple-darwin
-  fi
+  #if [ "$ARCHS" == "arm64" ]; then
+  #  $CARGO_HOME/bin/rustup target add x86_64-apple-darwin
+  #fi
 elif [ "$(uname -m)" == "arm64" ]; then
   curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-arm64.zip
