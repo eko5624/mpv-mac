@@ -31,6 +31,10 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
+      with:
+        repository: "lu-zero/cargo-c"
+        ref: "master"          
+        fetch-depth: 0
     - name: Install stable
       uses: dtolnay/rust-toolchain@stable
       with:
