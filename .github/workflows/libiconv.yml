@@ -41,6 +41,8 @@ jobs:
         key: tools-${{ env.t_arch }}
     - name: Install Rust
       uses: dtolnay/rust-toolchain@stable
+      with:
+        toolchain: stable
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
