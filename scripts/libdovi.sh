@@ -8,20 +8,19 @@ set -a; source build.env; source ver.sh; set +a
 export RUSTUP_HOME="${TOOLS}/rust/.rustup"
 export CARGO_HOME="${TOOLS}/rust/.cargo"
 if [ "$(uname -m)" == "x86_64" ]; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target x86_64-apple-darwin --no-modify-path
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
   7z x cargo-c-macos-x86_64.zip
-  cp cargo-c-bin/*  $RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin
-  PATH="$RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin:$PATH"
+  cp cargo-c-bin/* $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
+  PATH="$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin:$PATH"
 elif [ "$(uname -m)" == "arm64" ]; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target aarch64-apple-darwin --no-modify-path
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-arm64.zip
   7z x cargo-c-macos-arm64.zip
-  cp cargo-c-bin/*  $RUSTUP_HOME/toolchains/stable-aarch64-apple-darwin/bin
-  PATH="$RUSTUP_HOME/toolchains/aarch64-x86_64-apple-darwin/bin:$PATH"
+  cp cargo-c-bin/* $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
+  PATH="$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin:$PATH"
 fi
 
-PATH="$RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
@@ -33,7 +32,7 @@ cargo cinstall \
   --release \
   --library-type=staticlib
 
-#sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
+sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
 tar -zcvf libdovi.tar.xz -C $DIR/opt .
