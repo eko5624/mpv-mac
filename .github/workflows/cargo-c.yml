@@ -64,5 +64,5 @@ jobs:
       with:
         tag_name: tools
         name: tools
-        files: cargo-c-macos-$ARCHS.zip
+        files: cargo*.zip
         
