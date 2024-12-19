@@ -11,7 +11,7 @@ if [ "$ARCHS" == "x86_64" ]; then
 elif [ "$ARCHS" == "arm64" ]; then
   #rustup target add x86_64-apple-darwin
   curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
-  7z x cargo-c-macos.zip 
+  7z x cargo-c-macos-x86_64.zip
   rustup target add aarch64-apple-darwin
   #rustup default aarch64-apple-darwin
   rustup default stable-aarch64-apple-darwin
