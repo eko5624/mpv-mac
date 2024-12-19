@@ -1,0 +1,63 @@
+name: cargo-c
+on:
+  #schedule:
+  #  - cron: '10 0 * * MON'
+    
+  workflow_dispatch:
+    inputs:   
+      arch:
+        description: "Build target"
+        required: false
+        default: "x86_64"
+        type: choice
+        options:
+        - x86_64
+        - arm64
+      os:
+        description: "Only macos-14 support arm64"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
+
+jobs:
+  cargo-c:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Install stable
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        toolchain: stable
+    - name: Build cargo-c
+      run: |
+        cargo build --features=vendored-openssl --profile release-strip
+    - name: Create zip
+      run: |
+        cd target/release-strip
+        zip -r -y $GITHUB_WORKSPACE/cargo-c-macos-$ARCHS.zip \
+          cargo-capi \
+          cargo-cbuild \
+          cargo-cinstall \
+          cargo-ctest
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: tools
+        assets: cargo*.zip
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: tools
+        name: tools
+        files: $GITHUB_WORKSPACE/cargo-c-macos-$ARCHS.zip
