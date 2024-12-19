@@ -64,4 +64,5 @@ jobs:
       with:
         tag_name: tools
         name: tools
-        files: $GITHUB_WORKSPACE/cargo-c-macos-$ARCHS.zip
+        files: cargo-c-macos-$ARCHS.zip
+        
