@@ -24,6 +24,7 @@ if [ ! -d "$TOOLS/rust/.cargo" ]; then
   fi
 fi
 
+PATH="${TOOLS}/rust/.cargo/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
