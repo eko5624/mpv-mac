@@ -44,18 +44,18 @@ jobs:
         cargo build --features=vendored-openssl --profile release-strip
     - name: Create zip
       run: |
-        mkdir cargo-bin
-        cp target/release-strip/cargo-capi cargo-bin
-        cp target/release-strip/cargo-cbuild cargo-bin
-        cp target/release-strip/cargo-cinstall cargo-bin
-        cp target/release-strip/cargo-ctest cargo-bin
-        zip -r -y cargo-c-macos-$ARCHS.zip cargo-bin
+        mkdir cargo-c-bin
+        cp target/release-strip/cargo-capi cargo-c-bin
+        cp target/release-strip/cargo-cbuild cargo-c-bin
+        cp target/release-strip/cargo-cinstall cargo-c-bin
+        cp target/release-strip/cargo-ctest cargo-c-bin
+        zip -r -y cargo-c-macos-$ARCHS.zip cargo-c-bin
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: tools
-        assets: cargo*.zip
+        assets: cargo-c-macos-${{ inputs.arch }}.zip
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
