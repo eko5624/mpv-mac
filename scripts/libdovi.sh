@@ -10,10 +10,12 @@ if [ "$ARCHS" == "x86_64" ]; then
   cargo install cargo-c
 elif [ "$ARCHS" == "arm64" ]; then
   #rustup target add x86_64-apple-darwin
-  cargo build --features=vendored-openssl --profile release-strip
+  curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
+  7z x cargo-c-macos.zip 
   rustup target add aarch64-apple-darwin
   #rustup default aarch64-apple-darwin
   rustup default stable-aarch64-apple-darwin
+  cp cargo-bin/* $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
 fi
 
 cd $PACKAGES
