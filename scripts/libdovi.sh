@@ -5,20 +5,23 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Library to read and write Dolby Vision metadata (C-API)
-if [ "$ARCHS" == "x86_64" ]; then
-  echo "$RUSTUP_HOME"
-  rustup target add x86_64-apple-darwin
-  curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
-  7z x cargo-c-macos-x86_64.zip
-  cp cargo-bin/*  /Users/runner/.rustup/toolchains/stable-$ARCH-apple-darwin/bin
-elif [ "$ARCHS" == "arm64" ]; then
-  #rustup target add x86_64-apple-darwin
-  curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
-  7z x cargo-c-macos-x86_64.zip
-  rustup target add aarch64-apple-darwin
-  #rustup default aarch64-apple-darwin
-  rustup default stable-aarch64-apple-darwin
-  cp cargo-bin/* $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
+if [ ! -d "$TOOLS/rust/.cargo" ]; then
+  export RUSTUP_HOME="${TOOLS}/rust/.rustup"
+  export CARGO_HOME="${TOOLS}/rust/.cargo"
+  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
+  if [ "$ARCHS" == "x86_64" ]; then
+    curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
+    7z x cargo-c-macos-x86_64.zip
+    cp cargo-bin/*  $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
+  elif [ "$ARCHS" == "arm64" ]; then
+    #rustup target add x86_64-apple-darwin
+    curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
+    7z x cargo-c-macos-x86_64.zip
+    rustup target add aarch64-apple-darwin
+    #rustup default aarch64-apple-darwin
+    rustup default stable-aarch64-apple-darwin
+    cp cargo-bin/* $RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin
+  fi
 fi
 
 cd $PACKAGES
