@@ -24,7 +24,7 @@ if [ ! -d "$TOOLS/rust/.cargo" ]; then
   fi
 fi
 
-PATH="$RUSTUP_HOME/toolchains/stable-$ARCH-apple-darwin/bin:$PATH"
+PATH="$RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin:$PATH"
 cd $PACKAGES
 git clone https://github.com/quietvoid/dovi_tool.git
 cd dovi_tool/dolby_vision
