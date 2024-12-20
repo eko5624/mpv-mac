@@ -18,6 +18,7 @@ cmake .. \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
   -DCMAKE_BUILD_TYPE=Release \
   -DBUILD_SHARED_LIBS=OFF \
+  -DENABLE_NEON=OFF \
   -DBUILD_TESTING=OFF
 cmake --build .
 cmake --install .

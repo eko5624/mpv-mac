@@ -23,7 +23,7 @@ on:
         - arm64
 
 jobs:
-  libunibreak:
+  svt-av1:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -45,14 +45,14 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/libunibreak.sh
-        ./scripts/libunibreak.sh
+        chmod +x ./scripts/svt-av1.sh
+        ./scripts/svt-av1.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libunibreak*.xz
+        assets: svt-av1*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -61,4 +61,4 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libunibreak.tar.xz
+        files: svt-av1.tar.xz
