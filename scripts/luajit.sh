@@ -11,14 +11,12 @@ cd LuaJIT
 make -C src \
   DEFAULT_CC=clang \
   CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
-  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   amalg
 make \
   DEFAULT_CC=clang \
   CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
-  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   install
