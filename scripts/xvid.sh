@@ -9,8 +9,7 @@ cd $PACKAGES
 curl -OL "https://downloads.xvid.com/downloads/xvidcore-$VER_XVID.tar.gz"
 tar -xvf xvidcore-$VER_XVID.tar.gz 2>/dev/null >/dev/null
 cd xvidcore/build/generic
-./configure \
-  --host=$ARCHS-apple-darwin \
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-assembly
 make -j $MJOBS
