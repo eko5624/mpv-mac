@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-make -C src \
+make \
   MACOSX_DEPLOYMENT_TARGET=11.0 \
   TARGET_CFLAGS="--target=arm64-apple-darwin" \
   TARGET_LDFLAGS="--target=arm64-apple-darwin" \
