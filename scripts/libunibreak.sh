@@ -6,11 +6,13 @@ set -a; source build.env; source ver.sh; set +a
 
 # Implementation of the Unicode line and word-breaking algorithms
 cd $PACKAGES
-git clone https://github.com/adah1972/libunibreak.git
-cd libunibreak
-./autogen.sh
-./configure \
-  --host=arm64-apple-darwin \
+#git clone https://github.com/adah1972/libunibreak.git
+#cd libunibreak
+#./autogen.sh
+curl -OL https://github.com/adah1972/libunibreak/releases/download/libunibreak_6_1/libunibreak-6.1.tar.gz
+tar -xvf libunibreak-6.1.tar.gz 2>/dev/null >/dev/null
+cd libunibreak-6.1
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static
