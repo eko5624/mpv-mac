@@ -5,6 +5,14 @@ on:
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,14 +21,6 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
   ffmpeg:
@@ -31,11 +31,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading tools-arm64 cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
-        key: tools-arm64
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
