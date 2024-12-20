@@ -8,19 +8,18 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-sed -i "" 's/-march=i686//g' src/Makefile
 make -C src \
-  DEFAULT_CC=clang \
-  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
-  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
-  TARGET_SYS=Darwin \
+  TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
+  TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
+  HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
+  HOST_LDFLAGS=--target=$(uname -m)-apple-darwin \
   PREFIX="$DIR/opt" \
   amalg
 make \
-  DEFAULT_CC=clang \
-  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
-  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
-  TARGET_SYS=Darwin \
+  TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
+  TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
+  HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
+  HOST_LDFLAGS=--target=$(uname -m)-apple-darwin \
   PREFIX="$DIR/opt" \
   install
 
