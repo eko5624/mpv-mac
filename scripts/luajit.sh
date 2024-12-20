@@ -9,17 +9,17 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
-  TARGET_CFLAGS=--target=arm64-apple-darwin \
-  TARGET_LDFLAGS=--target=arm64-apple-darwin \
-  HOST_CFLAGS=--target=x86_64-apple-darwin \
-  HOST_LDFLAGS=--target=x86_64-apple-darwin \
+  HOST_CC="clang -arch $ARCHS" \
+  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch $ARCHS" \
+  TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   amalg
 make \
-  TARGET_CFLAGS=--target=arm64-apple-darwin \
-  TARGET_LDFLAGS=--target=arm64-apple-darwin \
-  HOST_CFLAGS=--target=x86_64-apple-darwin \
-  HOST_LDFLAGS=--target=x86_64-apple-darwin \
+  DEFAULT_CC=clang \
+  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch $ARCHS" \
+  TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   install
 
