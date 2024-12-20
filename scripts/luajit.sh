@@ -9,6 +9,7 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
+  MACOSX_DEPLOYMENT_TARGET=11.0 \
   TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
   TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
   HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
@@ -16,6 +17,7 @@ make -C src \
   PREFIX="$DIR/opt" \
   amalg
 make \
+  MACOSX_DEPLOYMENT_TARGET=11.0 \
   TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
   TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
   HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
