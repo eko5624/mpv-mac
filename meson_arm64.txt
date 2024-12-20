@@ -1,5 +1,6 @@
 [constants]
 sdkroot = '/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
+xctoolchain = '/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin'
 
 [host_machine]
 system = 'darwin'
