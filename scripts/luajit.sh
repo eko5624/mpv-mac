@@ -8,15 +8,17 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
-make -C src \
+/usr/bin/make -C src \
   DEFAULT_CC=clang \
   CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   amalg
-make \
+/usr/bin/make \
   DEFAULT_CC=clang \
   CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   install
