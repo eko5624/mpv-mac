@@ -6,6 +6,7 @@ set -a; source build.env; source ver.sh; set +a
 
 # depends on: libX11[util-macros, libxcb, xorgproto(util-macros), xtrans(util-macros)
 # depends on: libxcb[xcb-proto libXau(xorgproto(util-macros)), libXdmcp(xorgproto)]
+rm $DIR/workspace/lib/*.la
 cd $PACKAGES
 git clone https://github.com/FFmpeg/FFmpeg.git
 cd FFmpeg
