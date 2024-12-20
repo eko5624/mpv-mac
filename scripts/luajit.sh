@@ -9,6 +9,8 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
+  DEFAULT_CC=clang \
+  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin" \
   TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
   TARGET_SYS=Darwin \
   XCFLAGS="-DLUAJIT_ENABLE_GC64 -DLUAJIT_ENABLE_LUA52COMPAT" \
