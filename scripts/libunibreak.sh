@@ -9,9 +9,6 @@ cd $PACKAGES
 git clone https://github.com/adah1972/libunibreak.git
 cd libunibreak
 NOCONFIGURE=1 ./autogen.sh
-#curl -OL https://github.com/adah1972/libunibreak/releases/download/libunibreak_6_1/libunibreak-6.1.tar.gz
-#tar -xvf libunibreak-6.1.tar.gz 2>/dev/null >/dev/null
-#cd libunibreak-6.1
 ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
