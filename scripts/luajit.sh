@@ -10,18 +10,18 @@ git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
   MACOSX_DEPLOYMENT_TARGET=11.0 \
-  TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
-  TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
-  HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
-  HOST_LDFLAGS=--target=$(uname -m)-apple-darwin \
+  TARGET_CFLAGS="--target=arm64-apple-darwin" \
+  TARGET_LDFLAGS="--target=arm64-apple-darwin" \
+  HOST_CFLAGS="--target=x86_64-apple-darwin" \
+  HOST_LDFLAGS="--target=x86_64-apple-darwin" \
   PREFIX="$DIR/opt" \
   amalg
 make \
   MACOSX_DEPLOYMENT_TARGET=11.0 \
-  TARGET_CFLAGS=--target=$ARCHS-apple-darwin \
-  TARGET_LDFLAGS=--target=$ARCHS-apple-darwin \
-  HOST_CFLAGS=--target=$(uname -m)-apple-darwin \
-  HOST_LDFLAGS=--target=$(uname -m)-apple-darwin \
+  TARGET_CFLAGS="--target=arm64-apple-darwin" \
+  TARGET_LDFLAGS="--target=arm64-apple-darwin" \
+  HOST_CFLAGS="--target=x86_64-apple-darwin" \
+  HOST_LDFLAGS="--target=x86_64-apple-darwin" \
   PREFIX="$DIR/opt" \
   install
 
