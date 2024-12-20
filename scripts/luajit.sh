@@ -10,7 +10,7 @@ git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
   DEFAULT_CC=clang \
-  CROSS=$(xcrun --sdk macosx --find clang) \
+  CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
   TARGET_FLAGS="-arch $ARCHS" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
@@ -18,7 +18,7 @@ make -C src \
 make \
   DEFAULT_CC=clang \
   CROSS="/Applications/Xcode_15.2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
-  TARGET_FLAGS="-arch $ARCHS -isysroot $SDKROOT" \
+  TARGET_FLAGS="-arch $ARCHS" \
   TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   install
