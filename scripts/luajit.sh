@@ -9,13 +9,13 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
-  TARGET_CFLAGS=$CFLAGS \
-  TARGET_LDFLAGS=$LDFLAGS \
+  HOST_CC="clang -target $(uname -m)-apple-macos11.0" \
+  TARGET_CC="clang -target $ARCHS-apple-macos11.0 -isysroot $SDKROOT" \
   PREFIX="$DIR/opt" \
   amalg
 make \
-  TARGET_CFLAGS=$CFLAGS \
-  TARGET_LDFLAGS=$LDFLAGS \
+  HOST_CC="clang -target $(uname -m)-apple-macos11.0" \
+  TARGET_CC="clang -target $ARCHS-apple-macos11.0 -isysroot $SDKROOT" \
   PREFIX="$DIR/opt" \
   install
 
