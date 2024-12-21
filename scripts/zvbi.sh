@@ -11,7 +11,7 @@ cd $PACKAGES
 git clone https://github.com/zapping-vbi/zvbi.git --branch main
 cd zvbi
 ./autogen.sh
-./configure $BUILD_HOST \
+ac_cv_func_malloc_0_nonnull=yes ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-dependency-tracking \
   --disable-silent-rules \
