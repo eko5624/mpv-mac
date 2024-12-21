@@ -11,6 +11,8 @@ PKG_CONFIG_PATH="${WORKSPACE}/share/pkgconfig:$PKG_CONFIG_PATH"
 cd $PACKAGES
 curl -OL "https://www.x.org/archive/individual/lib/libX11-$VER_LIBX11.tar.gz"
 tar -xvf libX11-$VER_LIBX11.tar.gz 2>/dev/null >/dev/null
+
+# Fix cannot run test program while cross compiling '--disable-malloc0returnsnull'
 cd libX11-$VER_LIBX11
 export LC_ALL=""
 export LC_CTYPE="C"

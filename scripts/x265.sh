@@ -8,11 +8,12 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://bitbucket.org/multicoreware/x265_git.git
 
+# Fix cross build x265 arm64 library on x86_64 macOS, add '-DENABLE_NEON=OFF'
 # 10-bit
 cd x265_git
 mkdir out-10 && cd out-10
 cmake ../source \
-  -G "Ninja" \
+  -G "Ninja" ${X265_CMAKEFLAGS} \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
   -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
@@ -30,7 +31,7 @@ cd ..
 # 12-bit
 mkdir out-12 && cd out-12
 cmake ../source \
-  -G "Ninja" \
+  -G "Ninja" ${X265_CMAKEFLAGS} \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
   -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
@@ -52,7 +53,7 @@ mkdir out-8 && cd out-8
 mv ../out-10/libx265.a libx265_main10.a
 mv ../out-12/libx265.a libx265_main12.a
 cmake ../source \
-  -G "Ninja" \
+  -G "Ninja" ${X265_CMAKEFLAGS} \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
   -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
