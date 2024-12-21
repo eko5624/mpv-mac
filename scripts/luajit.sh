@@ -7,6 +7,8 @@ set -a; source build.env; source ver.sh; set +a
 # Just-In-Time Compiler (JIT) for the Lua programming language
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
+
+unset CC CFLAGS LDFLAGS
 cd LuaJIT
 make -C src \
   MACOSX_DEPLOYMENT_TARGET="11.0" \
