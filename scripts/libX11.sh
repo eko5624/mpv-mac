@@ -17,7 +17,8 @@ export LC_CTYPE="C"
 ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \
-  --enable-static
+  --enable-static \
+  --enable-specs=no
 make -j $MJOBS
 make install
 
