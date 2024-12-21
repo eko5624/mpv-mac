@@ -9,8 +9,10 @@ set -a; source build.env; source ver.sh; set +a
 rm $DIR/workspace/lib/*.la
 cd $PACKAGES
 git clone https://github.com/zapping-vbi/zvbi.git --branch main
+
+# Fix for the "missing _rpl_realloc() symbol" issue when cross-linking
 export ac_cv_func_malloc_0_nonnull=yes
-#export ac_cv_func_realloc_0_nonnull=yes
+export ac_cv_func_realloc_0_nonnull=yes
 cd zvbi
 ./autogen.sh
 ./configure $BUILD_HOST \
