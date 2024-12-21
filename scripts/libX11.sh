@@ -18,7 +18,7 @@ export LC_CTYPE="C"
   --prefix="$DIR/opt" \
   --disable-shared \
   --enable-static \
-  --enable-specs=no
+  --disable-tests
 make -j $MJOBS
 make install
 
