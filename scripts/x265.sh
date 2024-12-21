@@ -22,7 +22,6 @@ cmake ../source \
   -DENABLE_HDR10_PLUS=ON \
   -DEXPORT_C_API=OFF \
   -DENABLE_CLI=OFF \
-  -DENABLE_NEON=OFF \
   -DENABLE_SHARED=OFF \
   -DBUILD_SHARED_LIBS=OFF
 cmake --build .
@@ -43,7 +42,6 @@ cmake ../source \
   -DMAIN12=ON \
   -DEXPORT_C_API=OFF \
   -DENABLE_CLI=OFF \
-  -DENABLE_NEON=OFF \
   -DENABLE_SHARED=OFF \
   -DBUILD_SHARED_LIBS=OFF
 cmake --build .
@@ -66,7 +64,6 @@ cmake ../source \
   -DLINKED_10BIT=ON \
   -DLINKED_12BIT=ON \
   -DENABLE_CLI=OFF \
-  -DENABLE_NEON=OFF \
   -DENABLE_SHARED=OFF \
   -DBUILD_SHARED_LIBS=OFF
 cmake --build . -j $MJOBS
