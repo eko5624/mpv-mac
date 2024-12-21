@@ -5,6 +5,14 @@ on:
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,14 +21,6 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
   mpv:
@@ -31,11 +31,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -83,6 +86,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
+        curl -OL https://github.com/${{ githu        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
@@ -123,6 +127,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uchardet.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/mpv.sh
         ./scripts/mpv.sh
@@ -146,6 +151,11 @@ jobs:
       with:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
+        body: ${{ steps.note.outputs.note }}
+        files: |
+          mpv*.zip
+          libmpv*.zip
+          ffmpeg*.zip
         body: ${{ steps.note.outputs.note }}
         files: |
           mpv*.zip
