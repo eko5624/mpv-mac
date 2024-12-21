@@ -45,6 +45,11 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz        
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/zstd.sh
         ./scripts/zstd.sh
     - name: Delete
