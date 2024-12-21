@@ -9,13 +9,20 @@ cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 cd LuaJIT
 make -C src \
-  HOST_CC="clang -target $(uname -m)-apple-macos11.0" \
-  TARGET_CC="clang -target $ARCHS-apple-macos11.0 -isysroot $SDKROOT" \
+  MACOSX_DEPLOYMENT_TARGET="11.0" \
+  DEFAULT_CC=clang \
+  CROSS="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch arm64 -isysroot /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" \
+  TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   amalg
+
 make \
-  HOST_CC="clang -target $(uname -m)-apple-macos11.0" \
-  TARGET_CC="clang -target $ARCHS-apple-macos11.0 -isysroot $SDKROOT" \
+  MACOSX_DEPLOYMENT_TARGET="11.0" \
+  DEFAULT_CC=clang \
+  CROSS="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/" \
+  TARGET_FLAGS="-arch arm64 -isysroot /Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" \
+  TARGET_SYS=Darwin \
   PREFIX="$DIR/opt" \
   install
 
