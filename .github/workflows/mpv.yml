@@ -24,7 +24,6 @@ on:
 
 jobs:
   mpv:
-    needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
