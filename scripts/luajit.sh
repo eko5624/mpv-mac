@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/LuaJIT/LuaJIT.git
 
-unset CFLAGS
+unset CFLAGS LDFLAGS
 cd LuaJIT
 make -C src \
   MACOSX_DEPLOYMENT_TARGET="11.0" \
