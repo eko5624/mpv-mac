@@ -23,7 +23,7 @@ on:
         - arm64
 
 jobs:
-  zstd:
+  zvbi:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -50,14 +50,14 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/zstd.sh
-        ./scripts/zstd.sh
+        chmod +x ./scripts/zvbi.sh
+        ./scripts/zvbi.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: zstd*.xz
+        assets: zvbi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -66,4 +66,4 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: zstd.tar.xz
+        files: zvbi.tar.xz
