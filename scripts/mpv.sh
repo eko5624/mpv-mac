@@ -8,7 +8,9 @@ rm $DIR/workspace/lib/*.la
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
-LDFLAGS+=" -Wl,-no_compact_unwind"
+export C_INCLUDE_PATH="$WORKSPACE/include:$C_INCLUDE_PATH"
+export LIBRARY_PATH="$WORKSPACE/lib:$LIBRARY_PATH"
+export LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
