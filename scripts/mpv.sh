@@ -20,6 +20,7 @@ meson setup build \
   -Db_lto=true \
   -Db_lto_mode=thin \
   -Dlibmpv=true \
+  -Dlibplacebo=true \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
   -Dswift-flags="${SWIFT_FLAGS}"
