@@ -4,6 +4,14 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+# Get vulkan-loader version
+declare -A ver_array
+ver_json=$(curl -s "https://raw.githubusercontent.com/eko5624/nginx-nosni/master/old.json")
+while IFS="=" read -r k v; do
+  ver_array[$k]=$v
+done < <(echo "$ver_json" | jq -r 'to_entries | .[] | "\(.key)=\(.value)"')
+VER_VULKAN=$(echo "${ver_array[data]}" | jq -r '.vulkan-loader.version')
+
 # Vulkan Header and Loader
 cd $PACKAGES
 git clone https://github.com/KhronosGroup/Vulkan-Headers.git --branch main
@@ -45,6 +53,7 @@ cp loader/libvulkan.a $DIR/opt/lib
 cp $DIR/vulkan.pc $DIR/opt/lib/pkgconfig
 sed -i "" 's|@prefix@|'"${WORKSPACE}"'|g' $DIR/opt/lib/pkgconfig/vulkan.pc
 sed -i "" 's|@VULKAN_LOADER_VERSION@|'"${VER_VULKAN}"'|g' $DIR/opt/lib/pkgconfig/vulkan.pc
+cat $DIR/opt/lib/pkgconfig/vulkan.pc
 
 cd $DIR
 tar -zcvf vulkan.tar.xz -C $DIR/opt .
