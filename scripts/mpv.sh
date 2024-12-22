@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+rm $DIR/workspace/lib/*.la
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
