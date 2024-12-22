@@ -21,6 +21,7 @@ meson setup build \
   -Db_lto_mode=thin \
   -Dlibmpv=true \
   -Dlibplacebo=enabled \
+  -Dvulkan=enabled \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
   -Dswift-flags="${SWIFT_FLAGS}"
