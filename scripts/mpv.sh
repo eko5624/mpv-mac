@@ -21,7 +21,6 @@ meson setup build \
   -Db_lto_mode=thin \
   -Dobjc_args="-Wno-error=deprecated -Wno-error=deprecated-declarations" \
   -Dlibmpv=true \
-  -Dlibplacebo=enabled \
   -Dvulkan=enabled \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
