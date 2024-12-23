@@ -45,6 +45,7 @@ jobs:
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        set -x
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
