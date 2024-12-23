@@ -15,7 +15,6 @@ export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
 meson setup build \
   --buildtype=release \
   --cross-file="$DIR/meson_$ARCHS.txt" \
-  --werror \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
