@@ -11,7 +11,7 @@ export CFLAGS="$CFLAGS -Wno-error=deprecated -Wno-error=deprecated-declarations"
 export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
 #export SWIFT_FLAGS="$SWIFT_FLAGS -I$WORKSPACE/include/libplacebo"
 cd mpv
-git reset --hard 32d103c58072f117817c42c8947a0aebbc263639
+git reset --hard e52f975842196e1581299312b9c160aa16c81d04
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --cross-file="$DIR/meson_$ARCHS.txt" \
