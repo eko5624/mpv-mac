@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/hint/bash
 set -e
 
 cd "$(dirname "$0")" && cd ..
