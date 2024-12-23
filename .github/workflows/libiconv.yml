@@ -44,7 +44,9 @@ jobs:
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Setup GNU BASH
-      run: brew install bash   
+      run: |
+        brew install bash
+        which bash
     - name: Build
       run: |
         chmod +x ./scripts/vulkan.sh
