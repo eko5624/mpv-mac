@@ -5,6 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 # Get vulkan-loader version
+which bash
 declare -A ver_array
 ver_json=$(curl -s "https://raw.githubusercontent.com/eko5624/nginx-nosni/master/old.json")
 while IFS="=" read -r k v; do
