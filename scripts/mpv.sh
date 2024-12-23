@@ -11,6 +11,7 @@ LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
+  --cross-file="$DIR/meson_$ARCHS.txt" \
   --buildtype=release \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
