@@ -7,7 +7,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 
-export CFLAGS="$CFLAGS -Wno-error=deprecated -Wno-error=deprecated-declarations"
+#export CFLAGS="$CFLAGS -Wno-error=deprecated -Wno-error=deprecated-declarations"
 export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
 #export SWIFT_FLAGS="$SWIFT_FLAGS -I$WORKSPACE/include/libplacebo"
 cd mpv
@@ -19,7 +19,6 @@ meson setup build \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \
-  -Dobjc_args="-Wno-error=deprecated -Wno-error=deprecated-declarations" \
   -Dlibmpv=true \
   -Dvulkan=enabled \
   -Diconv=enabled \
