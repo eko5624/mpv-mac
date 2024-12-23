@@ -14,7 +14,6 @@ cd mpv
 git reset --hard e52f975842196e1581299312b9c160aa16c81d04
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   --buildtype=release \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
