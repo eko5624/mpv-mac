@@ -6,12 +6,9 @@ set -a; source build.env; source ver.sh; set +a
 
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
-
-#export CFLAGS="$CFLAGS -Wno-error=deprecated -Wno-error=deprecated-declarations"
-export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
-#export SWIFT_FLAGS="$SWIFT_FLAGS -I$WORKSPACE/include/libplacebo"
 cd mpv
-#git reset --hard e52f975842196e1581299312b9c160aa16c81d04
+LDFLAGS+=" -Wl,-no_compact_unwind"
+#git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
@@ -19,7 +16,6 @@ meson setup build \
   -Db_lto=true \
   -Db_lto_mode=thin \
   -Dlibmpv=true \
-  -Dvulkan=enabled \
   -Diconv=enabled \
   -Dmanpage-build=disabled \
   -Dswift-flags="${SWIFT_FLAGS}"
