@@ -11,7 +11,7 @@ git clone https://github.com/mpv-player/mpv.git
 export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
 #export SWIFT_FLAGS="$SWIFT_FLAGS -I$WORKSPACE/include/libplacebo"
 cd mpv
-git reset --hard e52f975842196e1581299312b9c160aa16c81d04
+#git reset --hard e52f975842196e1581299312b9c160aa16c81d04
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 meson setup build \
   --buildtype=release \
