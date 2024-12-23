@@ -9,22 +9,10 @@ git clone https://github.com/mpv-player/mpv.git
 
 export CFLAGS="$CFLAGS -Wno-error=deprecated -Wno-error=deprecated-declarations"
 export LDFLAGS="$LDFLAGS -Wl,-no_compact_unwind"
+export SWIFT_FLAGS="$SWIFT_FLAGS -I$WORKSPACE/include/libplacebo"
 cd mpv
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
-if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]] || [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
-  ln -s $WORKSPACE/include/libplacebo libplacebo
-  ln -s $WORKSPACE/include/libavcodec libavcodec
-  ln -s $WORKSPACE/include/libavdevice libavdevice
-  ln -s $WORKSPACE/include/libavfilter libavfilter
-  ln -s $WORKSPACE/include/libavformat libavformat
-  ln -s $WORKSPACE/include/libavutil libavutil
-  ln -s $WORKSPACE/include/libpostproc libpostproc
-  ln -s $WORKSPACE/include/libswresample libswresample
-  ln -s $WORKSPACE/include/libswscale libswscale
-  ln -s $WORKSPACE/include/vulkan vulkan
-  ln -s $WORKSPACE/include/vk_video vk_video
-fi  
 meson setup build \
   --buildtype=release \
   --cross-file="$DIR/meson_$ARCHS.txt" \
