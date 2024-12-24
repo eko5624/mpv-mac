@@ -9,17 +9,17 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone --recursive https://github.com/freetype/freetype.git
 cd freetype
-meson setup build $MESON_CROSS \
+#fix glibtoolize: command not found
+sed -i "" 's/glibtoolize/libtoolize/g' autogen.sh
+./autogen.sh
+./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
-  --buildtype=release \
-  --default-library=static \
-  --libdir="$DIR/opt/lib" \
-  -Dwrap_mode=nodownload \
-  -Dharfbuzz=disabled \
-  -Dbrotli=disabled \
-  -Dzlib=enabled
-meson compile -C build
-meson install -C build
+  --enable-freetype-config \
+  --without-harfbuzz \
+  --disable-shared \
+  --enable-static
+make -j $MJOBS
+make install
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
