@@ -20,9 +20,8 @@ git clone https://github.com/KhronosGroup/Vulkan-Loader.git --branch main
 cd Vulkan-Headers
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
@@ -32,9 +31,8 @@ cmake --install .
 cd $PACKAGES/Vulkan-Loader
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \

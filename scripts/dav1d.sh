@@ -8,11 +8,10 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/videolan/dav1d.git
 cd dav1d
-meson setup work \
+meson setup work $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   --default-library=static \
   -Denable_tests=false
 meson compile -C work

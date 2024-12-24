@@ -11,12 +11,11 @@ git clone https://code.videolan.org/rist/librist.git
 cd librist
 #fix error: no member named 'st_mtim' in 'struct stat'
 #patch -p1 -i ../../librist-fix-st_mtim.patch
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --default-library=static \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Duse_mbedtls=true \
   -Dbuiltin_mbedtls=false \
   -Dbuilt_tools=false \

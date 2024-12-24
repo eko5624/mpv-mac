@@ -9,11 +9,10 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone --recursive https://github.com/haasn/libplacebo.git
 cd libplacebo
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --default-library=static \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \

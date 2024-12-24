@@ -10,10 +10,9 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://github.com/libass/libass.git
 cd libass
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --default-library=static \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Dwrap_mode=nodownload \
   -Dbuildtype=release \
   -Dcoretext=enabled \

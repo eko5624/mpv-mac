@@ -15,9 +15,8 @@ curl -OL "https://raw.githubusercontent.com/Homebrew/formula-patches/76868b36263
 patch -p1 -i arm64_defines.patch || true
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DCMAKE_BUILD_TYPE=Release \

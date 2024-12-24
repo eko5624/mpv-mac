@@ -9,12 +9,11 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/harfbuzz/harfbuzz.git
 cd harfbuzz
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --default-library=static \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Dwrap_mode=nodownload \
   -Db_lto=true \
   -Db_lto_mode=thin \

@@ -12,9 +12,8 @@ cd frei0r
 sed -i "" '/find_package (Cairo)/d' CMakeLists.txt
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DBUILD_SHARED_LIBS=OFF \

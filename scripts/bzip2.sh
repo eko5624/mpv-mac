@@ -8,11 +8,10 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://gitlab.com/bzip2/bzip2.git
 cd bzip2
-meson setup work \
+meson setup work $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   --default-library=static
 meson compile -C work
 meson install -C work

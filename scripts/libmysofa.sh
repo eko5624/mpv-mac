@@ -11,9 +11,8 @@ git clone https://github.com/hoene/libmysofa.git
 cd libmysofa
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \

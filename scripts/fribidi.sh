@@ -8,10 +8,9 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/fribidi/fribidi.git
 cd fribidi
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --default-library=static \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Dwrap_mode=nodownload \
   -Dbuildtype=release \
   -Db_lto=true \

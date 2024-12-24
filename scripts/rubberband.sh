@@ -9,11 +9,10 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/breakfastquay/rubberband.git
 cd rubberband
-meson setup build \
+meson setup build $MESON_CROSS \
   --prefix="$DIR/opt" \
   --buildtype=release \
   --libdir="$DIR/opt/lib" \
-  --cross-file="$DIR/meson_$ARCHS.txt" \
   -Ddefault_library=static \
   -Dresampler=libsamplerate
 meson compile -C build

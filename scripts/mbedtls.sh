@@ -17,9 +17,8 @@ sed -i "" 's|//#define MBEDTLS_THREADING_C|#define MBEDTLS_THREADING_C|g' includ
 sed -i "" 's|//#define MBEDTLS_SSL_DTLS_SRTP|#define MBEDTLS_SSL_DTLS_SRTP|g' include/mbedtls/mbedtls_config.h
 mkdir out && cd out
 cmake .. \
-  -G "Ninja" \
+  -G "Ninja" $CMAKE_CROSS \
   -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_TOOLCHAIN_FILE="$DIR/cmake_$ARCHS.txt" \
   -DCMAKE_OSX_ARCHITECTURES=$ARCHS \
   -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET \
   -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
