@@ -12,7 +12,7 @@ cd $PACKAGES
 curl -OL "https://www.x.org/archive/individual/lib/libX11-$VER_LIBX11.tar.gz"
 tar -xvf libX11-$VER_LIBX11.tar.gz 2>/dev/null >/dev/null
 
-local myconf=(
+myconf=(
     --prefix="$DIR/opt"
     --disable-shared
     --enable-static
