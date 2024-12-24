@@ -17,7 +17,7 @@ meson setup build $MESON_CROSS \
   -Dwrap_mode=nodownload \
   -Dharfbuzz=disabled \
   -Dbrotli=disabled \
-  -Dzlib=system
+  -Dzlib=enabled
 meson compile -C build
 meson install -C build
 
