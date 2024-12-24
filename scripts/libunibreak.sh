@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 cd $PACKAGES
 git clone https://github.com/adah1972/libunibreak.git
 cd libunibreak
-NOCONFIGURE=1 ./autogen.sh
+$CONF ./autogen.sh
 ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-shared \

@@ -10,7 +10,7 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
-NOCONFIGURE=1 ./autogen.sh
+$CONF ./autogen.sh
 ./configure $BUILD_HOST \
   --prefix="$DIR/opt" \
   --disable-docs \
