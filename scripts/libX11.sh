@@ -12,15 +12,25 @@ cd $PACKAGES
 curl -OL "https://www.x.org/archive/individual/lib/libX11-$VER_LIBX11.tar.gz"
 tar -xvf libX11-$VER_LIBX11.tar.gz 2>/dev/null >/dev/null
 
+local myconf=(
+    --prefix="$DIR/opt"
+    --disable-shared
+    --enable-static
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" != "x86_64") ]] || [[ ("$(uname -m)" == "arm64") && ("$ARCHS" != "arm64") ]]; then
+    myconf+=(
+      --host=x86_64-apple-darwin
+      --target=x86_64-apple-macos11.0
+      --disable-malloc0returnsnull"
+    )
+fi    
+
 # Fix cannot run test program while cross compiling '--disable-malloc0returnsnull'
 cd libX11-$VER_LIBX11
 export LC_ALL=""
 export LC_CTYPE="C"
-./configure $BUILD_HOST \
-  --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static \
-  --disable-malloc0returnsnull
+./configure "${myconf[@]}"
 make -j $MJOBS
 make install
 
