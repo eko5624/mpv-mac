@@ -22,7 +22,7 @@ if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" != "x86_64") ]] || [[ ("$(uname -
     myconf+=(
       --host=x86_64-apple-darwin
       --target=x86_64-apple-macos11.0
-      --disable-malloc0returnsnull"
+      --disable-malloc0returnsnull
     )
 fi    
 
