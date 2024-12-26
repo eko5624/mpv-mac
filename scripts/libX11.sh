@@ -18,13 +18,21 @@ myconf=(
     --enable-static
 )
 
-if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" != "x86_64") ]] || [[ ("$(uname -m)" == "arm64") && ("$ARCHS" != "arm64") ]]; then
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
-      --host=x86_64-apple-darwin
-      --target=x86_64-apple-macos11.0
-      --disable-malloc0returnsnull
+        --host=aarch64-apple-darwin
+        --target=arm64-apple-macos11.0
+        --disable-malloc0returnsnull
     )
-fi    
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        --host=x86_64-apple-darwin
+        --target=x86_64-apple-macos11.0
+        --disable-malloc0returnsnull
+    )
+fi  
 
 # Fix cannot run test program while cross compiling '--disable-malloc0returnsnull'
 cd libX11-$VER_LIBX11

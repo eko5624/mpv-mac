@@ -11,7 +11,13 @@ myconf=(
     --default-library=static
 )
 
-if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" != "x86_64") ]] || [[ ("$(uname -m)" == "arm64") && ("$ARCHS" != "arm64") ]]; then
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        --cross-file=$DIR/meson_arm64.txt
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
     myconf+=(
         --cross-file=$DIR/meson_x86_64.txt
     )

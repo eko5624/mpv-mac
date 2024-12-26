@@ -62,3 +62,4 @@ jobs:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: brotli.tar.xz
+        

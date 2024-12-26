@@ -4,21 +4,35 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    --buildtype=release
+    -Dwrap_mode=nodownload
+    -Dlibmpv=true
+    -Diconv=enabled
+    -Dmanpage-build=disabled
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        --cross-file=$DIR/meson_arm64.txt
+        -Dswift-flags="-target arm64-apple-macosx11.0"
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        --cross-file=$DIR/meson_x86_64.txt
+        -Dswift-flags="-target x86_64-apple-macosx11.0"
+    )
+fi
+
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
 LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
-meson setup build $MESON_CROSS \
-  --buildtype=release \
-  -Dwrap_mode=nodownload \
-  -Db_lto=true \
-  -Db_lto_mode=thin \
-  -Dlibmpv=true \
-  -Diconv=enabled \
-  -Dmanpage-build=disabled \
-  -Dswift-flags="${SWIFT_FLAGS}"
+meson setup build "${myconf[@]}"
 meson compile -C build
 #meson compile -C build macos-bundle
 

@@ -4,6 +4,24 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+		prefix="$DIR/opt
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        OUT=build
+        host=arm64-apple-darwin
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        OUT=build
+        host=x86_64-apple-darwin
+    )
+fi
+
 # Embeddable Javascript interpreter
 cd $PACKAGES
 git clone https://github.com/ccxvii/mujs.git --branch "$VER_MUJS"
@@ -15,8 +33,8 @@ patch -p1 -i mujs-0001-add-exe-to-binary-name.patch
 #curl -OL https://raw.githubusercontent.com/eko5624/mpv-macos-intel/macOS-10.13/mujs-finding-libmujs.diff
 #xecute patch -p1 -i mujs-finding-libmujs.diff
 mkdir build
-make OUT=build prefix="$DIR/opt" host=$ARCHS-apple-darwin
-make OUT=build prefix="$DIR/opt" host=$ARCHS-apple-darwin install
+make "${myconf[@]}"
+make "${myconf[@]}" install
 
 #workaround Could not resolve library: build/release/libmujs.dylib
 #sudo install_name_tool -id "$DIR/opt/lib/libmujs.dylib" "$DIR/opt/lib/libmujs.dylib"
