@@ -31,7 +31,7 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
-$CONF ./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 ./configure "${myconf[@]}"
 make -j $MJOBS
 make install
