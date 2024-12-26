@@ -357,6 +357,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libX11.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
@@ -2561,6 +2562,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libX11.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
