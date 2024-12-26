@@ -28,7 +28,7 @@ fi
 cd $PACKAGES
 git clone https://github.com/adah1972/libunibreak.git
 cd libunibreak
-$CONF ./autogen.sh
+NOCONFIGURE=1 ./autogen.sh
 ./configure "${myconf[@]}"
 make -j $MJOBS
 make install
