@@ -35,6 +35,7 @@ LDFLAGS+=" -Wl,-no_compact_unwind"
 
 ln -s $WORKSPACE/include/libplacebo libplacebo
 ln -s $WORKSPACE/include/libavutil libavutil
+ln -s $WORKSPACE/include/vulkan vulkan
 meson setup build "${myconf[@]}"
 meson compile -C build
 #meson compile -C build macos-bundle
