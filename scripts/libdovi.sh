@@ -8,7 +8,7 @@ set -a; source build.env; source ver.sh; set +a
 export RUSTUP_HOME="${TOOLS}/rust/.rustup"
 export CARGO_HOME="${TOOLS}/rust/.cargo"
 if [[ "$(uname -m)" == "x86_64" ]]; then
-  curl https://sh.rustup.rs -sSf | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable --target $ARCH-apple-darwin --no-modify-path
   curl -OL https://github.com/eko5624/mpv-mac/releases/download/tools/cargo-c-macos-x86_64.zip
   7z x cargo-c-macos-x86_64.zip
   cp cargo-c-bin/* $RUSTUP_HOME/toolchains/stable-x86_64-apple-darwin/bin
