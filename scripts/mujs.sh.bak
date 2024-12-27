@@ -11,14 +11,18 @@ myconf=(
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
         OUT=build
-        host=arm64-apple-darwin
+        CC="xcrun -sdk macosx clang"
+        CFLAGS="-arch arm64 -mmacosx-version-min=11.0"
+        LDFLAGS="-arch arm64 -mmacosx-version-min=11.0"
     )
 fi
 
 if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
     myconf+=(
         OUT=build
-        host=x86_64-apple-darwin
+        CC="xcrun -sdk macosx clang"
+        CFLAGS="-arch arm64 -mmacosx-version-min=11.0"
+        LDFLAGS="-arch arm64 -mmacosx-version-min=11.0"
     )
 fi
 
