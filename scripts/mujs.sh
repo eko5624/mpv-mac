@@ -12,8 +12,8 @@ if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
         OUT=build
         CC="xcrun -sdk macosx clang"
-        CFLAGS="-arch arm64 -mmacosx-version-min=11.0"
-        LDFLAGS="-arch arm64 -mmacosx-version-min=11.0"
+        CFLAGS="-arch x86_64 -mmacosx-version-min=11.0"
+        LDFLAGS="-arch x86_64 -mmacosx-version-min=11.0"
     )
 fi
 
