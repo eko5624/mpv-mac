@@ -2,8 +2,7 @@
 set -e
 
 cd "$(dirname "$0")" && cd ..
-#set -a; source build.env; source ver.sh; set +a
-source build.env; source ver.sh
+set -a; source build.env; source ver.sh; set +a
 
 # Library to read and write Dolby Vision metadata (C-API)
 export RUSTUP_HOME="${TOOLS}/rust/.rustup"
