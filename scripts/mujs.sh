@@ -8,22 +8,9 @@ myconf=(
     prefix="$DIR/opt"
 )
 
-if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
-    myconf+=(
-        export CC="xcrun -sdk macosx clang"
-        export CFLAGS="-arch arm64 -mmacosx-version-min=11.0"
-        export LDFLAGS="-arch arm64 -mmacosx-version-min=11.0"
-    )
-fi
-
-if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
-    myconf+=(
-        export CC="xcrun -sdk macosx clang"
-        export CFLAGS="-arch x86_64 -mmacosx-version-min=11.0"
-        export LDFLAGS="-arch x86_64 -mmacosx-version-min=11.0"
-    )
-fi
-
+export CC="xcrun -sdk macosx clang"
+export CFLAGS="-arch $ARCHS -mmacosx-version-min=11.0"
+export LDFLAGS="-arch $ARCHS -mmacosx-version-min=11.0"
 # Embeddable Javascript interpreter
 cd $PACKAGES
 git clone https://github.com/ccxvii/mujs.git --branch "$VER_MUJS"
