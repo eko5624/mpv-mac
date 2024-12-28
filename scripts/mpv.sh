@@ -10,8 +10,6 @@ myconf=(
     -Dlibmpv=true
     -Diconv=enabled
     -Dmanpage-build=disabled
-    -Dswift-flags="-target $ARCHS-apple-macosx11.0 -I$WORKSPACE/include"
-
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
