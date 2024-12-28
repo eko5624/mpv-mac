@@ -10,7 +10,7 @@ myconf=(
     -Dlibmpv=true
     -Diconv=enabled
     -Dmanpage-build=disabled
-    -Dswift-flags="-target $ARCHS-apple-macosx11.0"
+    -Dswift-flags="-target $ARCHS-apple-macosx11.0 -I$WORKSPACE/include"
 
 )
 
@@ -33,10 +33,10 @@ LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 
-ln -s $WORKSPACE/include/libplacebo libplacebo
-ln -s $WORKSPACE/include/libavutil libavutil
-ln -s $WORKSPACE/include/vulkan vulkan
-ln -s $WORKSPACE/include/vk_video vk_video
+#ln -s $WORKSPACE/include/libplacebo libplacebo
+#ln -s $WORKSPACE/include/libavutil libavutil
+#ln -s $WORKSPACE/include/vulkan vulkan
+#ln -s $WORKSPACE/include/vk_video vk_video
 meson setup build "${myconf[@]}"
 meson compile -C build
 #meson compile -C build macos-bundle
