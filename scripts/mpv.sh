@@ -25,7 +25,7 @@ if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
 fi
 
 cd $PACKAGES
-git clone https://github.com/mpv-player/mpv.git
+git clone https://github.com/eko5624/mpv.git
 cd mpv
 LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 23843b4aa594dc8c885575f3d237cde3c29398a2
