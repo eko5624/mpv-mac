@@ -86,7 +86,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
-        curl -OL https://github.com/${{ githu        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
@@ -151,11 +150,6 @@ jobs:
       with:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
-        body: ${{ steps.note.outputs.note }}
-        files: |
-          mpv*.zip
-          libmpv*.zip
-          ffmpeg*.zip
         body: ${{ steps.note.outputs.note }}
         files: |
           mpv*.zip
