@@ -21,16 +21,16 @@ build_done() {
 }
 
 # Modular BSD reimplementation of NASM
-if build "yasm"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
-  tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
-  cd yasm-$VER_YASM
-  ./configure --prefix="${TOOLS}"
-  make -j $MJOBS
-  make install
-  build_done "yasm"
-fi  
+#if build "yasm"; then
+#  cd $PACKAGES
+#  curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
+#  tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
+#  cd yasm-$VER_YASM
+#  ./configure --prefix="${TOOLS}"
+#  make -j $MJOBS
+#  make install
+#  build_done "yasm"
+#fi  
 
 # Code snippets in your terminal
 if build "nasm"; then
@@ -166,14 +166,14 @@ fi
 # depends on: openssl(zlib), zlib
 if build "python"; then
   cd $PACKAGES
-  git clone https://github.com/python/cpython --branch 3.12
+  git clone https://github.com/python/cpython --branch 3.13
   cd cpython
   ./configure \
     --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   cd "${TOOLS}"/bin
-  ln -s python3.12 python
+  ln -s python3.13 python
   build_done "python"
 
   #pip3 meson ninja jsonschema Jinja2
