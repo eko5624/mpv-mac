@@ -173,7 +173,7 @@ if build "python"; then
   make -j $MJOBS
   make install
   cd "${TOOLS}"/bin
-  ln -s python3.13 python
+  ln -s python3.12 python
   build_done "python"
 
   #pip3 meson ninja jsonschema Jinja2
