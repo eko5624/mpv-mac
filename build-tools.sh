@@ -21,16 +21,16 @@ build_done() {
 } 
 
 # Modular BSD reimplementation of NASM
-if build "yasm"; then
-  cd $PACKAGES
-  curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
-  tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
-  cd yasm-$VER_YASM
-  ./configure --prefix="${TOOLS}"
-  make -j $MJOBS
-  make install
-  build_done "yasm"
-fi  
+#if build "yasm"; then
+#  cd $PACKAGES
+#  curl $CURL_RETRIES -OL "https://www.tortall.net/projects/yasm/releases/yasm-$VER_YASM.tar.gz"
+#  tar -xvf yasm-$VER_YASM.tar.gz 2>/dev/null >/dev/null
+#  cd yasm-$VER_YASM
+#  ./configure --prefix="${TOOLS}"
+#  make -j $MJOBS
+#  make install
+#  build_done "yasm"
+#fi  
 
 # Code snippets in your terminal
 if build "nasm"; then
