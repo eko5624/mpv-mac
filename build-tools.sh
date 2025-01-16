@@ -114,6 +114,8 @@ if build "pkgconf"; then
     --with-pkg-config-dir="${TOOLS}/lib/pkgconfig":"${TOOLS}/share/pkgconfig"
   make -j $MJOBS
   make install
+  cd $TOOLS/bin
+  ln -s pkgconf pkg-config
   build_done "pkgconf"
 fi
 
