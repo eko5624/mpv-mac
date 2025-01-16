@@ -166,14 +166,14 @@ fi
 # depends on: openssl(zlib), zlib
 if build "python"; then
   cd $PACKAGES
-  git clone https://github.com/python/cpython --branch 3.12
+  git clone https://github.com/python/cpython --branch 3.13
   cd cpython
   ./configure \
     --prefix="${TOOLS}"
   make -j $MJOBS
   make install
   cd "${TOOLS}"/bin
-  ln -s python3.12 python
+  ln -s python3.13 python
   build_done "python"
 
   #pip3 meson ninja jsonschema Jinja2
