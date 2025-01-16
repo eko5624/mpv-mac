@@ -166,7 +166,7 @@ fi
 # depends on: openssl(zlib), zlib
 if build "python"; then
   cd $PACKAGES
-  git clone https://github.com/python/cpython --branch 3.13
+  git clone https://github.com/python/cpython --branch 3.12
   cd cpython
   ./configure \
     --prefix="${TOOLS}"
