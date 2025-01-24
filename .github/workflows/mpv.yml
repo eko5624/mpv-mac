@@ -8,7 +8,7 @@ on:
       os:
         description: "Support cross-compile for arm64/x86_64 arch"
         required: false
-        default: "macos-13"
+        default: "macos-14"
         type: choice
         options:
         - macos-13
