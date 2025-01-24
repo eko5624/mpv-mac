@@ -14,7 +14,7 @@ myconf=(
     --enable-static
     --enable-pic
     --enable-vp9-highbitdepth
-    --as=yasm
+    --as=nasm
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
