@@ -31,11 +31,12 @@ cd mpv
 LDFLAGS+=" -Wl,-no_compact_unwind"
 #git reset --hard 90a78925452c80f43837210f13b8cd39c4075719
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
-
-#ln -s $WORKSPACE/include/libplacebo libplacebo
-#ln -s $WORKSPACE/include/libavutil libavutil
-#ln -s $WORKSPACE/include/vulkan vulkan
-#ln -s $WORKSPACE/include/vk_video vk_video
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]] || [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    ln -s $WORKSPACE/include/libplacebo libplacebo
+    ln -s $WORKSPACE/include/libavutil libavutil
+    ln -s $WORKSPACE/include/vulkan vulkan
+    ln -s $WORKSPACE/include/vk_video vk_video
+fi    
 meson setup build "${myconf[@]}"
 meson compile -C build
 #meson compile -C build macos-bundle
