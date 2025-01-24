@@ -4,26 +4,43 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    -DCMAKE_INSTALL_PREFIX="$DIR/opt"
+    -DCMAKE_OSX_ARCHITECTURES=$ARCHS
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET
+    -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib"
+    -DCMAKE_BUILD_TYPE=Release
+    -DBUILD_SHARED_LIBS=OFF
+    -DLIBXML2_WITH_ZLIB=ON
+    -DLIBXML2_WITH_ICONV=ON
+    -DLIBXML2_WITH_LZMA=OFF
+    -DLIBXML2_WITH_PYTHON=OFF
+    -DLIBXML2_WITH_TESTS=OFF
+    -DLIBXML2_WITH_HTTP=OFF
+    -DLIBXML2_WITH_PROGRAMS=OFF
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_arm64.txt
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_x86_64.txt
+    )
+fi
+
 # GNOME XML library
-# depends on: zlib
+# depends on: libiconv, zlib
 cd $PACKAGES
 git clone https://github.com/GNOME/libxml2.git
 cd libxml2
-# Fix crash when using Python 3 using Fedora's patch.
-# Reported upstream:
-# https://bugzilla.gnome.org/show_bug.cgi?id=789714
-# https://gitlab.gnome.org/GNOME/libxml2/issues/12
-#execute curl $CURL_RETRIES -L --silent -o fix_crash.patch "https://bugzilla.opensuse.org/attachment.cgi?id=746044"
-#execute patch -p1 -i fix_crash.patch
-autoreconf -fvi
-./configure \
-  --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static \
-  --without-python \
-  --without-lzma
-make -j $MJOBS
-make install
+mkdir out && cd out
+cmake .. -G "Ninja" "${myconf[@]}"
+cmake --build . -j $MJOBS
+cmake --install .
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 

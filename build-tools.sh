@@ -18,7 +18,7 @@ build() {
 
 build_done() {
   echo "" > "$TOOLS/$1.done"
-}
+} 
 
 # Modular BSD reimplementation of NASM
 #if build "yasm"; then
@@ -114,6 +114,8 @@ if build "pkgconf"; then
     --with-pkg-config-dir="${TOOLS}/lib/pkgconfig":"${TOOLS}/share/pkgconfig"
   make -j $MJOBS
   make install
+  cd $TOOLS/bin
+  ln -s pkgconf pkg-config
   build_done "pkgconf"
 fi
 
@@ -203,15 +205,18 @@ fi
 #  cd $PACKAGES
 #  curl $CURL_RETRIES -OL "https://github.com/Kitware/CMake/releases/download/v$VER_CMAKE/cmake-$VER_CMAKE.tar.gz"
 #  tar -xvf cmake-$VER_CMAKE.tar.gz 2>/dev/null >/dev/null
+#  CXXFLAGS_BACKUP=$CXXFLAGS
+#  export CXXFLAGS+=" -std=c++11"
 #  cd cmake-$VER_CMAKE
 #  ./configure \
 #    --prefix="${TOOLS}" \
 #    --parallel="${MJOBS}" \
 #    -- \
-#    -DCMake_BUILD_LTO=ON
+#    -DCMAKE_USE_OPENSSL=OFF
 #  make -j $MJOBS
 #  make install
 #  build_done "cmake"
+#  export CXXFLAGS=$CXXFLAGS_BACKUP
 #fi  
 
 # Conversion library
@@ -287,4 +292,3 @@ if build "gettext"; then
   sed -i "" 's|@VERSION@|'"${VER_GETTEXT}"'|g' ${TOOLS}/lib/pkgconfig/intl.pc
   build_done "gettext"
 fi
-

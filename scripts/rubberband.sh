@@ -4,19 +4,32 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    --prefix="$DIR/opt"
+    --buildtype=release
+    --libdir="$DIR/opt/lib"
+    -Ddefault_library=static
+    -Dresampler=libsamplerate
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        --cross-file=$DIR/meson_arm64.txt
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        --cross-file=$DIR/meson_x86_64.txt
+    )
+fi
+
 # Audio time stretcher tool and library
 # depends on: libsamplerate, libsndfile(flac(libogg), lame(ncurses), libogg, libvorbis(libogg), mpg123, opus)
 cd $PACKAGES
 git clone https://github.com/breakfastquay/rubberband.git
 cd rubberband
-meson setup build \
-  --prefix="$DIR/opt" \
-  --buildtype=release \
-  --libdir="$DIR/opt/lib" \
-  -Ddefault_library=static \
-  -Dfft=builtin \
-  -Dresampler=libsamplerate \
-  -Djni=disabled
+meson setup build "${myconf[@]}"
 meson compile -C build
 meson install -C build
 

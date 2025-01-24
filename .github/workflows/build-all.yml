@@ -5,6 +5,14 @@ on:
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,14 +21,6 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
   aribb24:
@@ -32,18 +32,23 @@ jobs:
     steps:    
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/aribb24.sh
         ./scripts/aribb24.sh
@@ -57,7 +62,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -71,11 +76,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -94,7 +102,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -108,15 +116,18 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer    
     - name: Build
       run: |
         chmod +x ./scripts/bzip2.sh
@@ -131,48 +142,11 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: bzip2.tar.xz
-
-  cjson:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        chmod +x ./scripts/cjson.sh
-        ./scripts/cjson.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: cjson*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: cjson.tar.xz
 
   dav1d:
     runs-on: ${{ inputs.os }}
@@ -182,15 +156,18 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
     - name: Build
       run: |
         chmod +x ./scripts/dav1d.sh
@@ -205,7 +182,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -219,11 +196,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -242,7 +222,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -256,11 +236,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -279,14 +262,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: expat.tar.xz
 
   ffmpeg:
-    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, librist, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, vvdec, x264, x265, xvid, zimg, zvbi]
+    needs: [aribb24, dav1d, davs2, frei0r, lame, libaribcaption, libass, libbluray, libdvdnav, libbs2b, libcaca, libjxl, libmodplug, libmysofa, libplacebo, libsdl, libssh, libtheora, libvpx, libwebp, libX11, opencore, rubberband, snappy, soxr, speex, srt, svt-av1, uavs3d, vvdec, x264, x265, xvid, zimg, zvbi]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -294,11 +277,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -308,15 +294,14 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
@@ -331,6 +316,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjxl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmodplug.tar.xz
@@ -338,10 +324,8 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
@@ -349,10 +333,11 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/rubberband.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -372,6 +357,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libX11.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
@@ -379,6 +365,8 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/ffmpeg.sh
         ./scripts/ffmpeg.sh
@@ -404,54 +392,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: ffmpeg.tar.xz
 
-  flac:
-    needs: [libogg]
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
-        tar -xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
-        chmod +x ./scripts/flac.sh
-        ./scripts/flac.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: flac*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: flac.tar.xz
-
   fontconfig:
-    needs: [expat, freetype2]
+    needs: [expat, freetype2, gettext]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -459,11 +407,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -473,7 +424,12 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/fontconfig.sh
         ./scripts/fontconfig.sh
@@ -487,7 +443,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -502,11 +458,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -514,7 +473,9 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz       
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/freetype2.sh
         ./scripts/freetype2.sh
@@ -528,7 +489,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -542,11 +503,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -565,7 +529,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -579,11 +543,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -602,11 +569,57 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: fribidi.tar.xz
+
+  gettext:
+    needs: [libiconv, libxml2]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/gettext.sh
+        ./scripts/gettext.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: gettext*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: gettext.tar.xz
 
   giflib:
     runs-on: ${{ inputs.os }}
@@ -616,11 +629,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -639,7 +655,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -654,20 +670,25 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz 
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz       
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz       
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/harfbuzz.sh
         ./scripts/harfbuzz.sh
@@ -681,7 +702,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -695,11 +716,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -718,7 +742,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -732,11 +756,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -755,14 +782,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: lame.tar.xz
 
   lcms2:
-    needs: [libjpeg-turbo, libtiff]
+    needs: [libjpeg-turbo, libtiff, zstd]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -770,11 +797,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -784,8 +814,10 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz        
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz     
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz    
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/lcms2.sh
         ./scripts/lcms2.sh
@@ -799,7 +831,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -814,11 +846,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -830,7 +865,9 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libb2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libarchive.sh
         ./scripts/libarchive.sh
@@ -844,14 +881,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libarchive.tar.xz
 
   libaribcaption:
-    needs: [fontconfig]
+    needs: [fontconfig, openssl]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -859,11 +896,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -874,7 +914,13 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libaribcaption.sh
         ./scripts/libaribcaption.sh
@@ -888,14 +934,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libaribcaption.tar.xz
 
   libass:
-    needs: [freetype2, fribidi, harfbuzz, libunibreak]
+    needs: [freetype2, fribidi, harfbuzz, libiconv, libunibreak]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -903,11 +949,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -917,8 +966,11 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz        
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libunibreak.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libass.sh
         ./scripts/libass.sh
@@ -932,7 +984,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -946,11 +998,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -969,7 +1024,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -984,11 +1039,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -999,7 +1057,12 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libbluray.sh
         ./scripts/libbluray.sh
@@ -1013,14 +1076,13 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libbluray.tar.xz
 
   libbs2b:
-    needs: [libsndfile]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -1028,25 +1090,20 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libbs2b.sh
         ./scripts/libbs2b.sh
     - name: Delete
@@ -1059,7 +1116,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1073,11 +1130,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1096,7 +1156,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1110,11 +1170,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1133,7 +1196,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1147,11 +1210,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1170,7 +1236,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1185,11 +1251,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1197,6 +1266,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libdvdread.sh
         ./scripts/libdvdread.sh
@@ -1210,7 +1280,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1225,11 +1295,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1238,6 +1311,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libdvdnav.sh
         ./scripts/libdvdnav.sh
@@ -1251,11 +1325,51 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libdvdnav.tar.xz
+
+  libiconv:
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/libiconv.sh
+        ./scripts/libiconv.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: libiconv*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: libiconv.tar.xz
 
   libjpeg-turbo:
     runs-on: ${{ inputs.os }}
@@ -1265,11 +1379,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1288,7 +1405,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1303,11 +1420,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1323,7 +1443,9 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libjxl.sh
         ./scripts/libjxl.sh
@@ -1337,7 +1459,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1351,11 +1473,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1374,13 +1499,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libmodplug.tar.xz
 
   libmysofa:
+    needs: [zlib]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -1388,17 +1514,23 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libmysofa.sh
         ./scripts/libmysofa.sh
     - name: Delete
@@ -1411,7 +1543,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1425,11 +1557,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1448,7 +1583,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1463,15 +1598,18 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer   
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
@@ -1482,7 +1620,9 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/shaderc.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libplacebo.sh
         ./scripts/libplacebo.sh
@@ -1496,13 +1636,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libplacebo.tar.xz
 
   libpng:
+    needs: [zlib]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -1510,17 +1651,23 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libpng.sh
         ./scripts/libpng.sh
     - name: Delete
@@ -1533,52 +1680,11 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libpng.tar.xz
-
-  librist:
-    needs: [cjson, mbedtls]
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/librist.sh
-        ./scripts/librist.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: librist*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: librist.tar.xz
 
   libsamplerate:
     runs-on: ${{ inputs.os }}
@@ -1588,11 +1694,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1611,7 +1720,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1625,11 +1734,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1648,58 +1760,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libsdl.tar.xz
 
-  libsndfile:
-    needs: [flac, lame, libogg, libvorbis, mpg123, opus]
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/libsndfile.sh
-        ./scripts/libsndfile.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: libsndfile*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: libsndfile.tar.xz
-
   libssh:
+    needs: [openssl]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -1707,17 +1775,24 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libssh.sh
         ./scripts/libssh.sh
     - name: Delete
@@ -1730,7 +1805,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1745,11 +1820,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1758,6 +1836,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libtheora.sh
         ./scripts/libtheora.sh
@@ -1771,7 +1850,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1786,11 +1865,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1800,7 +1882,9 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libtiff.sh
         ./scripts/libtiff.sh
@@ -1814,7 +1898,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1828,11 +1912,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1851,7 +1938,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1866,11 +1953,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1878,6 +1968,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
+        mkdir workspace
         tar xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
         chmod +x ./scripts/libvorbis.sh
         ./scripts/libvorbis.sh
@@ -1891,7 +1982,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1905,11 +1996,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1928,7 +2022,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1943,11 +2037,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -1960,7 +2057,9 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libwebp.sh
         ./scripts/libwebp.sh
@@ -1974,7 +2073,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -1989,11 +2088,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2007,6 +2109,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libX11.sh
         ./scripts/libX11.sh
@@ -2020,7 +2123,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2035,11 +2138,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2048,6 +2154,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libXau.sh
         ./scripts/libXau.sh
@@ -2061,7 +2168,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2076,15 +2183,18 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
@@ -2092,6 +2202,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libxcb.sh
         ./scripts/libxcb.sh
@@ -2105,7 +2216,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2120,11 +2231,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2133,6 +2247,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/libXdmcp.sh
         ./scripts/libXdmcp.sh
@@ -2146,11 +2261,56 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: libXdmcp.tar.xz
+
+  libxml2:
+    needs: [libiconv, zlib]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libxml2.sh
+        ./scripts/libxml2.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: libxml2*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: libxml2.tar.xz
 
   luajit:
     runs-on: ${{ inputs.os }}
@@ -2160,11 +2320,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2183,7 +2346,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2197,11 +2360,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2220,7 +2386,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2234,11 +2400,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2257,7 +2426,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2271,11 +2440,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2294,48 +2466,11 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: molten-vk.tar.xz
-        
-  mpg123:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
-    - name: Switch to Xcode 15.2
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
-    - name: Build
-      run: |
-        chmod +x ./scripts/mpg123.sh
-        ./scripts/mpg123.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: mpg123*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@master
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: mpg123.tar.xz
 
   mpv:
     needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
@@ -2346,11 +2481,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2360,15 +2498,14 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
@@ -2383,6 +2520,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjxl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmodplug.tar.xz
@@ -2390,10 +2528,8 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
@@ -2401,10 +2537,11 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/rubberband.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -2422,8 +2559,10 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xvid.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libX11.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
@@ -2438,6 +2577,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/molten-vk.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mujs.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uchardet.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/mpv.sh
         ./scripts/mpv.sh
@@ -2457,7 +2597,7 @@ jobs:
           note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
           core.setOutput("note", note);
     - name: Create Release
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ env.date }}
         name: ${{ env.date }}
@@ -2475,11 +2615,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2498,7 +2641,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2512,11 +2655,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2535,11 +2681,55 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: opencore.tar.xz
+
+  openssl:
+    needs: [zlib]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/openssl.sh
+        ./scripts/openssl.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: openssl*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: openssl.tar.xz
 
   opus:
     runs-on: ${{ inputs.os }}
@@ -2549,11 +2739,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2572,14 +2765,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: opus.tar.xz
 
   rubberband:
-    needs: [libsamplerate, libsndfile]
+    needs: [libsamplerate]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -2587,25 +2780,22 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lame.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/rubberband.sh
         ./scripts/rubberband.sh
@@ -2619,7 +2809,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2633,11 +2823,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2656,7 +2849,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2670,11 +2863,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2693,7 +2889,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2707,11 +2903,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2730,7 +2929,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2745,11 +2944,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2757,7 +2959,8 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
-        tar xvf libogg.tar.xz -C workspace 2>/dev/null >/dev/null
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/speex.sh
         ./scripts/speex.sh
     - name: Delete
@@ -2770,13 +2973,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: speex.tar.xz
 
   srt:
+    needs: [openssl]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -2784,17 +2988,24 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/srt.sh
         ./scripts/srt.sh
     - name: Delete
@@ -2807,7 +3018,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2821,11 +3032,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2844,7 +3058,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2858,11 +3072,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2881,7 +3098,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2895,11 +3112,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2918,7 +3138,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2932,11 +3152,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -2955,7 +3178,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -2969,15 +3192,20 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Setup GNU BASH
+      run: brew install bash
     - name: Build
       run: |
         chmod +x ./scripts/vulkan.sh
@@ -2992,7 +3220,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3006,11 +3234,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3029,7 +3260,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3043,11 +3274,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3066,7 +3300,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3080,11 +3314,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3103,7 +3340,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3117,11 +3354,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3140,7 +3380,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3155,11 +3395,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3167,6 +3410,7 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
+        mkdir workspace
         tar xvf util-macros.tar.xz -C workspace 2>/dev/null >/dev/null
         chmod +x ./scripts/xorgproto.sh
         ./scripts/xorgproto.sh
@@ -3180,7 +3424,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3195,11 +3439,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3208,6 +3455,7 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/xtrans.sh
         ./scripts/xtrans.sh
@@ -3221,7 +3469,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3235,11 +3483,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3258,7 +3509,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3272,11 +3523,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3295,7 +3549,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
@@ -3309,11 +3563,14 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3332,14 +3589,13 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: zimg.tar.xz
 
-  zstd:
-    needs: [lz4, xz]
+  zlib:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -3347,11 +3603,55 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch to Xcode 15.2
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+    - name: Build
+      run: |
+        chmod +x ./scripts/zlib.sh
+        ./scripts/zlib.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: zlib*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: zlib.tar.xz
+
+  zstd:
+    needs: [lz4, xz, zlib]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
@@ -3360,6 +3660,8 @@ jobs:
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz        
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xz.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/zstd.sh
         ./scripts/zstd.sh
@@ -3373,14 +3675,14 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: zstd.tar.xz
 
   zvbi:
-    needs: [libpng]
+    needs: [libpng, gettext]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -3388,18 +3690,26 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/zvbi.sh
         ./scripts/zvbi.sh
@@ -3413,7 +3723,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}

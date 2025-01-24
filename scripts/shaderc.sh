@@ -4,6 +4,35 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    -DCMAKE_INSTALL_PREFIX="$DIR/opt"
+    -DCMAKE_OSX_ARCHITECTURES=$ARCHS
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET
+    -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib"
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_FIND_ROOT_PATH="$DIR/opt"
+    -DBUILD_SHARED_LIBS=OFF
+    -DSHADERC_SKIP_TESTS=ON
+    -DSKIP_GLSLANG_INSTALL=ON
+    -DENABLE_SPIRV_TOOLS_INSTALL=ON
+    -DSKIP_GOOGLETEST_INSTALL=ON
+    -DSHADERC_SKIP_EXAMPLES=ON
+    -DSPIRV_TOOLS_BUILD_STATIC=ON
+    -DSPIRV_TOOLS_LIBRARY_TYPE=STATIC
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_arm64.txt
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_x86_64.txt
+    )
+fi
+
 # Collection of tools, libraries, and tests for Vulkan shader compilation
 cd $PACKAGES
 git clone https://github.com/google/shaderc.git
@@ -22,20 +51,7 @@ mv $PACKAGES/spirv-headers third_party 2>/dev/null >/dev/null
 mv $PACKAGES/spirv-tools third_party 2>/dev/null >/dev/null
 mv $PACKAGES/glslang third_party 2>/dev/null >/dev/null
 mkdir out && cd out
-cmake .. \
-  -G "Ninja" \
-  -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_FIND_ROOT_PATH="$DIR/opt" \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DSHADERC_SKIP_TESTS=ON \
-  -DSKIP_GLSLANG_INSTALL=ON \
-  -DENABLE_SPIRV_TOOLS_INSTALL=ON \
-  -DSKIP_GOOGLETEST_INSTALL=ON \
-  -DSHADERC_SKIP_EXAMPLES=ON \
-  -DSPIRV_TOOLS_BUILD_STATIC=ON \
-  -DSPIRV_TOOLS_LIBRARY_TYPE=STATIC
+cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
 
 cd ..

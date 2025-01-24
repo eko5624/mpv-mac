@@ -1,10 +1,18 @@
-name: vvdec
+name: libiconv
 on:
   #schedule:
   #  - cron: '10 0 * * MON'
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,17 +21,9 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
-  vvdec:
+  libdovi:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -31,31 +31,35 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/vvdec.sh
-        ./scripts/vvdec.sh
+        chmod +x ./scripts/libdovi.sh
+        ./scripts/libdovi.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: vvdec*.xz
+        assets: libdovi*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: vvdec.tar.xz
+        files: libdovi.tar.xz
+        

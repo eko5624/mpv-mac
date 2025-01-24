@@ -4,15 +4,29 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    --prefix="$DIR/opt"
+    --static
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        --archs="-arch arm64"
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        --archs="-arch x86_64"
+    )
+fi
+
 # General-purpose lossless data-compression library
 cd $PACKAGES
 curl -OL "https://github.com/madler/zlib/releases/download/v$VER_ZLIB/zlib-$VER_ZLIB.tar.xz"
 tar -xvf zlib-$VER_ZLIB.tar.xz 2>/dev/null >/dev/null
 cd zlib-$VER_ZLIB
-./configure \
-  --prefix="$DIR/opt" \
-  --disable-shared \
-  --enable-static
+./configure "${myconf[@]}"
 make -j $MJOBS
 make install
 

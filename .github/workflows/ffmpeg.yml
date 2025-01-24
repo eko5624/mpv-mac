@@ -5,6 +5,14 @@ on:
     
   workflow_dispatch:
     inputs:   
+      os:
+        description: "Support cross-compile for arm64/x86_64 arch"
+        required: false
+        default: "macos-13"
+        type: choice
+        options:
+        - macos-13
+        - macos-14
       arch:
         description: "Build target"
         required: false
@@ -13,14 +21,6 @@ on:
         options:
         - x86_64
         - arm64
-      os:
-        description: "Only macos-14 support arm64"
-        required: false
-        default: "macos-13"
-        type: choice
-        options:
-        - macos-13
-        - macos-14
 
 jobs:
   ffmpeg:
@@ -31,29 +31,32 @@ jobs:
     steps:   
     - name: Checkout
       uses: actions/checkout@main
-    - name: Loading toolchain-${{ inputs.arch }} cache
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
-        path: ${{ github.workspace }}/workspace
-        key: toolchain-${{ inputs.arch }}
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
     - name: Switch to Xcode 15.2
       run: |
         sudo xcode-select --reset
         sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
     - name: Build
       run: |
+        set -x
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/cjson.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/dav1d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/davs2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/flac.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/frei0r.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fribidi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/highway.tar.xz
@@ -68,6 +71,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjxl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libmodplug.tar.xz
@@ -75,10 +79,8 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libplacebo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/librist.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsdl.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsndfile.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libssh.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtheora.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
@@ -86,10 +88,11 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvorbis.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libvpx.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libwebp.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mbedtls.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/mpg123.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opencore.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/opus.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/rubberband.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -109,6 +112,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zimg.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zstd.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zvbi.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libX11.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXdmcp.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxcb.tar.xz
@@ -116,6 +120,8 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xorgproto.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xtrans.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/xcb-proto.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
         for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
         chmod +x ./scripts/ffmpeg.sh
         ./scripts/ffmpeg.sh
@@ -141,7 +147,7 @@ jobs:
         fail-if-no-release: false
     - name: Upload
       continue-on-error: true
-      uses: softprops/action-gh-release@master
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}

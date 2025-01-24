@@ -4,19 +4,35 @@ set -e
 cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
+myconf=(
+    -DCMAKE_INSTALL_PREFIX="$DIR/opt"
+    -DCMAKE_OSX_ARCHITECTURES=$ARCHS
+    -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET
+    -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib"
+    -DBUILD_SHARED_LIBS=OFF
+    -DBROTLI_EMSCRIPTEN=OFF
+    -DBROTLI_BUILD_TOOLS=OFF
+)
+
+if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_arm64.txt
+    )
+fi
+
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
+    myconf+=(
+        -DCMAKE_TOOLCHAIN_FILE=$DIR/cmake_x86_64.txt
+    )
+fi
+
 # Generic-purpose lossless compression algorithm by Google
 cd $PACKAGES
 git clone https://github.com/google/brotli.git
 cd brotli
 mkdir out && cd out
-cmake .. \
-  -G "Ninja" \
-  -DCMAKE_INSTALL_PREFIX="$DIR/opt" \
-  -DCMAKE_BUILD_TYPE=Release \
-  -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib" \
-  -DBUILD_SHARED_LIBS=OFF \
-  -DBROTLI_EMSCRIPTEN=OFF \
-  -DBROTLI_BUILD_TOOLS=OFF
+cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
 cmake --install .
 

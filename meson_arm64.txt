@@ -1,0 +1,30 @@
+[constants]
+sdkroot = '/Applications/Xcode_15.2.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
+
+[host_machine]
+system = 'darwin'
+cpu_family = 'aarch64'
+cpu = 'arm64'
+endian = 'little'
+
+[binaries]
+c = ['clang']
+cpp = ['clang++']
+objc = ['clang']
+objcpp = ['clang++']
+nm = ['nm']
+ar = ['ar']
+strings = ['strings']
+ranlib = ['ranlib']
+strip = ['strip']
+pkg-config = ['pkgconf']
+
+[built-in options]
+c_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']
+cpp_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0', '-stdlib=libc++']
+objc_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']
+objcpp_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0', '-stdlib=libc++']
+c_link_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']
+cpp_link_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']
+objc_link_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']
+objcpp_link_args = ['-arch', 'arm64', '-isysroot', sdkroot, '-mmacosx-version-min=11.0']

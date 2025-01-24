@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       tools:
-        description: "tools"
+        description: "tools for building"
         required: false
-        default: "x86_64"
+        default: "arm64"
         type: choice
         options:
         - x86_64
