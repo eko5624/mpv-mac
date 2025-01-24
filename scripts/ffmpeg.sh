@@ -105,11 +105,6 @@ patch -p1 -i 2.patch
 curl -OL https://raw.githubusercontent.com/wiki/fraunhoferhhi/vvdec/data/patch/v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
 patch -p1 -i v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
 
-# support hevc flv
-curl -OL https://raw.githubusercontent.com/yt-dlp/FFmpeg-Builds/master/patches/ffmpeg/master/0001-Nonstandard-HEVC-over-FLV.patch
-patch -p1 -i 0001-Nonstandard-HEVC-over-FLV.patch
-
-
 ./configure "${myconf[@]}"
 make install
 
