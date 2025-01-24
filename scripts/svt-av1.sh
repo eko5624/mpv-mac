@@ -30,6 +30,8 @@ fi
 cd $PACKAGES
 git clone https://gitlab.com/AOMediaCodec/SVT-AV1.git
 cd SVT-AV1
+# revert release v2.3.0 temporarily
+git reset --hard 6e69def4ec283fe0b71195671245c3b768bebdef
 mkdir out && cd out
 cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build .
