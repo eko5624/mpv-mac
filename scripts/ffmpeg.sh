@@ -98,8 +98,8 @@ git clone https://github.com/FFmpeg/FFmpeg.git
 cd FFmpeg
 
 # fix checks for small buffers
-curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/2.patch
-patch -p1 -i 2.patch
+curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/3.patch
+patch -p1 -i 3.patch
 
 # --enable-libvvdec
 curl -OL https://raw.githubusercontent.com/wiki/fraunhoferhhi/vvdec/data/patch/v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
