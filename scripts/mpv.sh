@@ -95,6 +95,8 @@ zip -r libmpv-$ARCHS-$short_sha.zip libmpv/*
 # Zip ffmpeg
 mkdir ffmpeg
 cp $WORKSPACE/bin/ffmpeg ffmpeg
+cp $WORKSPACE/bin/ffprobe ffmpeg
+cp $WORKSPACE/bin/ffplay ffmpeg
 mv $WORKSPACE/SHORT_SHA ffmpeg
 ffmpeg_sha=$(cat ffmpeg/SHORT_SHA)
 zip -r ffmpeg-$ARCHS-$ffmpeg_sha.zip ffmpeg/*

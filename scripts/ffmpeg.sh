@@ -12,8 +12,6 @@ myconf=(
     --enable-gpl
     --enable-nonfree
     --disable-shared
-    --disable-ffplay
-    --disable-ffprobe
     --enable-static
     --enable-lto=thin
     --enable-pthreads
