@@ -38,7 +38,7 @@ sed -i "" 's|"Video tracks",|"视频轨",|g' player/lua/select.lua
 sed -i "" 's|"Playlist",|"播放列表",|g' player/lua/select.lua
 sed -i "" 's|"Chapters",|"章节",|g' player/lua/select.lua
 sed -i "" 's|"Audio devices",|"音频设备",|g' player/lua/select.lua
-sed -i "" 's|"Key bindings"|"快捷键",|g' player/lua/select.lua
+sed -i "" 's|"Key bindings",|"快捷键",|g' player/lua/select.lua
 sed -i "" 's|"History",|"播放历史",|g' player/lua/select.lua
 sed -i "" 's|"Watch later",|"稍后播放",|g' player/lua/select.lua
 sed -i "" 's|"Stats for nerds",|"统计信息",|g' player/lua/select.lua
