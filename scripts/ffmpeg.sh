@@ -53,7 +53,7 @@ myconf=(
     --enable-libuavs3d
     --enable-libvorbis
     --enable-libvpx
-    --enable-libvvdec
+    --disable-libvvdec
     --enable-libwebp
     --enable-libx264
     --enable-libx265
