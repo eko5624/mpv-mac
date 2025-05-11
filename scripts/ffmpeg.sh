@@ -81,8 +81,6 @@ fi
 
 if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
-        --target-os=darwin
-        --arch=arm64
         --enable-neon
     )
 fi
