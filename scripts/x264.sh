@@ -9,7 +9,6 @@ myconf=(
     --enable-static
     --enable-lto
     --enable-pic
-    --disable-asm
     --disable-cli
     --disable-opencl
 )
