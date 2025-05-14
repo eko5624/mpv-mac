@@ -8,7 +8,7 @@ myconf=(
     --prefix="$DIR/opt"
     --enable-static
     --enable-lto
-    --disable-asm
+    --enable-pic
     --disable-cli
     --disable-opencl
 )
