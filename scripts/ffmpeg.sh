@@ -9,6 +9,7 @@ myconf=(
     --pkg-config-flags=-static
     --disable-debug
     --disable-doc
+    --enable-runtime-cpudetect
     --enable-gpl
     --enable-nonfree
     --disable-shared
@@ -72,16 +73,20 @@ myconf=(
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
-        --disable-runtime-cpudetect
         --enable-cross-compile
         --target-os=darwin
         --arch=arm64
     )
 fi
 
+if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "arm64") ]]; then
+    myconf+=(
+        --enable-neon
+    )
+fi
+
 if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
     myconf+=(
-        --disable-runtime-cpudetect
         --enable-cross-compile
         --target-os=darwin
         --arch=x86_64
