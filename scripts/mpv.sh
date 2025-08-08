@@ -29,21 +29,21 @@ LDFLAGS+=" -Wl,-no_compact_unwind"
 cd $PACKAGES
 git clone https://github.com/mpv-player/mpv.git
 cd mpv
-# 汉化select.lua菜单项
-sed -i "" 's|"Subtitles",|"字幕轨",|g' player/lua/select.lua
-sed -i "" 's|"Secondary subtitles",|"次字幕",|g' player/lua/select.lua
-sed -i "" 's|"Subtitle lines",|"字幕行",|g' player/lua/select.lua
-sed -i "" 's|"Audio tracks",|"音频轨",|g' player/lua/select.lua
-sed -i "" 's|"Video tracks",|"视频轨",|g' player/lua/select.lua
-sed -i "" 's|"Playlist",|"播放列表",|g' player/lua/select.lua
-sed -i "" 's|"Chapters",|"章节",|g' player/lua/select.lua
-sed -i "" 's|"Audio devices",|"音频设备",|g' player/lua/select.lua
-sed -i "" 's|"Key bindings",|"快捷键",|g' player/lua/select.lua
-sed -i "" 's|"History",|"播放历史",|g' player/lua/select.lua
-sed -i "" 's|"Watch later",|"稍后播放",|g' player/lua/select.lua
-sed -i "" 's|"Stats for nerds",|"统计信息",|g' player/lua/select.lua
-sed -i "" 's|"File info",|"文件信息",|g' player/lua/select.lua
-sed -i "" 's|"Help",|"帮助",|g' player/lua/select.lua
+#汉化select.lua菜单项
+#sed -i "" 's|"Subtitles",|"字幕轨",|g' player/lua/select.lua
+#sed -i "" 's|"Secondary subtitles",|"次字幕",|g' player/lua/select.lua
+#sed -i "" 's|"Subtitle lines",|"字幕内容",|g' player/lua/select.lua
+#sed -i "" 's|"Audio tracks",|"音频轨",|g' player/lua/select.lua
+#sed -i "" 's|"Video tracks",|"视频轨",|g' player/lua/select.lua
+#sed -i "" 's|"Playlist",|"播放列表",|g' player/lua/select.lua
+#sed -i "" 's|"Chapters",|"章节",|g' player/lua/select.lua
+#sed -i "" 's|"Audio devices",|"音频设备",|g' player/lua/select.lua
+#sed -i "" 's|"Key bindings",|"快捷键",|g' player/lua/select.lua
+#sed -i "" 's|"History",|"播放历史",|g' player/lua/select.lua
+#sed -i "" 's|"Watch later",|"稍后播放",|g' player/lua/select.lua
+#sed -i "" 's|"Stats for nerds",|"统计信息",|g' player/lua/select.lua
+#sed -i "" 's|"File info",|"文件信息",|g' player/lua/select.lua
+#sed -i "" 's|"Help",|"帮助",|g' player/lua/select.lua
 #git reset --hard 90a78925452c80f43837210f13b8cd39c4075719
 #export TOOLCHAINS=$(/usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" /Library/Developer/Toolchains/swift-latest.xctoolchain/Info.plist)
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]] || [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
