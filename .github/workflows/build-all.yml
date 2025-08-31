@@ -8,11 +8,11 @@ on:
       os:
         description: "Support cross-compile for arm64/x86_64 arch"
         required: false
-        default: "macos-14"
+        default: "macos-15"
         type: choice
         options:
         - macos-13
-        - macos-14
+        - macos-15
       arch:
         description: "Build target"
         required: false
@@ -34,16 +34,24 @@ jobs:
       uses: actions/checkout@main
     - name: Setting tools arch
       id: tools-arch
-      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+      run: |
+        echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
@@ -79,15 +87,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer
     - name: Build
       run: |
         chmod +x ./scripts/brotli.sh
@@ -119,15 +134,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer    
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer    
     - name: Build
       run: |
         chmod +x ./scripts/bzip2.sh
@@ -159,15 +181,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer
     - name: Build
       run: |
         chmod +x ./scripts/dav1d.sh
@@ -199,15 +228,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/davs2.sh
@@ -239,15 +275,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/expat.sh
@@ -280,15 +323,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
@@ -410,15 +460,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -461,15 +518,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -506,15 +570,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/frei0r.sh
@@ -546,15 +617,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/fribidi.sh
@@ -587,15 +665,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
@@ -632,15 +717,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/giflib.sh
@@ -673,15 +765,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -719,15 +818,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/highway.sh
@@ -759,15 +865,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/lame.sh
@@ -800,15 +913,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz        
@@ -849,15 +969,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -899,15 +1026,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -952,15 +1086,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz        
@@ -1001,15 +1142,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libb2.sh
@@ -1042,15 +1190,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -1093,15 +1248,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libbs2b.sh
@@ -1133,15 +1295,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libcaca.sh
@@ -1173,15 +1342,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libdovi.sh
@@ -1213,15 +1389,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer
     - name: Build
       run: |
         chmod +x ./scripts/libdvdcss.sh
@@ -1254,15 +1437,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
@@ -1298,15 +1488,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
@@ -1342,15 +1539,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libiconv.sh
@@ -1382,15 +1586,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libjpeg-turbo.sh
@@ -1423,15 +1634,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
@@ -1476,15 +1694,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libmodplug.sh
@@ -1517,15 +1742,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
@@ -1560,15 +1792,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libogg.sh
@@ -1601,15 +1840,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer   
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer   
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
@@ -1654,15 +1900,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
@@ -1697,15 +1950,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libsamplerate.sh
@@ -1737,15 +1997,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libsdl.sh
@@ -1778,15 +2045,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
@@ -1823,15 +2097,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -1868,15 +2149,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
@@ -1915,15 +2203,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libunibreak.sh
@@ -1956,15 +2251,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -1999,15 +2301,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/libvpx.sh
@@ -2040,15 +2349,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/giflib.tar.xz
@@ -2091,15 +2407,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
@@ -2141,15 +2464,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
@@ -2186,15 +2516,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer     
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer     
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libXau.tar.xz
@@ -2234,15 +2571,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
@@ -2279,15 +2623,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
@@ -2323,15 +2674,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/luajit.sh
@@ -2363,15 +2721,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/lz4.sh
@@ -2403,15 +2768,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/mbedtls.sh
@@ -2443,15 +2815,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/molten-vk.sh
@@ -2484,15 +2863,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
@@ -2618,15 +3004,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/mujs.sh
@@ -2658,15 +3051,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/opencore.sh
@@ -2699,15 +3099,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
@@ -2742,15 +3149,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/opus.sh
@@ -2783,15 +3197,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libsamplerate.tar.xz
@@ -2826,15 +3247,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/shaderc.sh
@@ -2866,15 +3294,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/snappy.sh
@@ -2906,15 +3341,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/soxr.sh
@@ -2947,15 +3389,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libogg.tar.xz
@@ -2991,15 +3440,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/openssl.tar.xz
@@ -3035,15 +3491,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/svt-av1.sh
@@ -3075,15 +3538,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/uavs3d.sh
@@ -3115,15 +3585,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/uchardet.sh
@@ -3155,15 +3632,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/util-macros.sh
@@ -3195,15 +3679,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Setup GNU BASH
       run: brew install bash
     - name: Build
@@ -3237,15 +3728,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/vvdec.sh
@@ -3277,15 +3775,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/x264.sh
@@ -3317,15 +3822,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/x265.sh
@@ -3357,15 +3869,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/xcb-proto.sh
@@ -3398,15 +3917,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
@@ -3442,15 +3968,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/util-macros.tar.xz
@@ -3486,15 +4019,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/xvid.sh
@@ -3526,15 +4066,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/xz.sh
@@ -3566,15 +4113,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/zimg.sh
@@ -3606,15 +4160,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         chmod +x ./scripts/zlib.sh
@@ -3647,15 +4208,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz        
@@ -3693,15 +4261,22 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ $ARCHS == 'x86_64' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ $ARCHS == 'arm64' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz

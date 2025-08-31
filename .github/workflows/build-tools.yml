@@ -17,12 +17,14 @@ jobs:
       matrix:
         os:
           - "macos-13"
-          - "macos-14"
+          - "macos-15"
         include:
           - os: "macos-13"
             arch: "x86_64"
-          - os: "macos-14"
+            xcode: "Xcode_15.2"
+          - os: "macos-15"
             arch: "arm64"
+            xcode: "Xcode_16.4"
     steps:
     - name: Checkout
       uses: actions/checkout@main
@@ -32,10 +34,10 @@ jobs:
         path: ${{ github.workspace }}/tools
         key: tools-${{ matrix.arch }}
         restore-keys: tools-
-    - name: Switch to Xcode 15.2
+    - name: Switch to Xcode
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer   
+        sudo xcode-select -s /Applications/${{ matrix.xcode }}.app/Contents/Developer
     - name: Remove stray upstream python binary symlinks under /usr/local
       run: |
         find /usr/local/bin -lname '*/Library/Frameworks/Python.framework/*' -delete -print

@@ -8,11 +8,11 @@ on:
       os:
         description: "Support cross-compile for arm64/x86_64 arch"
         required: false
-        default: "macos-14"
+        default: "macos-15"
         type: choice
         options:
         - macos-13
-        - macos-14
+        - macos-15
       arch:
         description: "Build target"
         required: false
