@@ -1,7 +1,7 @@
 [constants]
 arch        = 'x86_64'
 min_version = '-mmacosx-version-min=11.0'
-xcode 		= '/Applications/Xcode_15.2.app'
+xcode 		= '/Applications/Xcode_16.4.app'
 xctoolchain = xcode + '/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin'
 sdkroot 	= xcode + '/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk'
 
