@@ -34,7 +34,7 @@ git clone https://bitbucket.org/multicoreware/x265_git.git
 # 10-bit
 cd x265_git
 # revert release v4.1 temporarily
-git reset --hard 1d117bed4747
+#git reset --hard 1d117bed4747
 mkdir out-10 && cd out-10
 cmake ../source \
   -G "Ninja" "${myconf[@]}" \

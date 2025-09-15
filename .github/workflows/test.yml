@@ -8,11 +8,11 @@ on:
       os:
         description: "Support cross-compile for arm64/x86_64 arch"
         required: false
-        default: "macos-13"
+        default: "macos-15"
         type: choice
         options:
         - macos-13
-        - macos-14
+        - macos-15
       arch:
         description: "Build target"
         required: false
@@ -21,9 +21,9 @@ on:
         options:
         - x86_64
         - arm64
-
+        
 jobs:
-  libdovi:
+  x265:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -34,25 +34,32 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ ${{ inputs.os }} == 'macos-13' ]; then
+          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        elif [ ${{ inputs.os }} == 'macos-15' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/libdovi.sh
-        ./scripts/libdovi.sh
+        chmod +x ./scripts/x265.sh
+        ./scripts/x265.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libdovi*.xz
+        assets: x265*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -61,5 +68,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libdovi.tar.xz
+        files: x265.tar.xz
         
