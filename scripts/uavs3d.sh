@@ -12,6 +12,7 @@ myconf=(
     -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib"
     -DBUILD_SHARED_LIBS=OFF
     -DCOMPILE_10BIT=ON
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then

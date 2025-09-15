@@ -10,6 +10,7 @@ myconf=(
     -DCMAKE_OSX_ARCHITECTURES=$ARCHS
     -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET
     -DCMAKE_BUILD_TYPE=Release
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
