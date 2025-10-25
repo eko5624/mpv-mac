@@ -23,7 +23,7 @@ on:
         - arm64
         
 jobs:
-  x265:
+  molten-vk:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -52,14 +52,14 @@ jobs:
         sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/x265.sh
-        ./scripts/x265.sh
+        chmod +x ./scripts/molten-vk.sh
+        ./scripts/molten-vk.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: x265*.xz
+        assets: molten-vk*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -68,5 +68,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: x265.tar.xz
+        files: molten-vk.tar.xz
         
