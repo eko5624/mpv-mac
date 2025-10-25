@@ -19,7 +19,6 @@ myconf=(
     -Dd3d11=disabled
     -Dglslang=disabled
     -Ddemos=false
-    -Dlibdovi=enabled
     -Ddemos=false
 )
 
