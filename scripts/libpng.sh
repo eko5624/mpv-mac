@@ -40,7 +40,7 @@ cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
 cmake --install .
 
-sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/libpng16.pc
+sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/libpng18.pc
 
 cd $DIR
 tar -zcvf libpng.tar.xz -C $DIR/opt .
