@@ -68,8 +68,8 @@ cp $WORKSPACE/lib/libluajit-5.1.2.dylib build/mpv.app/Contents/MacOS/lib
 mkdir -p build/mpv.app/Contents/Frameworks
 mkdir -p build/mpv.app/Contents/Resources/vulkan/icd.d
 cp $WORKSPACE/lib/libMoltenVK.dylib build/mpv.app/Contents/Frameworks
-cp $WORKSPACE/share/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
-sed -i "" 's|../../../lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
+cp $WORKSPACE/etc/vulkan/icd.d/MoltenVK_icd.json build/mpv.app/Contents/Resources/vulkan/icd.d
+sed -i "" 's|/Users/runner/work/mpv-mac/mpv-mac/opt/lib/libMoltenVK.dylib|../../../Frameworks/libMoltenVK.dylib|g' build/mpv.app/Contents/Resources/vulkan/icd.d/MoltenVK_icd.json
 
 mpv_deps=($(otool -L $PACKAGES/mpv/build/mpv.app/Contents/MacOS/mpv | grep -e '\t' | grep -Ev "\/usr\/lib|\/System|@rpath" | awk '{ print $1 }'))
 for f in "${mpv_deps[@]}"; do
