@@ -362,7 +362,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbluray.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbs2b.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libcaca.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdovi.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
@@ -1331,53 +1330,6 @@ jobs:
         name: dev-${{ inputs.arch }}
         files: libcaca.tar.xz
 
-  libdovi:
-    runs-on: ${{ inputs.os }}
-    env:
-      ARCHS: ${{ inputs.arch }}
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:   
-    - name: Checkout
-      uses: actions/checkout@main
-    - name: Setting tools arch
-      id: tools-arch
-      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
-    - name: Setting xcode version
-      run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
-        elif [ ${{ inputs.os }} == 'macos-15' ]; then  
-          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
-        fi 
-    - name: Loading tools-${{ env.t_arch }} cache
-      uses: actions/cache@main
-      with:
-        path: ${{ github.workspace }}/tools
-        key: tools-${{ env.t_arch }}
-    - name: Switch Xcode version
-      run: |
-        sudo xcode-select --reset
-        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
-    - name: Build
-      run: |
-        chmod +x ./scripts/libdovi.sh
-        ./scripts/libdovi.sh
-    - name: Delete
-      uses: mknejp/delete-release-assets@v1
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        tag: dev-${{ inputs.arch }}
-        assets: libdovi*.xz
-        fail-if-no-assets: false
-        fail-if-no-release: false
-    - name: Upload
-      continue-on-error: true
-      uses: softprops/action-gh-release@v2
-      with:
-        tag_name: dev-${{ inputs.arch }}
-        name: dev-${{ inputs.arch }}
-        files: libdovi.tar.xz
-
   libdvdcss:
     runs-on: ${{ inputs.os }}
     env:
@@ -1859,7 +1811,6 @@ jobs:
     - name: Build
       run: |
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lcms2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdovi.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libjpeg-turbo.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libtiff.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/lz4.tar.xz
@@ -2902,7 +2853,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbluray.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbs2b.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libcaca.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdovi.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
