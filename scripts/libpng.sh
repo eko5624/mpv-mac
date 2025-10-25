@@ -16,6 +16,7 @@ myconf=(
     -DPNG_FRAMEWORK=OFF
     -DPNG_TESTS=OFF
     -DPNG_TOOLS=OFF
+)    
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
