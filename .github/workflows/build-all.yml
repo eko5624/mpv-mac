@@ -2924,13 +2924,12 @@ jobs:
         echo "sha=$(cat packages/mpv/build/SHORT_SHA)" >> $GITHUB_ENV
     - name: "Generate release note"
       id: note
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const sha = `${{ env.sha }}`;
           let note = `Bump to mpv-player/mpv@${sha}\n`;
           note+="**System Requirements**: macOS 11 or later\n";
-          note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
           core.setOutput("note", note);
     - name: Create Release
       uses: softprops/action-gh-release@v2
