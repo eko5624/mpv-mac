@@ -38,9 +38,6 @@ fi
 cd $PACKAGES
 git clone https://github.com/cacalabs/libcaca.git
 cd libcaca
-# Fix undefined reference to _caca_alloc2d
-curl $CURL_RETRIES -OL https://github.com/cacalabs/libcaca/pull/70.patch
-patch -p1 -i 70.patch
 ./bootstrap
 ./configure "${myconf[@]}"
 make -j $MJOBS
