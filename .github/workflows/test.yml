@@ -11,7 +11,7 @@ on:
         default: "macos-15"
         type: choice
         options:
-        - macos-13
+        - macos-15-intel
         - macos-15
       arch:
         description: "Build target"
@@ -23,7 +23,7 @@ on:
         - arm64
         
 jobs:
-  molten-vk:
+  libbluray:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -36,8 +36,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -52,14 +52,25 @@ jobs:
         sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        chmod +x ./scripts/molten-vk.sh
-        ./scripts/molten-vk.sh
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/libbluray.sh
+        ./scripts/libbluray.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: molten-vk*.xz
+        assets: libbluray*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -68,5 +79,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: molten-vk.tar.xz
+        files: libbluray.tar.xz
         
