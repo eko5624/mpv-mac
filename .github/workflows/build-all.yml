@@ -16,7 +16,7 @@ on:
       arch:
         description: "Build target"
         required: false
-        default: "x86_64"
+        default: "arm64"
         type: choice
         options:
         - x86_64
