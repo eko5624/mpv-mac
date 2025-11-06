@@ -7,7 +7,7 @@ on:
       
 jobs:
   update:
-    runs-on: macos-13
+    runs-on: macos-15
     env:
       HOMEBREW_NO_ANALYTICS: 1
     steps:
@@ -22,7 +22,7 @@ jobs:
     - name: Getting latest stable version of deps
       run: |
         rm ver.sh || true
-        find $(brew --repository)/Library/Taps -type f -iname *rb -exec sed -i "" $'s/def install/def install\\\n    ENV["MACOSX_DEPLOYMENT_TARGET"] = "13"\\\n/' {} \;
+        #find $(brew --repository)/Library/Taps -type f -iname *rb -exec sed -i "" $'s/def install/def install\\\n    ENV["MACOSX_DEPLOYMENT_TARGET"] = "15"\\\n/' {} \;
         brew update
         deps=('autoconf'
               'automake'

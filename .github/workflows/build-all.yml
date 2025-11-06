@@ -11,7 +11,7 @@ on:
         default: "macos-15"
         type: choice
         options:
-        - macos-13
+        - macos-15-intel
         - macos-15
       arch:
         description: "Build target"
@@ -38,8 +38,8 @@ jobs:
         echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi
@@ -89,8 +89,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -136,8 +136,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -183,8 +183,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -230,8 +230,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -277,8 +277,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -325,8 +325,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -461,8 +461,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -519,8 +519,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -571,8 +571,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -618,8 +618,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -666,8 +666,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -718,8 +718,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -766,8 +766,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -819,8 +819,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -866,8 +866,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -914,8 +914,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -970,8 +970,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1027,8 +1027,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1087,8 +1087,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1143,8 +1143,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1191,8 +1191,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1249,8 +1249,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1296,8 +1296,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1343,8 +1343,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1391,8 +1391,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1442,8 +1442,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1493,8 +1493,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1540,8 +1540,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1588,8 +1588,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1648,8 +1648,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1696,8 +1696,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1746,8 +1746,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1794,8 +1794,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1853,8 +1853,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1903,8 +1903,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1950,8 +1950,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -1998,8 +1998,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2050,8 +2050,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2102,8 +2102,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2156,8 +2156,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2204,8 +2204,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2254,8 +2254,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2302,8 +2302,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2360,8 +2360,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2417,8 +2417,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2469,8 +2469,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2524,8 +2524,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2576,8 +2576,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2627,8 +2627,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2674,8 +2674,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2721,8 +2721,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2768,8 +2768,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2816,8 +2816,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -2955,8 +2955,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3002,8 +3002,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3050,8 +3050,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3100,8 +3100,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3148,8 +3148,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3198,8 +3198,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3245,8 +3245,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3292,8 +3292,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3340,8 +3340,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3391,8 +3391,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3442,8 +3442,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3489,8 +3489,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3536,8 +3536,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3583,8 +3583,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3630,8 +3630,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3679,8 +3679,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3726,8 +3726,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3773,8 +3773,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3820,8 +3820,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3868,8 +3868,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3919,8 +3919,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -3970,8 +3970,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -4017,8 +4017,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -4064,8 +4064,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -4111,8 +4111,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -4159,8 +4159,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 
@@ -4212,8 +4212,8 @@ jobs:
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
     - name: Setting xcode version
       run: |
-        if [ ${{ inputs.os }} == 'macos-13' ]; then
-          echo "xcode=Xcode_15.2" >> $GITHUB_ENV
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         elif [ ${{ inputs.os }} == 'macos-15' ]; then  
           echo "xcode=Xcode_16.4" >> $GITHUB_ENV
         fi 

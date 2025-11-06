@@ -16,12 +16,12 @@ jobs:
     strategy:
       matrix:
         os:
-          - "macos-13"
+          - "macos-15-intel"
           - "macos-15"
         include:
-          - os: "macos-13"
+          - os: "macos-15-intel"
             arch: "x86_64"
-            xcode: "Xcode_15.2"
+            xcode: "Xcode_16.4"
           - os: "macos-15"
             arch: "arm64"
             xcode: "Xcode_16.4"
