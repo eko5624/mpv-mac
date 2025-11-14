@@ -6,9 +6,9 @@ set -a; source build.env; source ver.sh; set +a
 
 myconf=(
     --prefix="$DIR/opt"
-    --disable-shared
-    --enable-static
-    --disable-dependency-tracking
+    --buildtype=release
+    --libdir="$DIR/opt/lib"
+    --default-library=static
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
@@ -28,12 +28,11 @@ fi
 # DVD navigation library
 # depends on: libdvdread(libdvdcss)
 cd $PACKAGES
-curl -OL "https://download.videolan.org/pub/videolan/libdvdnav/$VER_LIBDVDNAV/libdvdnav-$VER_LIBDVDNAV.tar.bz2"
-tar -xvf libdvdnav-$VER_LIBDVDNAV.tar.bz2 2>/dev/null >/dev/null
-cd libdvdnav-$VER_LIBDVDNAV
-./configure "${myconf[@]}"
-make -j $MJOBS
-make install
+git clone https://code.videolan.org/videolan/libdvdnav.git
+cd libdvdnav
+meson setup work "${myconf[@]}"
+meson compile -C work
+meson install -C work
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
