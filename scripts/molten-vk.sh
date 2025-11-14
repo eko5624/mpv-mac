@@ -10,11 +10,11 @@ myconf=(
     -DCMAKE_OSX_DEPLOYMENT_TARGET=$MACOSX_TARGET
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_INSTALL_NAME_DIR="$DIR/opt/lib"
-	  -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
-	  -DMVK_CONFIG_LOG_LEVEL=error
-	  -DMVK_USE_METAL_PRIVATE_API=ON
-	  -DCPM_SOURCE_CACHE=src/CPM
-	  -Wno-dev
+	-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON
+	-DMVK_CONFIG_LOG_LEVEL=error
+	-DMVK_USE_METAL_PRIVATE_API=ON
+	-DCPM_SOURCE_CACHE=src/CPM
+	-Wno-dev
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
@@ -33,6 +33,9 @@ fi
 cd $PACKAGES
 git clone https://github.com/KhronosGroup/MoltenVK.git --branch main
 cd MoltenVK
+# Fix CMake failing to fetch dependencies that have changed
+curl -OL https://patch-diff.githubusercontent.com/raw/KhronosGroup/MoltenVK/pull/2662.patch
+patch -p1 -i 2662.patch
 mkdir out && cd out
 cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
