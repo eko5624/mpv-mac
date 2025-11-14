@@ -11,12 +11,12 @@ on:
         default: "macos-15"
         type: choice
         options:
-        - macos-13
+        - macos-15-intel
         - macos-15
       arch:
         description: "Build target"
         required: false
-        default: "x86_64"
+        default: "arm64"
         type: choice
         options:
         - x86_64

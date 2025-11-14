@@ -16,14 +16,14 @@ on:
       arch:
         description: "Build target"
         required: false
-        default: "x86_64"
+        default: "arm64"
         type: choice
         options:
         - x86_64
         - arm64
         
 jobs:
-  libbluray:
+  molten-vk:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -52,25 +52,14 @@ jobs:
         sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/expat.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/fontconfig.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/gettext.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libiconv.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libxml2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
-        mkdir workspace
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/libbluray.sh
-        ./scripts/libbluray.sh
+        chmod +x ./scripts/molten-vk.sh
+        ./scripts/molten-vk.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: libbluray*.xz
+        assets: molten-vk*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -79,5 +68,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: libbluray.tar.xz
+        files: molten-vk.tar.xz
         

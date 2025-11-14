@@ -1,0 +1,32 @@
+
+name: Toolchain
+defaults:
+  run:
+    shell: bash
+on:
+  workflow_dispatch:
+
+jobs:
+  x86_64:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: build_x86_64
+        run: |
+          curl -u $GITHUB_ACTOR:$GH_TOKEN \
+            -X POST -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/cache-tools.yml/dispatches \
+            -d '{"ref":"main","inputs":{"arch":"x86_64"}}'
+
+  arm64:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: build_arm64
+        run: |
+          curl -u $GITHUB_ACTOR:$GH_TOKEN \
+            -X POST -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/cache-tools.yml/dispatches \
+            -d '{"ref":"main","inputs":{"arch":"arm64"}}'
