@@ -33,7 +33,7 @@ fi
 # depends on: fontconfig(expat, bzip2, freetype2, gettext(libxml2 ncurses)), freetype2(libpng(zlib)), libxml2(ncurses)
 rm $WORKSPACE/lib/*.la
 cd $PACKAGES
-curl -OL  "https://download.videolan.org/videolan/libbluray/1.4.0/libbluray-$VER_LIBBLURAY.tar.xz"
+curl -OL  "https://download.videolan.org/videolan/libbluray/$VER_LIBBLURAY/libbluray-$VER_LIBBLURAY.tar.xz"
 tar -xvf libbluray-$VER_LIBBLURAY.tar.xz 2>/dev/null >/dev/null
 cd libbluray-$VER_LIBBLURAY
 meson setup work "${myconf[@]}"

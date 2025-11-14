@@ -6,9 +6,10 @@ set -a; source build.env; source ver.sh; set +a
 
 myconf=(
     --prefix="$DIR/opt"
-    --disable-shared
-    --enable-static
-    --disable-dependency-tracking
+    --buildtype=release
+    --libdir="$DIR/opt/lib"
+    --default-library=static
+    -Dlibdvdcss=enabled
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
@@ -31,9 +32,9 @@ cd $PACKAGES
 curl -OL "https://download.videolan.org/pub/videolan/libdvdread/$VER_LIBDVDREAD/libdvdread-$VER_LIBDVDREAD.tar.bz2"
 tar -xvf libdvdread-$VER_LIBDVDREAD.tar.bz2 2>/dev/null >/dev/null
 cd libdvdread-$VER_LIBDVDREAD
-./configure "${myconf[@]}"
-make -j $MJOBS
-make install
+meson setup work "${myconf[@]}"
+meson compile -C work
+meson install -C work
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
