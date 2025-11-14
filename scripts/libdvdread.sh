@@ -29,9 +29,8 @@ fi
 # C library for reading DVD-video images
 # depends on: libdvdcss
 cd $PACKAGES
-curl -OL "https://download.videolan.org/pub/videolan/libdvdread/$VER_LIBDVDREAD/libdvdread-$VER_LIBDVDREAD.tar.bz2"
-tar -xvf libdvdread-$VER_LIBDVDREAD.tar.bz2 2>/dev/null >/dev/null
-cd libdvdread-$VER_LIBDVDREAD
+git clone https://code.videolan.org/videolan/libdvdread.git
+cd libdvdread
 meson setup work "${myconf[@]}"
 meson compile -C work
 meson install -C work
