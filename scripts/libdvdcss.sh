@@ -6,9 +6,9 @@ set -a; source build.env; source ver.sh; set +a
 
 myconf=(
     --prefix="$DIR/opt"
-    --disable-shared
-    --enable-static
-    --disable-dependency-tracking
+    --buildtype=release
+    --libdir="$DIR/opt/lib"
+    --default-library=static
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
@@ -27,12 +27,11 @@ fi
 
 # Access DVDs as block devices without the decryption
 cd $PACKAGES
-curl -OL "https://download.videolan.org/pub/videolan/libdvdcss/$VER_LIBDVDCSS/libdvdcss-$VER_LIBDVDCSS.tar.bz2"
-tar -xvf libdvdcss-$VER_LIBDVDCSS.tar.bz2 2>/dev/null >/dev/null
-cd libdvdcss-$VER_LIBDVDCSS
-./configure "${myconf[@]}"
-make -j $MJOBS
-make install
+git clone https://code.videolan.org/videolan/libdvdcss.git
+cd libdvdcss
+meson setup work "${myconf[@]}"
+meson compile -C work
+meson install -C work
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
