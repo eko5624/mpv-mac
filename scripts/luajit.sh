@@ -5,6 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 myconf=(
+    BUILDMODE=static
     PREFIX="$DIR/opt"
 )
 
