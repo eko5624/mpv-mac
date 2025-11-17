@@ -5,6 +5,7 @@ cd "$(dirname "$0")" && cd ..
 set -a; source build.env; source ver.sh; set +a
 
 myconf=(
+    BUILDMODE=static
     PREFIX="$DIR/opt"
 )
 
@@ -39,6 +40,7 @@ cd LuaJIT
 make -C src "${myconf[@]}" amalg
 make "${myconf[@]}" install
 
+sed -i "" 's/Libs.private: -lm -ldl/Libs.private: -Wl,-E -lm -ldl/g' $DIR/opt/lib/pkgconfig/*.pc
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 
 cd $DIR
