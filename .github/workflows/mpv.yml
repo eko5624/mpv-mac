@@ -34,18 +34,24 @@ jobs:
     - name: Setting tools arch
       id: tools-arch
       run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        elif [ ${{ inputs.os }} == 'macos-15' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
     - name: Loading tools-${{ env.t_arch }} cache
       uses: actions/cache@main
       with:
         path: ${{ github.workspace }}/tools
         key: tools-${{ env.t_arch }}
-    - name: Switch to Xcode 15.2
+    - name: Switch Xcode version
       run: |
         sudo xcode-select --reset
-        sudo xcode-select -s /Applications/Xcode_15.2.app/Contents/Developer  
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        set -x
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/aribb24.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/brotli.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
@@ -67,7 +73,6 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbluray.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libbs2b.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libcaca.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdovi.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdcss.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdread.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libdvdnav.tar.xz
@@ -139,13 +144,12 @@ jobs:
         echo "sha=$(cat packages/mpv/build/SHORT_SHA)" >> $GITHUB_ENV
     - name: "Generate release note"
       id: note
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const sha = `${{ env.sha }}`;
           let note = `Bump to mpv-player/mpv@${sha}\n`;
           note+="**System Requirements**: macOS 11 or later\n";
-          note+="**Add vulkan support by setting**: `vo=gpu gpu-context=macvk`";
           core.setOutput("note", note);
     - name: Create Release
       uses: softprops/action-gh-release@v2
