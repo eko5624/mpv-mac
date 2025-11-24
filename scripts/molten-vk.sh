@@ -33,9 +33,6 @@ fi
 cd $PACKAGES
 git clone https://github.com/KhronosGroup/MoltenVK.git --branch main
 cd MoltenVK
-# Fix CMake failing to fetch dependencies that have changed
-curl -OL https://patch-diff.githubusercontent.com/raw/KhronosGroup/MoltenVK/pull/2662.patch
-patch -p1 -i 2662.patch
 mkdir out && cd out
 cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
