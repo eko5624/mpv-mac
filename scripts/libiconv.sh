@@ -29,7 +29,7 @@ if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
 fi
 
 cd $PACKAGES
-curl -OL "https://ftp.gnu.org/gnu/libiconv/libiconv-$VER_LIBICONV.tar.gz"
+curl -OL "https://ftpmirror.gnu.org/gnu/libiconv/libiconv-$VER_LIBICONV.tar.gz"
 tar -xvf libiconv-$VER_LIBICONV.tar.gz 2>/dev/null >/dev/null
 cd libiconv-$VER_LIBICONV
 #curl -OL "https://raw.githubusercontent.com/Homebrew/patches/9be2793af/libiconv/patch-utf8mac.diff"
