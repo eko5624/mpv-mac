@@ -106,6 +106,7 @@ jobs:
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/soxr.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/speex.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/srt.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/subrandr.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/svt-av1.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/uavs3d.tar.xz
         curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/vulkan.tar.xz

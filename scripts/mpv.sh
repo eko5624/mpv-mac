@@ -9,6 +9,7 @@ myconf=(
     -Dwrap_mode=nodownload
     -Dlibmpv=true
     -Diconv=enabled
+    -Dsubrandr=enabled
     -Dmanpage-build=disabled
     -Dswift-flags="-target $ARCHS-apple-macosx11.0"
 )
