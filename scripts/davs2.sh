@@ -11,6 +11,7 @@ myconf=(
     --disable-cli
     --enable-lto
     --enable-pic
+    --bit-depth=10
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
