@@ -30,7 +30,7 @@ fi
 
 # An open-source decoder of AVS2-P2/IEEE1857.4 video coding standard
 cd $PACKAGES
-git clone https://github.com/pkuvcl/davs2.git
+git clone https://github.com/saindriches/davs2.git
 cd davs2/build/linux
 ./configure "${myconf[@]}"
 make -j $MJOBS
