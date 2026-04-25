@@ -2803,7 +2803,7 @@ jobs:
         files: molten-vk.tar.xz
 
   mpv:
-    needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, uchardet]
+    needs: [ffmpeg, libarchive, luajit, molten-vk, mujs, subrandr, uchardet]
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -3429,6 +3429,61 @@ jobs:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
         files: srt.tar.xz
+
+  subrandr:
+    needs: [freetype2, harfbuzz]
+    runs-on: ${{ inputs.os }}
+    env:
+      ARCHS: ${{ inputs.arch }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:   
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Setting tools arch
+      id: tools-arch
+      run: echo "t_arch=$(uname -m)" >> $GITHUB_ENV
+    - name: Setting xcode version
+      run: |
+        if [ ${{ inputs.os }} == 'macos-15-intel' ]; then
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        elif [ ${{ inputs.os }} == 'macos-15' ]; then  
+          echo "xcode=Xcode_16.4" >> $GITHUB_ENV
+        fi 
+    - name: Loading tools-${{ env.t_arch }} cache
+      uses: actions/cache@main
+      with:
+        path: ${{ github.workspace }}/tools
+        key: tools-${{ env.t_arch }}
+    - name: Switch Xcode version
+      run: |
+        sudo xcode-select --reset
+        sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
+    - name: Build
+      run: |
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
+        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
+        mkdir workspace
+        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
+        chmod +x ./scripts/subrandr.sh
+        ./scripts/subrandr.sh
+    - name: Delete
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: dev-${{ inputs.arch }}
+        assets: subrandr*.xz
+        fail-if-no-assets: false
+        fail-if-no-release: false
+    - name: Upload
+      continue-on-error: true
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: dev-${{ inputs.arch }}
+        name: dev-${{ inputs.arch }}
+        files: subrandr.tar.xz
 
   svt-av1:
     runs-on: ${{ inputs.os }}
