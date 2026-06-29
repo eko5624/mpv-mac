@@ -105,8 +105,8 @@ curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/3.patc
 patch -p1 -i 3.patch
 
 # --enable-libvvdec
-curl -OL https://raw.githubusercontent.com/wiki/fraunhoferhhi/vvdec/data/patch/v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
-patch -p1 -i v6-0001-avcodec-add-external-dec-libvvdec-for-H266-VVC.patch
+curl -OL https://raw.githubusercontent.com/wiki/fraunhoferhhi/vvdec/data/patch/v9-libvvdec.patch
+patch -p1 -i v9-libvvdec.patch
 # ffmpeg 8224327698 changed all defines of FF_PROFILES_* to AV_PROFILES_*
 sed -i "" 's/FF_PROFILE/AV_PROFILE/g' libavcodec/libvvdec.c
 ./configure "${myconf[@]}"
