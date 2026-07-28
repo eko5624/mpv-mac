@@ -23,7 +23,7 @@ on:
         - arm64
         
 jobs:
-  subrandr:
+  giflib:
     runs-on: ${{ inputs.os }}
     env:
       ARCHS: ${{ inputs.arch }}
@@ -52,21 +52,14 @@ jobs:
         sudo xcode-select -s /Applications/${xcode}.app/Contents/Developer  
     - name: Build
       run: |
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/bzip2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/libpng.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/zlib.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/freetype2.tar.xz
-        curl -OL https://github.com/${{ github.repository }}/releases/download/dev-$ARCHS/harfbuzz.tar.xz
-        mkdir workspace
-        for f in *.xz; do tar xvf "$f" -C workspace 2>/dev/null >/dev/null; done
-        chmod +x ./scripts/subrandr.sh
-        ./scripts/subrandr.sh
+        chmod +x ./scripts/giflib.sh
+        ./scripts/giflib.sh
     - name: Delete
       uses: mknejp/delete-release-assets@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         tag: dev-${{ inputs.arch }}
-        assets: subrandr*.xz
+        assets: giflib*.xz
         fail-if-no-assets: false
         fail-if-no-release: false
     - name: Upload
@@ -75,5 +68,5 @@ jobs:
       with:
         tag_name: dev-${{ inputs.arch }}
         name: dev-${{ inputs.arch }}
-        files: subrandr.tar.xz
+        files: giflib.tar.xz
         

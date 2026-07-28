@@ -29,8 +29,10 @@ cd $PACKAGES
 curl -OL "https://downloads.sourceforge.net/sourceforge/giflib/giflib-$VER_GIFLIB.tar.gz"
 tar -xvf giflib-$VER_GIFLIB.tar.gz 2>/dev/null >/dev/null
 cd giflib-$VER_GIFLIB
-make "${myconf[@]}" all
-make "${myconf[@]}" install
+# Manually skipping shared libutil due to https://sourceforge.net/p/giflib/bugs/189/.
+# It is currently unused (binaries link to libutil.a) and not installed.
+make "${myconf[@]}" all LIBUTILSO=
+make "${myconf[@]}" install LIBUTILSO=
 
 cd $DIR
 tar -zcvf giflib.tar.xz -C $DIR/opt .
