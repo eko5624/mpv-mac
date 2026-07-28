@@ -28,7 +28,7 @@ fi
 
 # Embeddable Javascript interpreter
 cd $PACKAGES
-git clone https://codeberg.org/ccxvii/mujs.git --branch "$VER_MUJS"
+git clone https://codeberg.org/ccxvii/mujs.git
 cd mujs
 curl -OL https://raw.githubusercontent.com/shinchiro/mpv-winbuild-cmake/master/packages/mujs-0001-add-exe-to-binary-name.patch
 patch -p1 -i mujs-0001-add-exe-to-binary-name.patch
