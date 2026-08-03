@@ -1,0 +1,40 @@
+--- a/libavdevice/avfoundation.m
++++ b/libavdevice/avfoundation.m
+@@
+-#       define AVF_IO_MAIN_PORT_DEFAULT kIOMainPortDefault
++#include <mach/mach.h>
++#include <IOKit/IOKitLib.h>
++
++#if __MAC_OS_X_VERSION_MAX_ALLOWED >= 120000
++#       define AVF_IO_MAIN_PORT_DEFAULT kIOMainPortDefault
++#else
++/* Return an appropriate master port for older SDKs where kIOMainPortDefault
++ * is not available. This uses IOMasterPort on older macOS SDKs. */
++static inline mach_port_t avf_io_main_port_default(void)
++{
++    mach_port_t mp = MACH_PORT_NULL;
++    /* IOMasterPort is available on older SDKs; on newer SDKs kIOMainPortDefault
++     * should be used instead (handled by the other branch). */
++    IOMasterPort(MACH_PORT_NULL, &mp);
++    return mp;
++}
++#       define AVF_IO_MAIN_PORT_DEFAULT (avf_io_main_port_default())
++#endif
++
++/*
++Instructions:
++1) This patch is intended to be applied in the FFmpeg source tree root.
++   For example, if FFmpeg is a submodule at submodules/FFmpeg, run:
++
++     cd submodules/FFmpeg
++     git checkout -b fix/avfoundation-kIOMainPort
++     git apply ../../patches/fix-avfoundation-kIOMainPortDefault.patch
++     git add libavdevice/avfoundation.m
++     git commit -m "libavdevice(avfoundation): guard kIOMainPortDefault for macOS < 12"
++
++2) If FFmpeg is vendored directly under your repo (not a submodule), apply the patch
++   at the repo root where libavdevice/avfoundation.m is located.
++
++3) After committing the change in FFmpeg, update the superproject submodule reference
++   (if applicable) and push your branch, then re-run CI.
++*/
