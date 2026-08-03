@@ -99,7 +99,7 @@ rm $DIR/workspace/lib/*.la
 cd $PACKAGES
 git clone https://github.com/FFmpeg/FFmpeg.git
 cd FFmpeg
-
+git reset --hard f0fc529cbe5c918553dd210999b140efd6632a46
 # fix checks for small buffers
 curl -OL https://patch-diff.githubusercontent.com/raw/eko5624/FFmpeg/pull/3.patch
 patch -p1 -i 3.patch
