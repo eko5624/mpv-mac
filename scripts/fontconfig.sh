@@ -6,22 +6,24 @@ set -a; source build.env; source ver.sh; set +a
 
 myconf=(
     --prefix="$DIR/opt"
-    --disable-docs
-    --disable-shared
-    --enable-iconv
+    --libdir="$DIR/opt/lib"
+    --buildtype=release
+    --default-library=static
+    -Ddoc=disabled
+    -Dtests=disabled
+    -Dtools=disabled
+    -Dcache-build=disabled
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
     myconf+=(
-        --host=aarch64-apple-darwin
-        --target=arm64-apple-macos11.0
+        --cross-file=$DIR/meson_arm64.txt
     )
 fi
 
 if [[ ("$(uname -m)" == "arm64") && ("$ARCHS" == "x86_64") ]]; then
     myconf+=(
-        --host=x86_64-apple-darwin
-        --target=x86_64-apple-macos11.0
+        --cross-file=$DIR/meson_x86_64.txt
     )
 fi
 
@@ -31,10 +33,9 @@ rm $WORKSPACE/lib/*.la
 cd $PACKAGES
 git clone https://gitlab.freedesktop.org/fontconfig/fontconfig.git
 cd fontconfig
-NOCONFIGURE=1 ./autogen.sh
-./configure "${myconf[@]}"
-make -j $MJOBS
-make install
+meson setup build "${myconf[@]}"
+meson compile -C build
+meson install -C build
 
 sed -i "" 's/opt/workspace/g' $DIR/opt/lib/pkgconfig/*.pc
 #fix Undefined symbols when linked: "_libintl_dgettext", referenced from: _FcConfigFileInfoIterGet in libfontconfig.a(fccfg.o)
