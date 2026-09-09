@@ -39,7 +39,7 @@ fi
 # gettext: GNU internationalization (i18n) and localization (l10n) library
 # depends on: libxml2(zlib), ncurses
 cd $PACKAGES
-curl -OL "https://ftpmirror.gnu.org/gettext/gettext-$VER_GETTEXT.tar.gz"
+curl -OL "https://ftp.gnu.org/gnu/gettext/gettext-$VER_GETTEXT.tar.gz"
 tar -xvf gettext-$VER_GETTEXT.tar.gz 2>/dev/null >/dev/null
 cd gettext-$VER_GETTEXT
 ./configure "${myconf[@]}"
