@@ -15,8 +15,6 @@ myconf=(
     -DARIBCC_BUILD_TESTS=OFF
     -DARIBCC_SHARED_LIBRARY=OFF
     -DARIBCC_NO_RTTI=ON
-    -DCMAKE_C_FLAGS='-DHAVE_OPENSSL=1'
-    -DCMAKE_CXX_FLAGS='-DHAVE_OPENSSL=1'
 )
 
 if [[ ("$(uname -m)" == "x86_64") && ("$ARCHS" == "arm64") ]]; then
@@ -37,7 +35,6 @@ fi
 cd $PACKAGES
 git clone https://github.com/xqq/libaribcaption.git
 cd libaribcaption
-ln -s ${WORKSPACE}/include/openssl include/openssl
 mkdir out && cd out
 cmake .. -G "Ninja" "${myconf[@]}"
 cmake --build . -j $MJOBS
